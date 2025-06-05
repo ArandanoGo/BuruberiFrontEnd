@@ -28,7 +28,7 @@
     "direccion": "Boulevard Central 55, Ciudad",
     "ciudad": "Córdoba",
     "pais": "Argentina",
-    "fechaRegistro": "2025-01-15"
+    "fechaRegistro": null
   }
 ],
   "lotes": [
@@ -51,7 +51,8 @@
       "calidad": "Media",
       "estado": "Reservado",
       "stock": 30,
-      "fechaPedido": null
+      "fechaPedido": null,
+      "imagenUrl": "https://www.shutterstock.com/image-photo/rabbiteye-blueberries-true-superfood-straight-260nw-2534080275.jpg"
     },
     {
       "id": 3,
@@ -72,7 +73,50 @@
       "calidad": "Alta",
       "estado": "En espera",
       "stock": 20,
-      "fechaPedido": null
+      "fechaPedido": null,
+      "imagenUrl": "https://www.shutterstock.com/image-photo/rabbiteye-blueberries-true-superfood-straight-260nw-2534080275.jpg"
+    }, {
+      "id": 6,
+      "autor": "María García",
+      "fechaRegistro": "2025-06-04",
+      "hora": "15:45",
+      "materiaOrganica": 15,
+      "cloruroPotasio": 6,
+      "fosfato": 4,
+      "sulfatoCalcio": 3,
+      "urea": 5,
+      "sulfatoMagnesio": 3,
+      "correctoresPH": 2,
+      "idProductor": 102,
+      "tipo": "Compost",
+      "precioUnitario": 120,
+      "pesoKg": 400,
+      "calidad": "Media",
+      "estado": "Reservado",
+      "stock": 30,
+      "fechaPedido": null,
+      "imagenUrl": "https://www.shutterstock.com/image-photo/rabbiteye-blueberries-true-superfood-straight-260nw-2534080275.jpg"
+    }, {
+      "id": 5,
+      "autor": "María García",
+      "fechaRegistro": "2025-06-04",
+      "hora": "15:45",
+      "materiaOrganica": 15,
+      "cloruroPotasio": 6,
+      "fosfato": 4,
+      "sulfatoCalcio": 3,
+      "urea": 5,
+      "sulfatoMagnesio": 3,
+      "correctoresPH": 2,
+      "idProductor": 102,
+      "tipo": "Compost",
+      "precioUnitario": 120,
+      "pesoKg": 400,
+      "calidad": "Media",
+      "estado": "Reservado",
+      "stock": 30,
+      "fechaPedido": null,
+      "imagenUrl": "https://www.shutterstock.com/image-photo/rabbiteye-blueberries-true-superfood-straight-260nw-2534080275.jpg"
     }
   ]
 }

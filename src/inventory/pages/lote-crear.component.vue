@@ -29,6 +29,12 @@
           <pv-input-text v-model="lote.tipo" />
         </div>
 
+        <!-- NUEVO CAMPO: URL de imagen -->
+        <div class="form-field">
+          <label>URL de la Imagen</label>
+          <pv-input-text v-model="lote.imagenUrl" placeholder="https://ejemplo.com/imagen.jpg" />
+        </div>
+
         <div class="form-field">
           <label>Precio Unitario</label>
           <pv-input-number v-model="lote.precioUnitario" mode="currency" currency="USD" locale="en-US" />
@@ -69,7 +75,6 @@
 </template>
 
 <script>
-
 import LoteService from "../services/lote.service.js";
 
 export default {
@@ -78,16 +83,17 @@ export default {
     return {
       lote: {
         autor: '',
-        fechaRegistro: '',  // generado automáticamente
-        hora: '',           // generado automáticamente
+        fechaRegistro: '',
+        hora: '',
         tipo: '',
+        imagenUrl: '', // nuevo campo
         precioUnitario: null,
         pesoKg: null,
         calidad: '',
         estado: '',
         stock: null,
-        fechaPedido: null,   // siempre null
-        idProductor: 1,      // fijo a 1
+        fechaPedido: null,
+        idProductor: 1,
 
         // insumos
         materiaOrganica: null,
@@ -116,13 +122,11 @@ export default {
     generarFechaYHora() {
       const now = new Date();
 
-      // Formatear fecha en DD/MM/YYYY
       const dia = String(now.getDate()).padStart(2, '0');
       const mes = String(now.getMonth() + 1).padStart(2, '0');
       const anio = now.getFullYear();
       this.lote.fechaRegistro = `${dia}/${mes}/${anio}`;
 
-      // Formatear hora en HH:mm (24h)
       const horas = String(now.getHours()).padStart(2, '0');
       const minutos = String(now.getMinutes()).padStart(2, '0');
       this.lote.hora = `${horas}:${minutos}`;
@@ -144,7 +148,6 @@ export default {
 </script>
 
 <style scoped>
-/* Igual que antes */
 .fondo-morado {
   background-color: #572364;
   min-height: 100vh;
@@ -156,7 +159,7 @@ export default {
   background-color: #ffffff;
   border-radius: 12px;
   padding: 30px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   max-width: 700px;
   margin: 0 auto;
   position: relative;

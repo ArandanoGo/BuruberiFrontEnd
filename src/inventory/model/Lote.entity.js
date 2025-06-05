@@ -17,11 +17,12 @@ export class LoteEntity {
                     calidad = "",
                     estado = "",
                     stock = 0,
-                    fechaPedido = null, // Se establecerá cuando se haga el pedido
+                    fechaPedido = null,
+                    imagenUrl = "", // <-- NUEVO CAMPO
                 } = {}) {
         this.id = id;
         this.autor = autor;
-        this.fechaRegistro = new Date(); // Se genera automáticamente al crear la instancia
+        this.fechaRegistro = new Date();
         this.hora = hora;
         this.materiaOrganica = materiaOrganica;
         this.cloruroPotasio = cloruroPotasio;
@@ -38,5 +39,6 @@ export class LoteEntity {
         this.estado = estado;
         this.stock = stock;
         this.fechaPedido = fechaPedido ? new Date(fechaPedido) : null;
+        this.imagenUrl = imagenUrl; // <-- NUEVO CAMPO
     }
 }

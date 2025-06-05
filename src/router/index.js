@@ -4,6 +4,7 @@ import ProducerHomeComponent from "../public/pages/producer-home.component.vue";
 import PageNotFoundComponent from "../public/pages/page-not-found.component.vue";
 import LoteCrearComponent from "../inventory/pages/lote-crear.component.vue";
 import LoteManagementComponent from "../inventory/pages/lote-management.component.vue";
+import LoteCatalogoComponent from "../inventory/pages/lote-catalogo.component.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -16,6 +17,10 @@ const router = createRouter({
         { path: '/lotes/crear',
             name: "LoteCrear",
             component: LoteCrearComponent,
+        },
+        { path: '/lotes/catalogo',
+            name: "LoteCatalogo",
+            component: LoteCatalogoComponent,
         },
         ]
 });
