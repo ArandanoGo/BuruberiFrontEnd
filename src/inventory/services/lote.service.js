@@ -48,6 +48,7 @@ export class LoteService {
         return http.put(`${this.resourceEndpoint}/${id}`, loteObject);
     }
 
+
     /**
      * Elimina un lote por su ID
      * @param {string|number} id
