@@ -18,7 +18,7 @@ const router = createRouter({
             name: "LoteCrear",
             component: LoteCrearComponent,
         },
-        { path: '/lotes/catalogo',
+        { path: '/catalogo',
             name: "LoteCatalogo",
             component: LoteCatalogoComponent,
         },
@@ -31,8 +31,5 @@ router.beforeEach((to, from, next) => {
     document.title = `${baseTitle} | ${to.meta['title']}`;
     next();
 })
-
-
-
 
 export default router;
