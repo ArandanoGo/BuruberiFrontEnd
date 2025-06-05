@@ -1,0 +1,78 @@
+{
+  "productores": [
+  {
+    "id": 101,
+    "nombre": "Juan Pérez",
+    "telefono": "+54 9 11 1234 5678",
+    "email": "juan.perez@example.com",
+    "direccion": "Calle Falsa 123, Ciudad",
+    "ciudad": "Buenos Aires",
+    "pais": "Argentina",
+    "fechaRegistro": "2024-11-20"
+  },
+  {
+    "id": 102,
+    "nombre": "María García",
+    "telefono": "+54 9 11 9876 5432",
+    "email": "maria.garcia@example.com",
+    "direccion": "Avenida Siempre Viva 742, Ciudad",
+    "ciudad": "Rosario",
+    "pais": "Argentina",
+    "fechaRegistro": "2024-12-05"
+  },
+  {
+    "id": 103,
+    "nombre": "Carlos Ruiz",
+    "telefono": "+54 9 11 4567 8910",
+    "email": "carlos.ruiz@example.com",
+    "direccion": "Boulevard Central 55, Ciudad",
+    "ciudad": "Córdoba",
+    "pais": "Argentina",
+    "fechaRegistro": "2025-01-15"
+  }
+],
+  "lotes": [
+    {
+      "id": 2,
+      "autor": "María García",
+      "fechaRegistro": "2025-06-04",
+      "hora": "15:45",
+      "materiaOrganica": 15,
+      "cloruroPotasio": 6,
+      "fosfato": 4,
+      "sulfatoCalcio": 3,
+      "urea": 5,
+      "sulfatoMagnesio": 3,
+      "correctoresPH": 2,
+      "idProductor": 102,
+      "tipo": "Compost",
+      "precioUnitario": 120,
+      "pesoKg": 400,
+      "calidad": "Media",
+      "estado": "Reservado",
+      "stock": 30,
+      "fechaPedido": null
+    },
+    {
+      "id": 3,
+      "autor": "Carlos Ruiz",
+      "fechaRegistro": "2025-06-03",
+      "hora": "08:15",
+      "materiaOrganica": 18,
+      "cloruroPotasio": 7,
+      "fosfato": 2,
+      "sulfatoCalcio": 5,
+      "urea": 4,
+      "sulfatoMagnesio": 2,
+      "correctoresPH": 1.5,
+      "idProductor": 103,
+      "tipo": "Orgánico",
+      "precioUnitario": 170.75,
+      "pesoKg": 350,
+      "calidad": "Alta",
+      "estado": "En espera",
+      "stock": 20,
+      "fechaPedido": null
+    }
+  ]
+}
