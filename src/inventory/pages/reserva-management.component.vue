@@ -12,7 +12,6 @@
         <pv-column field="id" header="ID" />
         <pv-column field="idLote" header="ID Lote" />
 
-        <!-- Columna fecha con slot personalizado para formateo -->
         <pv-column field="fechaRegistro" header="Fecha de Registro">
           <template #body="slotProps">
             {{ formatFecha(slotProps.data) }}
@@ -27,7 +26,14 @@
             <pv-button
                 label="Cambiar Estado"
                 class="p-button-sm"
+                :disabled="slotProps.data.estado === 'rechazada'"
                 @click="cambiarEstado(slotProps.data)"
+            />
+            <pv-button
+                label="Rechazar"
+                class="p-button-sm p-button-danger ml-2"
+                :disabled="slotProps.data.estado === 'rechazada'"
+                @click="rechazarReserva(slotProps.data)"
             />
           </template>
         </pv-column>
@@ -38,6 +44,7 @@
 
 <script>
 import ReservaService from "../services/reserva.service.js";
+import LoteService from "../services/lote.service.js";
 
 export default {
   data() {
@@ -50,7 +57,6 @@ export default {
     async fetchReservas() {
       try {
         const response = await ReservaService.getAll();
-        // Guardamos fechaRegistro sin modificar (ISO string)
         this.reservas = response.data;
       } catch (error) {
         console.error("Error al obtener reservas:", error);
@@ -68,6 +74,8 @@ export default {
       return `${dia}/${mes}/${anio}`;
     },
     async cambiarEstado(reserva) {
+      if (reserva.estado === "rechazada") return;
+
       const indexActual = this.estados.indexOf(reserva.estado);
       const nuevoIndex = (indexActual + 1) % this.estados.length;
       const nuevoEstado = this.estados[nuevoIndex];
@@ -80,6 +88,30 @@ export default {
       } catch (error) {
         console.error("Error al actualizar estado:", error);
         alert("Error al cambiar el estado.");
+      }
+    },
+    async rechazarReserva(reserva) {
+      if (reserva.estado === "rechazada") return;
+
+      try {
+        // Obtener lote original
+        const loteResponse = await LoteService.getById(reserva.idLote);
+        const lote = loteResponse.data;
+
+        // Actualizar stock del lote
+        const nuevoStock = lote.stock + reserva.stock;
+        const loteActualizado = { ...lote, stock: nuevoStock };
+        await LoteService.update(lote.id, loteActualizado);
+
+        // Cambiar estado de la reserva a 'rechazada'
+        const reservaActualizada = { ...reserva, estado: "rechazada" };
+        await ReservaService.update(reserva.id, reservaActualizada);
+        reserva.estado = "rechazada";
+
+        alert(`Reserva ID ${reserva.id} rechazada y stock devuelto al lote.`);
+      } catch (error) {
+        console.error("Error al rechazar reserva:", error);
+        alert("Ocurrió un error al rechazar la reserva.");
       }
     },
   },
@@ -128,5 +160,9 @@ export default {
 
 .p-button-sm {
   font-size: 0.8rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
 }
 </style>

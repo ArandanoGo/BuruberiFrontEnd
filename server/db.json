@@ -6,7 +6,7 @@
       "idDistribuidor": 1,
       "fechaRegistro": "2025-06-05T22:31:53.315Z",
       "stock": 40,
-      "estado": "cancelada"
+      "estado": "rechazada"
     },
     {
       "id": "d2aa",
@@ -92,7 +92,7 @@
       "pesoKg": 400,
       "calidad": "Media",
       "estado": "Reservado",
-      "stock": 350,
+      "stock": 390,
       "fechaPedido": null,
       "imagenUrl": "https://www.shutterstock.com/image-photo/rabbiteye-blueberries-true-superfood-straight-260nw-2534080275.jpg",
       "favorito": false
