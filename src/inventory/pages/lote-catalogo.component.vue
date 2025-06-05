@@ -217,114 +217,178 @@ export default {
 </script>
 
 <style scoped>
-/* El estilo igual al tuyo, lo dejo intacto */
 .fondo-morado {
   background-color: #572364;
   min-height: 100vh;
-  padding: 40px;
+  padding: 2rem;
   color: black;
 }
+
 .card-contenedor {
   background-color: #ffffff;
   border-radius: 12px;
-  padding: 30px;
+  padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   width: 100%;
   position: relative;
 }
+
 .flecha-volver {
   position: absolute;
   top: 20px;
   left: 20px;
   color: #572364;
 }
+
 .titulo {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
   color: #6a0dad;
 }
+
 .grid {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  justify-content: flex-start;
+  justify-content: center;
 }
+
 .card-lote {
   background: white;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  flex: 0 0 calc(33.33% - 1rem);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-}
-.card-lote:hover {
-  transform: scale(1.05);
-}
-.contenido-flex {
-  display: flex;
-  margin-bottom: 1rem;
-}
-.card-lote img {
-  border-radius: 12px;
-  object-fit: cover;
-  width: 192px;
-  height: 192px;
-}
-.info-lote {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding: 1rem;
+  transition: transform 0.2s ease;
+  position: relative;
+  height: auto;
+  flex: 1 1 calc(100% - 2rem); /* Default mobile full width */
+  max-width: 100%;
 }
+
+.card-lote:hover {
+  transform: scale(1.01);
+}
+
+.contenido-flex {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  align-items: center;
+}
+
+.card-lote img {
+  border-radius: 8px;
+  object-fit: cover;
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+}
+
+.info-lote {
+  flex: 1 1 auto;
+  max-width: calc(100% - 160px); /* espacio para la imagen + gap */
+  font-size: 1rem; /* sin espacio */
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  letter-spacing: 0.02em; /* un poco más espacio entre letras */
+  word-spacing: 0.1em; /* espacio entre palabras */
+}
+
+.info-lote h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+  color: #6a0dad;
+}
+
+
 .botones-lote {
   display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  gap: 0.5rem;
 }
+
 .btn-reservar,
 .btn-pedir {
   background-color: #6a0dad;
   color: white;
-  padding: 0.5rem 1.2rem;
-  border-radius: 8px;
-  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.8rem;
   cursor: pointer;
+  flex: 1;
+  text-align: center;
 }
+
 .btn-reservar[disabled] {
   background-color: #ccc;
   cursor: not-allowed;
 }
+
 .btn-reservar:hover:not([disabled]),
 .btn-pedir:hover {
   background-color: #520a8a;
 }
+
 .icono-favorito {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 2rem;
+  top: 10px;
+  right: 10px;
+  font-size: 1.4rem;
   cursor: pointer;
 }
+
 .icono-favorito .pi {
   color: #ccc;
 }
+
 .icono-favorito .favorito {
   color: gold;
 }
+
 .icono-hover {
-  transform: scale(1.3);
+  transform: scale(1.2);
   color: gold !important;
 }
+
 .dialogo-imagen {
   max-width: 90vw;
 }
+
 .imagen-ampliada {
   max-width: 100%;
   display: block;
   margin: auto;
 }
+
 .mensaje-error {
   color: red;
   margin-top: 0.5rem;
 }
+
+/* 📱 RESPONSIVE BREAKPOINTS */
+
+@media (min-width: 600px) {
+  .card-lote {
+    flex: 1 1 calc(50% - 1rem);
+    max-width: calc(50% - 1rem);
+  }
+}
+
+@media (min-width: 900px) {
+  .card-lote {
+    flex: 1 1 calc(33.33% - 1rem);
+    max-width: calc(33.33% - 1rem);
+  }
+}
 </style>
+
+
+
+
+
