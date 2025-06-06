@@ -1,0 +1,127 @@
+{
+  "distributors": [
+    {
+      "id": 1,
+      "name": "Santiago Ruiz",
+      "company": "FRUTOS SAC",
+      "location": "Lima",
+      "ruc": "202092909978",
+      "legalName": "FRUTOS SAC",
+      "avatar": "https://randomuser.me/api/portraits/men/1.jpg",
+      "rating": 4.8,
+      "badges": ["Nivel 01", "Nivel 02"],
+      "producers": [
+        "https://randomuser.me/api/portraits/women/2.jpg",
+        "https://randomuser.me/api/portraits/men/3.jpg"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Lucía Chavez",
+      "company": "AGROEXPORT",
+      "location": "Piura",
+      "ruc": "202388109978",
+      "legalName": "AGROEXPORT S.A.C.",
+      "avatar": "https://randomuser.me/api/portraits/women/1.jpg",
+      "rating": 4.7,
+      "badges": ["Nivel 02"],
+      "producers": []
+    },
+    {
+      "id": 3,
+      "name": "Raúl Gutierrez",
+      "company": "NATURA",
+      "location": "La Libertad",
+      "ruc": "201345678901",
+      "legalName": "NATURA PERU",
+      "avatar": "https://randomuser.me/api/portraits/men/2.jpg",
+      "rating": 4.9,
+      "badges": ["Nivel 03"],
+      "producers": []
+    },
+    {
+      "id": 4,
+      "name": "Camila Hernández",
+      "company": "EXPORTA FRUTAS",
+      "location": "Arequipa",
+      "ruc": "204112233445",
+      "legalName": "EXPORTA FRUTAS S.R.L.",
+      "avatar": "https://randomuser.me/api/portraits/women/3.jpg",
+      "rating": 4.6,
+      "badges": [],
+      "producers": []
+    },
+    {
+      "id": 5,
+      "name": "José Diego",
+      "company": "AGRI BERRIES",
+      "location": "Cajamarca",
+      "ruc": "205667788990",
+      "legalName": "AGRI BERRIES EIRL",
+      "avatar": "https://randomuser.me/api/portraits/men/4.jpg",
+      "rating": 4.5,
+      "badges": ["Nivel 01"],
+      "producers": []
+    },
+    {
+      "id": 6,
+      "name": "Emma Moreno",
+      "company": "BERRY FRESH",
+      "location": "Lambayeque",
+      "ruc": "208112233344",
+      "legalName": "BERRY FRESH S.A.",
+      "avatar": "https://randomuser.me/api/portraits/women/4.jpg",
+      "rating": 4.3,
+      "badges": [],
+      "producers": []
+    },
+    {
+      "id": 7,
+      "name": "Nicolás Gonzalez",
+      "company": "ARANDANOS DEL NORTE",
+      "location": "Piura",
+      "ruc": "207889900112",
+      "legalName": "ARANDANOS DEL NORTE SAC",
+      "avatar": "https://randomuser.me/api/portraits/men/5.jpg",
+      "rating": 4.7,
+      "badges": ["Nivel 02"],
+      "producers": []
+    },
+    {
+      "id": 8,
+      "name": "Sofía Álvarez",
+      "company": "EXPORT BLUE",
+      "location": "Trujillo",
+      "ruc": "209112233000",
+      "legalName": "EXPORT BLUE E.I.R.L.",
+      "avatar": "https://randomuser.me/api/portraits/women/5.jpg",
+      "rating": 4.6,
+      "badges": [],
+      "producers": []
+    },
+    {
+      "id": 9,
+      "name": "Sebastián García",
+      "company": "BERRY LOGIC",
+      "location": "Chiclayo",
+      "ruc": "206543210987",
+      "legalName": "BERRY LOGIC PERU SAC",
+      "avatar": "https://randomuser.me/api/portraits/men/6.jpg",
+      "rating": 4.8,
+      "badges": ["Nivel 01"],
+      "producers": []
+    },
+    {
+      "id": 10,
+      "name": "Sofía Navarro",
+      "company": "FRUITTRADE",
+      "location": "Lima",
+      "ruc": "203456789012",
+      "legalName": "FRUITTRADE SAC",
+      "avatar": "https://randomuser.me/api/portraits/women/6.jpg",
+      "rating": 4.2,
+      "badges": [],
+      "producers": []
+    }
+  ]
+}
