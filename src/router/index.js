@@ -6,6 +6,8 @@ import LoteCrearComponent from "../inventory/pages/lote-crear.component.vue";
 import LoteManagementComponent from "../inventory/pages/lote-management.component.vue";
 import LoteCatalogoComponent from "../inventory/pages/lote-catalogo.component.vue";
 import ReservaManagementComponent from "../inventory/pages/reserva-management.component.vue";
+import MensajeManagementComponent from "../Chat/pages/mensaje-management.component.vue";
+import Mensaje2 from "../Chat/pages/mensaje2.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -26,6 +28,14 @@ const router = createRouter({
         { path: '/reserva',
             name: "ReservaManagement",
             component: ReservaManagementComponent,
+        },
+        { path: '/chat',
+            name: "ChatManagement",
+            component: MensajeManagementComponent,
+        },
+        { path: '/chat2',
+            name: "ChatManagement2",
+            component: Mensaje2,
         },
         ]
 });

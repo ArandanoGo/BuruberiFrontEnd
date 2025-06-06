@@ -163,5 +163,115 @@
       "fechaPedido": null,
       "imagenUrl": "https://www.shutterstock.com/image-photo/rabbiteye-blueberries-true-superfood-straight-260nw-2534080275.jpg"
     }
+  ],
+  "mensajes": [
+    {
+      "id": "m1",
+      "remitenteId": "1",
+      "destinatarioId": "101",
+      "contenido": "Hola, ¿tienes disponible el lote 2?",
+      "fechaEnvio": "2025-06-05T10:00:00Z",
+      "remitenteNombre": "Distribuidor 1",
+      "destinatarioNombre": "Productor 101"
+    },
+    {
+      "id": "m2",
+      "remitenteId": "101",
+      "destinatarioId": "1",
+      "contenido": "Hola, sí, tenemos 30 kg disponibles.",
+      "fechaEnvio": "2025-06-05T10:02:00Z",
+      "remitenteNombre": "Productor 101",
+      "destinatarioNombre": "Distribuidor 1"
+    },
+    {
+      "id": "m3",
+      "remitenteId": "1",
+      "destinatarioId": "101",
+      "contenido": "Perfecto, me gustaría reservar 20 kg.",
+      "fechaEnvio": "2025-06-05T10:05:00Z",
+      "remitenteNombre": "Distribuidor 1",
+      "destinatarioNombre": "Productor 101"
+    },
+    {
+      "id": "m4",
+      "remitenteId": "101",
+      "destinatarioId": "1",
+      "contenido": "Reserva confirmada, gracias por tu compra.",
+      "fechaEnvio": "2025-06-05T10:07:00Z",
+      "remitenteNombre": "Productor 101",
+      "destinatarioNombre": "Distribuidor 1"
+    },
+    {
+      "id": "m5",
+      "remitenteId": "1",
+      "destinatarioId": "102",
+      "contenido": "¿Cuál es la calidad del lote 3?",
+      "fechaEnvio": "2025-06-05T11:00:00Z",
+      "remitenteNombre": "Distribuidor 1",
+      "destinatarioNombre": "Productor 102"
+    },
+    {
+      "id": "m6",
+      "remitenteId": "102",
+      "destinatarioId": "1",
+      "contenido": "El lote 3 es de calidad alta.",
+      "fechaEnvio": "2025-06-05T11:03:00Z",
+      "remitenteNombre": "Productor 102",
+      "destinatarioNombre": "Distribuidor 1"
+    },
+    {
+      "id": "1749182570174",
+      "remitenteId": "1",
+      "destinatarioId": "101",
+      "contenido": "Perfecto",
+      "fechaEnvio": "2025-06-06T04:02:50.174Z",
+      "remitenteNombre": "Distribuidor 1",
+      "destinatarioNombre": "Productor 101"
+    },
+    {
+      "id": "1749182572843",
+      "remitenteId": "1",
+      "destinatarioId": "101",
+      "contenido": "siuuu",
+      "fechaEnvio": "2025-06-06T04:02:52.843Z",
+      "remitenteNombre": "Distribuidor 1",
+      "destinatarioNombre": "Productor 101"
+    },
+    {
+      "id": "1749182572843",
+      "remitenteId": "1",
+      "destinatarioId": "105",
+      "contenido": "siuuu",
+      "fechaEnvio": "2025-06-06T04:02:52.843Z",
+      "remitenteNombre": "Distribuidor 1",
+      "destinatarioNombre": "Productor 106"
+    },
+    {
+      "id": "1749186637402",
+      "remitenteId": "101",
+      "remitenteNombre": "Productor 101",
+      "destinatarioId": "1",
+      "destinatarioNombre": "Distribuidor 1",
+      "contenido": "esta bien",
+      "fechaEnvio": "2025-06-06T05:10:37.402Z"
+    },
+    {
+      "id": "1749186647226",
+      "remitenteId": "1",
+      "remitenteNombre": "Distribuidor 1",
+      "destinatarioId": "101",
+      "destinatarioNombre": "Productor 101",
+      "contenido": "ok quedamos asi",
+      "fechaEnvio": "2025-06-06T05:10:47.226Z"
+    },
+    {
+      "id": "1749186668062",
+      "remitenteId": "1",
+      "remitenteNombre": "Distribuidor 1",
+      "destinatarioId": "101",
+      "destinatarioNombre": "Productor 101",
+      "contenido": "vale quedamos",
+      "fechaEnvio": "2025-06-06T05:11:08.062Z"
+    }
   ]
 }
