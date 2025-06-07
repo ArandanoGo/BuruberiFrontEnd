@@ -42,7 +42,7 @@ export default {
 .title {
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #8B0000;
+  color: #6a0dad;
 }
 
 .description {

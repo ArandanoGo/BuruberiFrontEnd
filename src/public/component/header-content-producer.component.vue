@@ -1,140 +1,111 @@
 <script>
-import LanguageSwitcher from "./language-switcher.component.vue";
-import { useRouter } from "vue-router";
+import ToolbarHome from "../component/toolbar-home.component.vue";
 
 export default {
-  name: "header-content",
-
-  components: { LanguageSwitcher },
-
-  title: 'Elixir Control',
-
-  data() {
-    return {
-      drawer: true,
-      visible: false,
-      items: [
-        { label: "title-home-option", to: "/producer/home", icon: 'pi pi-home' }
-      ]
-    }
-  },
-
-  methods: {
-    closeDrawer() {
-      this.visible = false;
-    },
-    cerrarSesion() {
-      const authenticationStore = useAuthenticationStore();
-      authenticationStore.signOut(this.$router); // ← solución: usar this.$router
-    }
-  },
-
+  name: "home-content",
+  components: { ToolbarHome },
 
   created() {
-    console.log('HeaderContentProducerComponent created');
-  }
-}
+    console.log("HomeContent created");
+  },
+};
 </script>
 
 <template>
-  <div class="header-content">
-    <div class="toolbar-container z-auto">
-      <pv-toolbar :items="items" class="w-full fixed top-0 left-0 pr-6 pl-6" style="background-color:#8B0000; max-height:80px; width:100%; height:100%">
-        <template #start>
-          <button @click="visible = !visible">
-            <i class="pi pi-bars"></i>
-          </button>
-        </template>
+  <toolbar-home></toolbar-home>
 
-        <template #center>
-          <img src="../../assets/logo.jpg" max-height="55" height="55"/>
-        </template>
+  <div class="pantalla-completa">
+    <div class="contenido-inicio">
+      <div class="texto-inicio">
+        <h1 class="titulo-grande">Buruberi</h1>
+        <p class="frase-grande">
+          Del campo a tu mesa: conecta con los mejores productores de arándanos en un solo clic.
+        </p>
+      </div>
 
-        <template #end>
-          <language-switcher></language-switcher>
-        </template>
-      </pv-toolbar>
+      <div class="imagen-inicio">
+        <img src="../../assets/cosecha.jpg" alt="Cosecha de arándanos" />
+      </div>
     </div>
-
-    <div class="drawer-container">
-      <pv-drawer :visible="visible" :showCloseIcon="false" style="background-color: #8B0000">
-        <template #header>
-          <span></span>
-          <pv-button @click="visible = false" class="button-close m-1">
-            <i class="pi pi-times"></i>
-          </pv-button>
-        </template>
-
-        <div class="options">
-          <router-link v-for="item in items" :key="item.label" :to="item.to">
-            <pv-button @click="visible = false" class="button-option m-1">
-              <i :class="item.icon"></i>
-              {{ $t(item.label) }}
-            </pv-button>
-          </router-link>
-
-          <!-- Botón de cerrar sesión -->
-          <pv-button @click="cerrarSesion" class="button-option m-1 p-button-danger">
-            <i class="pi pi-sign-out"></i>
-            {{ $t('Cerrar sesión') }}
-          </pv-button>
-        </div>
-
-        <template #footer>
-          <span></span>
-        </template>
-      </pv-drawer>
-    </div>
-  </div>
-
-  <div style="margin-top:80px">
-    <router-view style="margin-top:80px"></router-view>
   </div>
 </template>
 
 <style scoped>
-.button-close {
-  background-color: #8B0000;
+.pantalla-completa {
+  width: 100%;
+  height: 100vh;
+  background-color: #572364;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 100px;
+  box-sizing: border-box;
+}
+
+.contenido-inicio {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1600px;
+  gap: 60px;
+}
+
+.texto-inicio {
+  flex: 1;
   color: white;
-  border: none;
-  border-radius: 50%;
-  padding: 10px;
-  width: 40px;
-  height: 40px;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
-.button-close:not(:disabled):hover {
-  background: #F5F5DC;
-  border: none;
-  color: black;
-  font-weight: bold;
+.titulo-grande {
+  font-size: 6rem;
+  font-weight: 800;
+  margin-bottom: 30px;
 }
 
-.options {
+.frase-grande {
+  font-size: 2.4rem;
+  line-height: 1.8;
+  color: #f3e8ff;
+}
+
+.imagen-inicio {
+  flex: 1;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 15px;
 }
 
-.options .button-option {
-  background-color: #8B0000;
-  color: white;
-  border: none;
-  border-radius: 0;
-  padding: 10px;
-  width: 220px;
-  align-items: start;
-  justify-content: start;
-  border-bottom: solid 1px #F5F5DC;
+.imagen-inicio img {
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  object-fit: cover;
 }
 
-.options .button-option:not(:disabled):hover {
-  background: #F5F5DC;
-  border: none;
-  color: black;
-  font-weight: bold;
+/* Responsive */
+@media (max-width: 992px) {
+  .contenido-inicio {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .titulo-grande {
+    font-size: 3rem;
+  }
+
+  .frase-grande {
+    font-size: 1.4rem;
+  }
+
+  .imagen-inicio img {
+    max-width: 90%;
+  }
 }
 </style>

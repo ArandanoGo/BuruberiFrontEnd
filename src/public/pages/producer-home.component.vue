@@ -41,13 +41,13 @@ export default {
 
 .title {
   font-size: 2.5rem;
-  color: #8B0000;
+  color: #6a0dad;
   margin-bottom: 1rem;
 }
 
 .subtitle {
   font-size: 1.2rem;
-  color: #8B0000;
+  color: #6a0dad;
   margin-bottom: 2rem;
 }
 

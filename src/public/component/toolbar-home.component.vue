@@ -22,7 +22,7 @@ export default {
 
 <template>
   <div class="toolbar-container z-auto">
-    <pv-toolbar class="w-full fixed top-0 left-0 pr-6 pl-6" style="background-color:#8B0000; max-height:80px; width:100%; height:100%">
+    <pv-toolbar class="w-full fixed top-0 left-0 pr-6 pl-6" style="background-color:#3D1A54; max-height:80px; width:100%; height:100%">
 
       <template #start>
         <!-- Cambiar por el logo de Buruberi si ya lo tienes -->
