@@ -2,14 +2,6 @@
   <div class="fondo-morado">
     <div class="card-contenedor menu-grid">
 
-      <!-- Botón para cambiar a menú productor -->
-      <pv-button
-          icon="pi pi-arrow-left"
-          class="boton-cambiar-menu"
-          @click="irMenuProductor"
-          aria-label="Ir al menú productor"
-      />
-
       <template v-if="cargando">
         <p>Cargando datos...</p>
       </template>
@@ -35,8 +27,8 @@
           <pv-button label="Catálogo" class="boton-accion" @click="verCatalogo" />
           <pv-button label="Pedidos" class="boton-accion" @click="verPedidos" />
           <pv-button label="Favoritos" class="boton-accion" @click="verFavoritos" />
-          <!-- Nuevo botón Mensajes -->
           <pv-button label="Mensajes" class="boton-accion" @click="verMensajes" />
+          <pv-button label="Cerrar sesión" class="boton-accion cerrar-sesion" @click="cerrarSesion" />
         </div>
       </template>
 
@@ -58,7 +50,7 @@ export default {
   },
   async mounted() {
     try {
-      const response = await DistribuidorService.getById("1005"); // Cambia el ID si es necesario
+      const response = await DistribuidorService.getById("1005");
       this.distribuidor = response.data;
     } catch (e) {
       this.error = "No se pudo cargar la información del distribuidor";
@@ -77,33 +69,35 @@ export default {
     verFavoritos() {
       this.$router.push({ name: "FavoritoManagement" });
     },
-    irMenuProductor() {
-      this.$router.push({ name: "MenuProductor" });
-    },
     verMensajes() {
-      this.$router.push({ name: "ChatManagement" });  // Cambia "Mensajes" por el nombre de ruta que uses
+      this.$router.push({ name: "ChatManagement" });
+    },
+    cerrarSesion() {
+      this.$router.push("/home"); // ← Aquí redirige a la URL /home directamente
     },
   },
 };
 </script>
+
+
 <style scoped>
 .fondo-morado {
   background-color: #572364;
   min-height: 100vh;
-  padding: 60px 80px; /* Igual que productor */
+  padding: 60px 80px;
   box-sizing: border-box;
   position: relative;
 }
 
 .card-contenedor {
   background-color: #ffffff;
-  border-radius: 16px; /* Igual que productor */
-  padding: 50px 60px; /* Igual que productor */
+  border-radius: 16px;
+  padding: 50px 60px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-  max-width: 1200px; /* Igual que productor */
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  gap: 60px; /* Igual que productor */
+  gap: 60px;
   position: relative;
   width: 100%;
   box-sizing: border-box;
@@ -115,20 +109,18 @@ export default {
   justify-content: space-between;
 }
 
-/* Botón cambiar menú productor */
 .boton-cambiar-menu {
   position: absolute;
   top: 25px;
   left: 25px;
   color: #6a0dad;
-  font-size: 2rem; /* Más grande, igual que productor */
+  font-size: 2rem;
   background: none;
   border: none;
   cursor: pointer;
   z-index: 10;
 }
 
-/* Panel izquierdo */
 .panel-izquierdo {
   flex: 1;
   text-align: center;
@@ -137,41 +129,46 @@ export default {
 .bienvenida {
   color: #6a0dad;
   margin-bottom: 30px;
-  font-size: 2.4rem; /* Igual que productor */
+  font-size: 2.4rem;
   font-weight: 700;
 }
 
 .foto-distribuidor {
-  width: 220px; /* Igual que productor */
-  height: 220px; /* Igual que productor */
+  width: 220px;
+  height: 220px;
   object-fit: cover;
   border-radius: 50%;
   margin-bottom: 20px;
-  border: 4px solid #6a0dad; /* Igual que productor */
+  border: 4px solid #6a0dad;
 }
 
 .correo-distribuidor {
-  font-size: 20px; /* Igual que productor */
+  font-size: 20px;
   color: #333;
   margin-top: 15px;
 }
 
-/* Panel derecho */
 .panel-derecho {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 30px; /* Igual que productor */
+  gap: 30px;
   align-items: center;
 }
 
 .boton-accion {
-  width: 250px; /* Igual que productor */
-  font-size: 18px; /* Igual que productor */
+  width: 250px;
+  font-size: 18px;
   padding: 15px 0;
   font-weight: 600;
   border-radius: 8px;
+}
+
+.cerrar-sesion {
+  background-color: #eee;
+  color: #6a0dad;
+  border: 2px solid #6a0dad;
 }
 
 .error {
@@ -250,4 +247,3 @@ export default {
   }
 }
 </style>
-

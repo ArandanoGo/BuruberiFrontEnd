@@ -2,14 +2,6 @@
   <div class="fondo-morado">
     <div class="card-contenedor menu-grid">
 
-      <!-- Botón para cambiar a menú distribuidor -->
-      <pv-button
-          icon="pi pi-arrow-left"
-          class="boton-cambiar-menu"
-          @click="irMenuDistribuidor"
-          aria-label="Ir al menú distribuidor"
-      />
-
       <template v-if="cargando">
         <p>Cargando datos...</p>
       </template>
@@ -34,8 +26,8 @@
         <div class="panel-derecho">
           <pv-button label="Registrar Lote" class="boton-accion" @click="registrarLote" />
           <pv-button label="Historial de Lote" class="boton-accion" @click="verHistorial" />
-          <!-- Nuevo botón Mensajes -->
           <pv-button label="Mensajes" class="boton-accion" @click="verMensajes" />
+          <pv-button label="Cerrar sesión" class="boton-accion cerrar-sesion" @click="cerrarSesion" />
         </div>
       </template>
 
@@ -77,11 +69,15 @@ export default {
       this.$router.push({ name: "MenuDistribuidor" });
     },
     verMensajes() {
-      this.$router.push({ name: "ChatManagement2" });  // Cambia el nombre de ruta si es necesario
+      this.$router.push({ name: "ChatManagement2" });
+    },
+    cerrarSesion() {
+      this.$router.push("/home");
     },
   },
 };
 </script>
+
 <style scoped>
 .fondo-morado {
   background-color: #572364;
@@ -155,6 +151,12 @@ export default {
   padding: 15px 0;
   font-weight: 600;
   border-radius: 8px;
+}
+
+.cerrar-sesion {
+  background-color: #eee;
+  color: #6a0dad;
+  border: 2px solid #6a0dad;
 }
 
 /* Botón cambiar menú distribuidor */
@@ -245,4 +247,3 @@ export default {
   }
 }
 </style>
-

@@ -15,8 +15,11 @@ import FavoritoManagementComponent from "../favorite/pages/favorito-management.c
 const router = createRouter({
     history: createWebHistory(),
     routes: [
+        { path: '/home',             name: 'Home',      component: HomeContentComponent,     meta: { title: 'Home' } },
+        { path: '/notfound',         name: 'notfound',  component: PageNotFoundComponent,    meta: { title: 'Página no encontrada' } },
+        { path: '/:pathMatch(.*)*',  redirect: '/notfound' },
         {
-            path: "/",
+            path: "/MenuP",
             name: "MenuProductor",
             component: MenuProductorComponent,
             meta: { title: "Menú Productor" }

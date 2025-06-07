@@ -8,8 +8,8 @@ export default {
   data() {
     return {
       items: [
-        { label: 'sign-in', to: "/producer/home", icon: 'pi pi-user' },
-        { label: 'sign-up', to: "/home/sign-up", icon: 'pi pi-user-plus' }
+        { label: 'Productor', to: "/MenuP", icon: 'pi pi-user' },
+        { label: 'Distribuidor', to: "/MenuD", icon: 'pi pi-user-plus' }
       ]
     };
   },
@@ -26,7 +26,7 @@ export default {
 
       <template #start>
         <!-- Cambiar por el logo de Buruberi si ya lo tienes -->
-        <img src="../../assets/img/logo-buruberi.png" alt="Buruberi Logo" height="55" />
+        <img src="../../assets/logo.jpg" alt="Buruberi Logo" height="55" />
       </template>
 
       <template #end>
