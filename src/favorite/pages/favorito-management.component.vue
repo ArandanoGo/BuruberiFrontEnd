@@ -2,25 +2,25 @@
   <div class="fondo-morado">
     <div class="card-contenedor">
       <pv-button icon="pi pi-arrow-left" class="p-button-text flecha-volver" @click="volverAtras" />
-      <h1 class="titulo">Catálogo de Lotes</h1>
+      <h1 class="titulo">Favoritos de Lotes</h1>
 
-      <div class="grid gap-4">
+      <div class="grid gap-4" v-if="lotes.length > 0">
         <div
             v-for="lote in lotes"
-            :key="lote.id"
+            :key="lote.favoritoId"
             class="card-lote p-4 border rounded-lg shadow-lg flex flex-col"
         >
           <div
               class="icono-favorito"
               @click="toggleFavorito(lote)"
-              @mouseover="hoverFavorito = lote.id"
+              @mouseover="hoverFavorito = lote.favoritoId"
               @mouseleave="hoverFavorito = null"
           >
             <i
                 class="pi"
                 :class="[
-                lote.favorito ? 'pi-star-fill favorito' : 'pi-star',
-                hoverFavorito === lote.id ? 'icono-hover' : ''
+                'pi-star-fill favorito',
+                hoverFavorito === lote.favoritoId ? 'icono-hover' : ''
               ]"
             ></i>
           </div>
@@ -40,10 +40,7 @@
               <p><strong>Calidad:</strong> {{ lote.calidad }}</p>
               <p><strong>Estado:</strong> {{ lote.estado }}</p>
               <p><strong>Stock:</strong> {{ lote.stock }}</p>
-              <p>
-                <strong>Fecha Registro:</strong>
-                {{ formatearFecha(lote.fechaRegistro) }}
-              </p>
+              <p><strong>Fecha Registro:</strong> {{ formatearFecha(lote.fechaRegistro) }}</p>
             </div>
           </div>
 
@@ -60,6 +57,10 @@
             </button>
           </div>
         </div>
+      </div>
+
+      <div v-else>
+        <p>No hay lotes favoritos para mostrar.</p>
       </div>
     </div>
 
@@ -106,9 +107,9 @@
 </template>
 
 <script>
-import LoteService from "../services/lote.service.js";
-import ReservaService from "../services/reserva.service.js";
-import FavoritoService from "../services/favorito.service.js";
+import LoteService from "../service/lote.service.js";
+import ReservaService from "../service/reserva.service.js";
+import FavoritoService from "../service/favorito.service.js";
 
 export default {
   data() {
@@ -130,18 +131,35 @@ export default {
       const [anio, mes, dia] = fechaISO.split("T")[0].split("-");
       return `${dia}/${mes}`;
     },
+
     async fetchLotes() {
       try {
-        const response = await LoteService.getAll();
-        this.lotes = response.data
-            .filter((lote) => lote.stock > 0)
+        // Obtener favoritos del distribuidor 1005
+        const favoritosResponse = await FavoritoService.getByDistribuidor(1005);
+        const favoritos = favoritosResponse.data;
+
+        // Obtener datos completos de cada lote favorito
+        const lotesPromises = favoritos.map((fav) => LoteService.getById(fav.idLote));
+        const lotesResponse = await Promise.all(lotesPromises);
+
+        // Construir arreglo con datos del lote + favoritoId
+        this.lotes = lotesResponse.map((resp, index) => {
+          const loteData = resp.data;
+          return {
+            ...loteData,
+            favorito: true,
+            favoritoId: favoritos[index].id,
+          };
+        });
       } catch (error) {
-        console.error("Error al cargar lotes:", error);
+        console.error("Error al cargar lotes favoritos:", error);
       }
     },
+
     volverAtras() {
       this.$router.go(-1);
     },
+
     reservarLote(lote) {
       if (lote.stock <= 0) return;
       this.loteSeleccionado = lote;
@@ -149,6 +167,7 @@ export default {
       this.mensajeError = "";
       this.dialogoReservaVisible = true;
     },
+
     async confirmarReserva() {
       const lote = this.loteSeleccionado;
       const cantidad = this.stockAReservar;
@@ -186,8 +205,7 @@ export default {
         await LoteService.update(lote.id, loteActualizado);
       } catch (error) {
         console.error("Reserva creada, pero falló al actualizar el stock:", error);
-        this.mensajeError =
-            "Reserva creada, pero hubo un error al actualizar el stock.";
+        this.mensajeError = "Reserva creada, pero hubo un error al actualizar el stock.";
         return;
       }
 
@@ -195,22 +213,25 @@ export default {
       await this.fetchLotes();
       alert("Reserva creada exitosamente.");
     },
+
     agregarAlCarrito(lote) {
       alert(`Agregaste al carrito el lote: ${lote.tipo}`);
     },
 
     async toggleFavorito(lote) {
-      const idDistribuidor = 1005; // fijo temporal
       try {
-         // Crear favorito en backend
-          await FavoritoService.create({
-            idLote: lote.id,
-            idDistribuidor: idDistribuidor,
-          });
-          lote.favorito = true;
+        if (!lote.favoritoId) {
+          alert("No se encontró el ID del favorito para eliminar.");
+          return;
+        }
+
+        await FavoritoService.delete(lote.favoritoId);
+
+        // Quitar lote eliminado de la lista para actualizar UI
+        this.lotes = this.lotes.filter((l) => l.favoritoId !== lote.favoritoId);
       } catch (error) {
-        console.error("Error al actualizar favorito:", error);
-        alert("Error al actualizar favorito");
+        console.error("Error al eliminar favorito:", error);
+        alert("Error al eliminar favorito");
       }
     },
 
@@ -219,6 +240,7 @@ export default {
       this.imagenDialogVisible = true;
     },
   },
+
   mounted() {
     this.fetchLotes();
   },
@@ -226,7 +248,6 @@ export default {
 </script>
 
 <style scoped>
-/* (El mismo CSS que tenías, sin cambios) */
 .fondo-morado {
   background-color: #572364;
   min-height: 100vh;
@@ -380,8 +401,24 @@ export default {
   margin-top: 0.5rem;
 }
 
-/* 📱 RESPONSIVE BREAKPOINTS */
+/* Responsive para móviles */
+@media (max-width: 600px) {
+  .contenido-flex {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
+  .card-lote img {
+    width: 100%;
+    height: auto;
+  }
+
+  .info-lote {
+    max-width: 100%;
+  }
+}
+
+/* Media queries para pantallas medianas y grandes */
 @media (min-width: 600px) {
   .card-lote {
     flex: 1 1 calc(50% - 1rem);
@@ -396,3 +433,4 @@ export default {
   }
 }
 </style>
+

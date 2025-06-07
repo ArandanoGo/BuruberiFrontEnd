@@ -8,10 +8,24 @@ import LoteCatalogoComponent from "../inventory/pages/lote-catalogo.component.vu
 import ReservaManagementComponent from "../inventory/pages/reserva-management.component.vue";
 import MensajeManagementComponent from "../Chat/pages/mensaje-management.component.vue";
 import Mensaje2 from "../Chat/pages/mensaje2.vue";
+import MenuProductorComponent from "../Menu/pages/menu-productor.component.vue";
+import MenuDistribuidorComponent from "../Menu/pages/menu-distribuidor.component.vue";
+import ReservaDistribuidorComponent from "../inventory/pages/reserva-distribuidor.component.vue";
+import FavoritoManagementComponent from "../favorite/pages/favorito-management.component.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-
+        {
+            path: "/",
+            name: "MenuProductor",
+            component: MenuProductorComponent,
+            meta: { title: "Menú Productor" }
+        },
+        {
+            path: "/MenuD",
+            name: "MenuDistribuidor",
+            component: MenuDistribuidorComponent,
+        },
         {
             path: "/lotes",
             name: "LoteManagement",
@@ -29,6 +43,10 @@ const router = createRouter({
             name: "ReservaManagement",
             component: ReservaManagementComponent,
         },
+        { path: '/pedidos',
+            name: "PedidosManagement",
+            component: ReservaDistribuidorComponent,
+        },
         { path: '/chat',
             name: "ChatManagement",
             component: MensajeManagementComponent,
@@ -36,6 +54,10 @@ const router = createRouter({
         { path: '/chat2',
             name: "ChatManagement2",
             component: Mensaje2,
+        },
+        { path: '/favoritos',
+            name: "FavoritoManagement",
+            component: FavoritoManagementComponent,
         },
         ]
 });

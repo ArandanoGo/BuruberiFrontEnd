@@ -55,7 +55,7 @@ export default {
     return {
       mensajes: [],
       nuevoMensaje: "",
-      usuarioActual: { id: "101", nombre: "Productor 101" },
+      usuarioActual: { id: "10005", nombre: "Angelo" },
       contactos: [],
       contactoSeleccionado: null,
       pollingInterval: null,

@@ -39,6 +39,14 @@
       "fechaRegistro": "2025-06-05",
       "stock": 50,
       "estado": "pendiente"
+    },
+    {
+      "idLote": "2",
+      "idDistribuidor": 1005,
+      "fechaRegistro": "2025-06-07",
+      "stock": 80,
+      "estado": "pendiente",
+      "id": "o3B42wD"
     }
   ],
   "productores": [
@@ -50,7 +58,8 @@
       "direccion": "Calle Falsa 123, Ciudad",
       "ciudad": "Buenos Aires",
       "pais": "Argentina",
-      "fechaRegistro": "2024-11-20"
+      "fechaRegistro": "2024-11-20",
+      "url": null
     },
     {
       "id": "102",
@@ -60,17 +69,49 @@
       "direccion": "Avenida Siempre Viva 742, Ciudad",
       "ciudad": "Rosario",
       "pais": "Argentina",
-      "fechaRegistro": "2024-12-05"
+      "fechaRegistro": "2024-12-05",
+      "url": null
     },
     {
-      "id": "103",
-      "nombre": "Carlos Ruiz",
+      "id": "10005",
+      "nombre": "Angelo",
       "telefono": "+54 9 11 4567 8910",
-      "email": "carlos.ruiz@example.com",
+      "email": "Angelo@example.com",
       "direccion": "Boulevard Central 55, Ciudad",
       "ciudad": "Córdoba",
       "pais": "Argentina",
-      "fechaRegistro": null
+      "fechaRegistro": null,
+      "url": "https://raw.githubusercontent.com/VillaSystem/grupo2-project-report/refs/heads/master/images/Angelo.png"
+    }
+  ],
+  "distribuidores": [
+    {
+      "id": "1005",
+      "nombre": "Gustavo",
+      "telefono": "+54 9 11 4567 5041",
+      "email": "gustavo@example.com",
+      "direccion": "Boulevard Central 55, Ciudad",
+      "ciudad": "Córdoba",
+      "pais": "Perú",
+      "fechaRegistro": null,
+      "url": "https://raw.githubusercontent.com/VillaSystem/grupo2-project-report/refs/heads/master/images/gustavo.png"
+    }
+  ],
+  "favoritos": [
+    {
+      "idLote": "2",
+      "idDistribuidor": 1005,
+      "id": 7
+    },
+    {
+      "idLote": "5",
+      "idDistribuidor": 1005,
+      "id": 8
+    },
+    {
+      "idLote": "6",
+      "idDistribuidor": 1005,
+      "id": 9
     }
   ],
   "lotes": [
@@ -92,7 +133,7 @@
       "pesoKg": 400,
       "calidad": "Media",
       "estado": "Reservado",
-      "stock": 390,
+      "stock": 310,
       "fechaPedido": null,
       "imagenUrl": "https://www.shutterstock.com/image-photo/rabbiteye-blueberries-true-superfood-straight-260nw-2534080275.jpg",
       "favorito": false
@@ -272,6 +313,60 @@
       "destinatarioNombre": "Productor 101",
       "contenido": "vale quedamos",
       "fechaEnvio": "2025-06-06T05:11:08.062Z"
+    },
+    {
+      "id": "1749300000001",
+      "remitenteId": "10005",
+      "remitenteNombre": "Angelo",
+      "destinatarioId": "1005",
+      "destinatarioNombre": "Gustavo",
+      "contenido": "Hola Gustavo, ¿has revisado el último lote que envié?",
+      "fechaEnvio": "2025-06-06T08:30:00.000Z"
+    },
+    {
+      "id": "1749300000002",
+      "remitenteId": "1005",
+      "remitenteNombre": "Gustavo",
+      "destinatarioId": "10005",
+      "destinatarioNombre": "Angelo",
+      "contenido": "Hola Angelo, sí, lo revisé y está en perfectas condiciones.",
+      "fechaEnvio": "2025-06-06T08:45:00.000Z"
+    },
+    {
+      "id": "1749300000003",
+      "remitenteId": "10005",
+      "remitenteNombre": "Angelo",
+      "destinatarioId": "1005",
+      "destinatarioNombre": "Gustavo",
+      "contenido": "Genial, estaré enviando otro lote mañana.",
+      "fechaEnvio": "2025-06-06T09:00:00.000Z"
+    },
+    {
+      "id": "1749300000004",
+      "remitenteId": "1005",
+      "remitenteNombre": "Gustavo",
+      "destinatarioId": "10005",
+      "destinatarioNombre": "Angelo",
+      "contenido": "Perfecto, estaré pendiente. ¡Gracias!",
+      "fechaEnvio": "2025-06-06T09:15:00.000Z"
+    },
+    {
+      "id": "1749293042449",
+      "remitenteId": "1005",
+      "remitenteNombre": "Gustavo",
+      "destinatarioId": "10005",
+      "destinatarioNombre": "Angelo",
+      "contenido": "Hola denuevo",
+      "fechaEnvio": "2025-06-07T10:44:02.449Z"
+    },
+    {
+      "id": "1749293062442",
+      "remitenteId": "10005",
+      "remitenteNombre": "Angelo",
+      "destinatarioId": "1005",
+      "destinatarioNombre": "Gustavo",
+      "contenido": "hola",
+      "fechaEnvio": "2025-06-07T10:44:22.442Z"
     }
   ]
 }
