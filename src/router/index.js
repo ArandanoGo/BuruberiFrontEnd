@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeContentComponent from "../public/pages/home.content.component.vue";
 import ProducerHomeComponent from "../public/pages/producer-home.component.vue";
 import PageNotFoundComponent from "../public/pages/page-not-found.component.vue";
+const ReviewManagementComponent = () =>  import("../review/pages/review-management.component.vue");
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -13,8 +14,8 @@ const router = createRouter({
 
         /*=========================== Producer Home Routes ===========================*/
 
-        {path: '/producer/home', name: 'Producer-Home', component: ProducerHomeComponent, meta: { title: 'Producer Home'}}
-
+        {path: '/producer/home', name: 'Producer-Home', component: ProducerHomeComponent, meta: { title: 'Producer Home'}},
+        { path: '/catalogo/:id/reseña',             name: 'review',      component: ReviewManagementComponent,     meta: { title: 'Reseña' } }
     ]
 });
 
