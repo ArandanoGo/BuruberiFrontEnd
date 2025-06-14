@@ -498,6 +498,24 @@
       "destinatarioNombre": "Angelo",
       "contenido": "muy bien y tu",
       "fechaEnvio": "2025-06-14T21:26:49.557Z"
+    },
+    {
+      "id": "1749936812494",
+      "remitenteId": "1005",
+      "remitenteNombre": "Gustavo",
+      "destinatarioId": "10005",
+      "destinatarioNombre": "Angelo",
+      "contenido": "HOLAAA",
+      "fechaEnvio": "2025-06-14T21:33:32.494Z"
+    },
+    {
+      "id": "1749936821639",
+      "remitenteId": "10005",
+      "remitenteNombre": "Angelo",
+      "destinatarioId": "1005",
+      "destinatarioNombre": "Gustavo",
+      "contenido": "hola",
+      "fechaEnvio": "2025-06-14T21:33:41.639Z"
     }
   ]
 }

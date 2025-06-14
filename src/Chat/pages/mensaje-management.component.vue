@@ -28,18 +28,33 @@
               :key="msg.id"
               :class="['chat-message', msg.remitenteId === usuarioActual.id ? 'sent' : 'received']"
           >
-            <p class="contenido">{{ msg.contenido }}</p>
-            <small class="fecha">{{ new Date(msg.fechaEnvio).toLocaleString() }}</small>
+            <div class="mensaje-con-avatar">
+              <!-- Solo mostrar avatar si es mensaje recibido del productor -->
+              <img
+                  v-if="msg.remitenteId !== usuarioActual.id && msg.avatar"
+                  :src="msg.avatar"
+                  alt="Avatar del productor"
+                  class="avatar"
+              />
+              <div class="contenido-mensaje">
+                <p class="contenido">{{ msg.contenido }}</p>
+                <small class="fecha">{{ new Date(msg.fechaEnvio).toLocaleString() }}</small>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="chat-input">
-          <input v-model="nuevoMensaje" @keyup.enter="enviarMensaje" placeholder="Escribe un mensaje..." />
+          <input
+              v-model="nuevoMensaje"
+              @keyup.enter="enviarMensaje"
+              placeholder="Escribe un mensaje..."
+          />
           <pv-button label="Enviar" icon="pi pi-send" @click="enviarMensaje" />
         </div>
       </div>
 
-      <!-- Si no hay contacto seleccionado -->
+      <!-- Placeholder si no hay contacto seleccionado -->
       <div class="chat-placeholder" v-else>
         <p>Selecciona un contacto para comenzar a chatear.</p>
       </div>
@@ -57,7 +72,7 @@ export default {
     return {
       mensajes: [],
       nuevoMensaje: "",
-      usuarioActual: { id: "1005", nombre: "Gustavo" },  // luego modificar cuando tengamos un id global
+      usuarioActual: { id: "1005", nombre: "Gustavo" }, // distribuidor
       contactos: [],
       contactoSeleccionado: null,
       pollingInterval: null,
@@ -68,8 +83,10 @@ export default {
       if (!this.contactoSeleccionado) return [];
       return this.mensajes.filter(
           (msg) =>
-              (msg.remitenteId === this.usuarioActual.id && msg.destinatarioId === this.contactoSeleccionado.id) ||
-              (msg.remitenteId === this.contactoSeleccionado.id && msg.destinatarioId === this.usuarioActual.id)
+              (msg.remitenteId === this.usuarioActual.id &&
+                  msg.destinatarioId === this.contactoSeleccionado.id) ||
+              (msg.remitenteId === this.contactoSeleccionado.id &&
+                  msg.destinatarioId === this.usuarioActual.id)
       );
     },
   },
@@ -77,15 +94,31 @@ export default {
     async fetchMensajes() {
       try {
         const response = await MensajeService.getAll();
-        this.mensajes = response.data;
+        const mensajes = response.data;
+
+        // Añadir avatar solo si el mensaje viene del productor
+        this.mensajes = mensajes.map((msg) => {
+          const contacto = this.contactos.find((c) => c.id === msg.remitenteId);
+          return {
+            ...msg,
+            avatar:
+                msg.remitenteId !== this.usuarioActual.id
+                    ? contacto?.url || ""
+                    : null,
+          };
+        });
+
         this.scrollChatToBottom();
       } catch (error) {
         console.error("Error al obtener mensajes:", error);
       }
     },
+
     async fetchContactos() {
       try {
-        const response = await ContactoService.findByDistribuidor(this.usuarioActual.id);
+        const response = await ContactoService.findByDistribuidor(
+            this.usuarioActual.id
+        );
         const contactosBase = response.data;
 
         const contactosConNombre = await Promise.all(
@@ -96,12 +129,14 @@ export default {
                 return {
                   id: c.idProductor,
                   nombre: productor.nombre || `Productor ${c.idProductor}`,
+                  url: productor.url || "", // aquí traemos el avatar
                 };
               } catch (err) {
                 console.warn(`No se pudo obtener nombre para productor ${c.idProductor}`);
                 return {
                   id: c.idProductor,
                   nombre: `Productor ${c.idProductor}`,
+                  url: "",
                 };
               }
             })
@@ -112,10 +147,12 @@ export default {
         console.error("Error al obtener contactos:", error);
       }
     },
+
     seleccionarContacto(contacto) {
       this.contactoSeleccionado = contacto;
       this.scrollChatToBottom();
     },
+
     async enviarMensaje() {
       if (!this.nuevoMensaje.trim() || !this.contactoSeleccionado) return;
 
@@ -138,6 +175,7 @@ export default {
         alert("No se pudo enviar el mensaje.");
       }
     },
+
     scrollChatToBottom() {
       this.$nextTick(() => {
         const container = this.$refs.chatMessages;
@@ -146,8 +184,8 @@ export default {
     },
   },
   mounted() {
+    this.fetchContactos();
     this.fetchMensajes();
-    this.fetchContactos(); // <- Nuevo método para obtener contactos con nombres reales
     this.pollingInterval = setInterval(this.fetchMensajes, 3000);
   },
   beforeUnmount() {
@@ -229,23 +267,46 @@ export default {
 .chat-message {
   margin-bottom: 1rem;
   max-width: 70%;
-  padding: 0.75rem;
-  border-radius: 8px;
   font-size: 0.9rem;
   word-wrap: break-word;
-  color: black;
+  display: flex;
+  align-items: flex-start;
 }
 
 .chat-message.sent {
-  background-color: #d1e7dd;
   margin-left: auto;
+  flex-direction: row-reverse;
   text-align: right;
 }
 
 .chat-message.received {
-  background-color: #f8d7da;
   margin-right: auto;
+  flex-direction: row;
   text-align: left;
+}
+
+.mensaje-con-avatar {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.contenido-mensaje {
+  background-color: #d1e7dd;
+  padding: 0.75rem;
+  border-radius: 8px;
+  color: black;
+}
+
+.chat-message.received .contenido-mensaje {
+  background-color: #f8d7da;
 }
 
 .fecha {
