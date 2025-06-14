@@ -14,6 +14,7 @@ import ReservaDistribuidorComponent from "../inventory/pages/reserva-distribuido
 import FavoritoManagementComponent from "../favorite/pages/favorito-management.component.vue";
 import ReviewManagementComponent from "../review/pages/review-management.component.vue";
 import ListaProductoresComponent from "../users/pages/Lista-Productores.component.vue";
+import ListaLotesComponent from "../users/pages/Lista-Lotes.component.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -71,6 +72,12 @@ const router = createRouter({
         { path: '/Productores',
             name: 'productores',      component: ListaProductoresComponent,
             meta: { title: 'Productores' }
+        },
+        {
+            path: '/lotes/:id/productor',
+            name: 'lotes-productor',
+            component: ListaLotesComponent,
+            props: true
         },
         ]
 });
