@@ -516,6 +516,15 @@
       "destinatarioNombre": "Gustavo",
       "contenido": "hola",
       "fechaEnvio": "2025-06-14T21:33:41.639Z"
+    },
+    {
+      "id": "1749938953732",
+      "remitenteId": "10005",
+      "remitenteNombre": "Angelo",
+      "destinatarioId": "1005",
+      "destinatarioNombre": "Gustavo",
+      "contenido": "Me gustaria realizar un pedido mas de 200 Lotes para este mes por favorrr",
+      "fechaEnvio": "2025-06-14T22:09:13.732Z"
     }
   ]
 }

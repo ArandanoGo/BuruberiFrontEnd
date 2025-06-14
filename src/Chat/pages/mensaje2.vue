@@ -28,8 +28,19 @@
               :key="msg.id"
               :class="['chat-message', msg.remitenteId === usuarioActual.id ? 'sent' : 'received']"
           >
-            <p class="contenido">{{ msg.contenido }}</p>
-            <small class="fecha">{{ new Date(msg.fechaEnvio).toLocaleString() }}</small>
+            <div class="mensaje-con-avatar">
+              <!-- Mostrar avatar solo para mensajes recibidos -->
+              <img
+                  v-if="msg.remitenteId !== usuarioActual.id && msg.avatar"
+                  :src="msg.avatar"
+                  alt="Avatar del distribuidor"
+                  class="avatar"
+              />
+              <div class="contenido-mensaje">
+                <p class="contenido">{{ msg.contenido }}</p>
+                <small class="fecha">{{ new Date(msg.fechaEnvio).toLocaleString() }}</small>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -77,8 +88,17 @@ export default {
     async fetchMensajes() {
       try {
         const response = await MensajeService.getAll();
-        this.mensajes = response.data;
-        await this.fetchContactos(); // obtener contactos actualizados
+        const mensajes = response.data;
+
+        // Agregar avatar a mensajes recibidos del distribuidor
+        this.mensajes = mensajes.map((msg) => {
+          const contacto = this.contactos.find((c) => c.id === msg.remitenteId);
+          return {
+            ...msg,
+            avatar: msg.remitenteId !== this.usuarioActual.id ? contacto?.url || "" : null,
+          };
+        });
+
         this.scrollChatToBottom();
       } catch (error) {
         console.error("Error al obtener mensajes:", error);
@@ -87,11 +107,10 @@ export default {
 
     async fetchContactos() {
       try {
-        // Obtenemos la lista de contactos del productor (distribuidores vinculados)
         const response = await ContactoService.findByProductor(this.usuarioActual.id);
         const contactosBase = response.data;
 
-        // Por cada contacto buscamos el nombre real del distribuidor
+        // Obtener nombre y url (avatar) del distribuidor
         const contactosConNombre = await Promise.all(
             contactosBase.map(async (c) => {
               try {
@@ -100,12 +119,14 @@ export default {
                 return {
                   id: c.idDistribuidor,
                   nombre: distribuidor.nombre || `Distribuidor ${c.idDistribuidor}`,
+                  url: distribuidor.url || "", // Asegúrate que el distribuidor tenga un campo url con la imagen
                 };
               } catch (err) {
                 console.warn(`No se pudo obtener nombre para distribuidor ${c.idDistribuidor}`);
                 return {
                   id: c.idDistribuidor,
                   nombre: `Distribuidor ${c.idDistribuidor}`,
+                  url: "",
                 };
               }
             })
@@ -154,7 +175,9 @@ export default {
   },
 
   mounted() {
-    this.fetchMensajes();
+    this.fetchContactos().then(() => {
+      this.fetchMensajes();
+    });
     this.pollingInterval = setInterval(this.fetchMensajes, 3000);
   },
 
@@ -237,23 +260,63 @@ export default {
 .chat-message {
   margin-bottom: 1rem;
   max-width: 70%;
-  padding: 0.75rem;
-  border-radius: 8px;
   font-size: 0.9rem;
   word-wrap: break-word;
   color: black;
 }
 
-.chat-message.sent {
-  background-color: #d1e7dd;
-  margin-left: auto;
-  text-align: right;
+/* Contenedor flex para avatar + mensaje */
+.mensaje-con-avatar {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
 }
 
+/* Avatar */
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Mensajes recibidos */
 .chat-message.received {
-  background-color: #f8d7da;
+  background-color: transparent; /* quitamos bg para manejarlo en contenido-mensaje */
   margin-right: auto;
   text-align: left;
+}
+
+/* Fondo y estilo del contenido del mensaje recibido */
+.chat-message.received .contenido-mensaje {
+  background-color: #f8d7da;
+  border-radius: 8px;
+  padding: 0.75rem;
+  flex-grow: 1;
+  color: black;
+}
+
+/* Mensajes enviados */
+.chat-message.sent {
+  background-color: transparent; /* quitamos bg para manejarlo en contenido-mensaje */
+  margin-left: auto;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Contenedor del mensaje enviado */
+.chat-message.sent .mensaje-con-avatar {
+  display: inline-block;
+  flex-grow: 0;
+}
+
+/* Fondo y estilo del contenido del mensaje enviado */
+.chat-message.sent .contenido-mensaje {
+  background-color: #d1e7dd;
+  border-radius: 8px;
+  padding: 0.75rem;
+  color: black;
 }
 
 .fecha {
