@@ -35,6 +35,18 @@
       "puntuacion": 5,
       "comentario": "Muy buenos lotes a buen precio",
       "loteId": "3"
+    },
+    {
+      "id": "6171",
+      "puntuacion": 2,
+      "comentario": "Muy mala",
+      "loteId": "2"
+    },
+    {
+      "id": "fffc",
+      "puntuacion": 1,
+      "comentario": "Muy malo en el pedido",
+      "loteId": "2"
     }
   ],
   "reservas": [
