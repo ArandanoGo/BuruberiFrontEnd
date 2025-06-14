@@ -49,7 +49,7 @@ export default {
 
 <style scoped>
 .fondo-blanco {
-  background-color: #fff;
+  background-color: #572364;
   min-height: 100vh;
   padding: 2rem;
   color: #333;
