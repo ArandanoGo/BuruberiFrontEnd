@@ -337,4 +337,7 @@ export default {
   font-size: 1.2rem;
   color: #555;
 }
+.contactos h3 {
+  color: #6a0dad;
+}
 </style>
