@@ -49,6 +49,8 @@
 
 <script>
 import MensajeService from "../services/mensaje.service.js";
+import ContactoService from "../services/contacto.service.js";
+import DistribuidorService from "../services/distribuidor.service.js";
 
 export default {
   data() {
@@ -76,29 +78,50 @@ export default {
       try {
         const response = await MensajeService.getAll();
         this.mensajes = response.data;
-        this.extraerContactos();
+        await this.fetchContactos(); // obtener contactos actualizados
         this.scrollChatToBottom();
       } catch (error) {
         console.error("Error al obtener mensajes:", error);
       }
     },
-    extraerContactos() {
-      const contactosSet = new Set();
 
-      this.mensajes.forEach((msg) => {
-        if (msg.remitenteId === this.usuarioActual.id) {
-          contactosSet.add(JSON.stringify({ id: msg.destinatarioId, nombre: msg.destinatarioNombre || "Usuario" }));
-        } else if (msg.destinatarioId === this.usuarioActual.id) {
-          contactosSet.add(JSON.stringify({ id: msg.remitenteId, nombre: msg.remitenteNombre || "Usuario" }));
-        }
-      });
+    async fetchContactos() {
+      try {
+        // Obtenemos la lista de contactos del productor (distribuidores vinculados)
+        const response = await ContactoService.findByProductor(this.usuarioActual.id);
+        const contactosBase = response.data;
 
-      this.contactos = [...contactosSet].map((c) => JSON.parse(c));
+        // Por cada contacto buscamos el nombre real del distribuidor
+        const contactosConNombre = await Promise.all(
+            contactosBase.map(async (c) => {
+              try {
+                const distResp = await DistribuidorService.getById(c.idDistribuidor);
+                const distribuidor = distResp.data;
+                return {
+                  id: c.idDistribuidor,
+                  nombre: distribuidor.nombre || `Distribuidor ${c.idDistribuidor}`,
+                };
+              } catch (err) {
+                console.warn(`No se pudo obtener nombre para distribuidor ${c.idDistribuidor}`);
+                return {
+                  id: c.idDistribuidor,
+                  nombre: `Distribuidor ${c.idDistribuidor}`,
+                };
+              }
+            })
+        );
+
+        this.contactos = contactosConNombre;
+      } catch (error) {
+        console.error("Error al obtener contactos:", error);
+      }
     },
+
     seleccionarContacto(contacto) {
       this.contactoSeleccionado = contacto;
       this.scrollChatToBottom();
     },
+
     async enviarMensaje() {
       if (!this.nuevoMensaje.trim() || !this.contactoSeleccionado) return;
 
@@ -121,6 +144,7 @@ export default {
         alert("No se pudo enviar el mensaje.");
       }
     },
+
     scrollChatToBottom() {
       this.$nextTick(() => {
         const container = this.$refs.chatMessages;
@@ -128,10 +152,12 @@ export default {
       });
     },
   },
+
   mounted() {
     this.fetchMensajes();
     this.pollingInterval = setInterval(this.fetchMensajes, 3000);
   },
+
   beforeUnmount() {
     clearInterval(this.pollingInterval);
   },

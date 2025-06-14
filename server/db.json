@@ -462,6 +462,42 @@
       "destinatarioNombre": "Gustavo",
       "contenido": "hola",
       "fechaEnvio": "2025-06-07T10:44:22.442Z"
+    },
+    {
+      "id": "1749936056259",
+      "remitenteId": "10005",
+      "remitenteNombre": "Angelo",
+      "destinatarioId": "1005",
+      "destinatarioNombre": "Gustavo",
+      "contenido": "que fuee",
+      "fechaEnvio": "2025-06-14T21:20:56.259Z"
+    },
+    {
+      "id": "1749936106579",
+      "remitenteId": "1005",
+      "remitenteNombre": "Gustavo",
+      "destinatarioId": "101",
+      "destinatarioNombre": "Juan Pérez",
+      "contenido": "buenos dias, quisiera hacer un pedido",
+      "fechaEnvio": "2025-06-14T21:21:46.579Z"
+    },
+    {
+      "id": "17499361065014",
+      "remitenteId": "101",
+      "remitenteNombre": "Juan Pérez",
+      "destinatarioId": "1005",
+      "destinatarioNombre": "Gustavo",
+      "contenido": "Si que lote estaria interesado",
+      "fechaEnvio": "2025-06-14T21:21:46.579Z"
+    },
+    {
+      "id": "1749936409557",
+      "remitenteId": "1005",
+      "remitenteNombre": "Gustavo",
+      "destinatarioId": "10005",
+      "destinatarioNombre": "Angelo",
+      "contenido": "muy bien y tu",
+      "fechaEnvio": "2025-06-14T21:26:49.557Z"
     }
   ]
 }

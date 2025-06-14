@@ -49,13 +49,15 @@
 
 <script>
 import MensajeService from "../services/mensaje.service.js";
+import ContactoService from "../services/contacto.service.js";
+import ProductorService from "../services/productor.service.js";
 
 export default {
   data() {
     return {
       mensajes: [],
       nuevoMensaje: "",
-      usuarioActual: { id: "1005", nombre: "Gustavo" },
+      usuarioActual: { id: "1005", nombre: "Gustavo" },  // luego modificar cuando tengamos un id global
       contactos: [],
       contactoSeleccionado: null,
       pollingInterval: null,
@@ -76,24 +78,39 @@ export default {
       try {
         const response = await MensajeService.getAll();
         this.mensajes = response.data;
-        this.extraerContactos();
         this.scrollChatToBottom();
       } catch (error) {
         console.error("Error al obtener mensajes:", error);
       }
     },
-    extraerContactos() {
-      const contactosSet = new Set();
+    async fetchContactos() {
+      try {
+        const response = await ContactoService.findByDistribuidor(this.usuarioActual.id);
+        const contactosBase = response.data;
 
-      this.mensajes.forEach((msg) => {
-        if (msg.remitenteId === this.usuarioActual.id) {
-          contactosSet.add(JSON.stringify({ id: msg.destinatarioId, nombre: msg.destinatarioNombre || "Usuario" }));
-        } else if (msg.destinatarioId === this.usuarioActual.id) {
-          contactosSet.add(JSON.stringify({ id: msg.remitenteId, nombre: msg.remitenteNombre || "Usuario" }));
-        }
-      });
+        const contactosConNombre = await Promise.all(
+            contactosBase.map(async (c) => {
+              try {
+                const productorResp = await ProductorService.getById(c.idProductor);
+                const productor = productorResp.data;
+                return {
+                  id: c.idProductor,
+                  nombre: productor.nombre || `Productor ${c.idProductor}`,
+                };
+              } catch (err) {
+                console.warn(`No se pudo obtener nombre para productor ${c.idProductor}`);
+                return {
+                  id: c.idProductor,
+                  nombre: `Productor ${c.idProductor}`,
+                };
+              }
+            })
+        );
 
-      this.contactos = [...contactosSet].map((c) => JSON.parse(c));
+        this.contactos = contactosConNombre;
+      } catch (error) {
+        console.error("Error al obtener contactos:", error);
+      }
     },
     seleccionarContacto(contacto) {
       this.contactoSeleccionado = contacto;
@@ -130,6 +147,7 @@ export default {
   },
   mounted() {
     this.fetchMensajes();
+    this.fetchContactos(); // <- Nuevo método para obtener contactos con nombres reales
     this.pollingInterval = setInterval(this.fetchMensajes, 3000);
   },
   beforeUnmount() {
