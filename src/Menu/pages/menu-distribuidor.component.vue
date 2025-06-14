@@ -80,7 +80,8 @@ export default {
     verProductores() {
       this.$router.push({ name: "productores" });
     },
-    verContactos(idDistribuidor) {
+    verContactos() {
+      const idDistribuidor = "1005";  // aquí manual // Luego cambiar
       this.$router.push({ name: "contactos-productor", params: { id: idDistribuidor } });
     }
   },

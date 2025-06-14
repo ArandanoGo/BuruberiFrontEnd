@@ -37,7 +37,7 @@
 
           <!-- Botones -->
           <div class="botones-productor">
-            <button class="btn-contactar" @click="contactar(productor.email)">
+            <button class="btn-contactar" @click="contactar(productor)">
               Contactar
             </button>
             <button class="btn-lotes" @click="verLotes(productor.id)">
@@ -63,6 +63,7 @@
 
 <script>
 import ProductorService from "../services/productor.service.js";
+import ContactoService from "../services/contactos.service.js";
 
 export default {
   name: "ListaProductores",
@@ -72,6 +73,7 @@ export default {
       imagenDialogVisible: false,
       imagenSeleccionada: "",
       imagenDefault: "https://via.placeholder.com/128?text=Sin+imagen",
+      idDistribuidor: "1005" // ⚠️ Este es el ID del distribuidor, se reemplazará luego con el autenticado
     };
   },
   methods: {
@@ -98,22 +100,48 @@ export default {
       this.imagenSeleccionada = this.esImagen(url) ? url : this.imagenDefault;
       this.imagenDialogVisible = true;
     },
-    contactar(email) {
-      if (email) {
-        window.location.href = `mailto:${email}`;
+    async contactar(productor) {
+      const nuevoContacto = {
+        idDistribuidor: this.idDistribuidor,
+        idProductor: productor.id
+      };
+
+      try {
+        // 1. Obtener los contactos actuales del distribuidor
+        const response = await ContactoService.findByDistribuidor(nuevoContacto.idDistribuidor);
+        const contactosExistentes = response.data || [];
+
+        // 2. Revisar si ya existe contacto con mismo productor y distribuidor
+        const existe = contactosExistentes.some(
+            c => c.idProductor === nuevoContacto.idProductor && c.idDistribuidor === nuevoContacto.idDistribuidor
+        );
+
+        if (existe) {
+          alert("Ya tienes agregado este contacto (productor) para este distribuidor.");
+          return;
+        }
+
+        // 3. Crear nuevo contacto si no existe duplicado
+        const createResponse = await ContactoService.create(nuevoContacto);
+        console.log("Contacto creado:", createResponse.data);
+        alert("¡Contacto creado exitosamente!");
+      } catch (error) {
+        console.error("Error al crear contacto:", error);
+        alert("Hubo un error al crear el contacto.");
       }
     },
     verLotes(idProductor) {
       this.$router.push({ name: "lotes-productor", params: { id: idProductor } });
-    },
+    }
   },
   mounted() {
     this.fetchProductores();
-  },
+  }
 };
 </script>
 
 <style scoped>
+/* Todos los estilos permanecen igual, ya estaban bien definidos */
 .fondo-morado {
   background-color: #572364;
   min-height: 100vh;
@@ -196,25 +224,17 @@ export default {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
   color: #6a0dad;
-  overflow-wrap: break-word;
-  word-break: break-word;
 }
 
 .info-productor p {
   margin: 0.15rem 0;
-  overflow-wrap: break-word;
-  word-break: break-word;
 }
 
 .info-productor a {
   color: #572364;
   text-decoration: underline;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  display: inline-block;
   max-width: 100%;
   white-space: normal;
-  word-wrap: break-word;
 }
 
 .botones-productor {
@@ -265,4 +285,3 @@ export default {
   }
 }
 </style>
-

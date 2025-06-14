@@ -5,36 +5,60 @@
       <h1 class="titulo">Contactos del Distribuidor</h1>
 
       <ul class="lista-contactos">
-        <li v-for="contacto in contactos" :key="contacto.id" class="contacto-item">
-          <!-- Mostramos solo idProductor; idealmente cargarías datos del productor con ese id -->
-          <strong>Productor ID:</strong> {{ contacto.idProductor }}
+        <li v-for="contacto in contactosConDatos" :key="contacto.id" class="contacto-item">
+          <strong>Productor ID:</strong> {{ contacto.idProductor }} <br />
+          <strong>Nombre:</strong> {{ contacto.productor?.nombre || 'N/A' }} <br />
+          <strong>Ciudad:</strong> {{ contacto.productor?.ciudad || 'N/A' }} <br />
+          <strong>Email:</strong> {{ contacto.productor?.email || 'N/A' }}
         </li>
       </ul>
 
-      <p v-if="contactos.length === 0">No hay contactos para este distribuidor.</p>
+      <p v-if="contactosConDatos.length === 0">No hay contactos para este distribuidor.</p>
     </div>
   </div>
 </template>
 
 <script>
-
 import ContactoService from "../services/contactos.service.js";
+import ProductorService from "../services/productor.service.js";
 
 export default {
+  props: ['id'],  // id distribuidor
   data() {
     return {
       contactos: [],
+      contactosConDatos: [],
     };
   },
   methods: {
     async fetchContactos() {
       try {
-        const idDistribuidor = this.$route.params.id;
+        const idDistribuidor = this.id;
         const response = await ContactoService.findByDistribuidor(idDistribuidor);
         this.contactos = response.data || [];
+
+        // Ahora traemos datos completos del productor para cada contacto
+        const contactosConDatosPromises = this.contactos.map(async (contacto) => {
+          try {
+            const productorResp = await ProductorService.getById(contacto.idProductor);
+            return {
+              ...contacto,
+              productor: productorResp.data
+            };
+          } catch (e) {
+            console.error(`Error al cargar productor ${contacto.idProductor}`, e);
+            return {
+              ...contacto,
+              productor: null
+            };
+          }
+        });
+
+        this.contactosConDatos = await Promise.all(contactosConDatosPromises);
       } catch (error) {
         console.error("Error al cargar contactos:", error);
         this.contactos = [];
+        this.contactosConDatos = [];
       }
     },
     volverAtras() {
