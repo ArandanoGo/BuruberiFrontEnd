@@ -29,6 +29,7 @@
           <pv-button label="Favoritos" class="boton-accion" @click="verFavoritos" />
           <pv-button label="Mensajes" class="boton-accion" @click="verMensajes" />
           <pv-button label="Lista Productores" class="boton-accion" @click="verProductores" />
+          <pv-button label="Lista Contactos" class="boton-accion" @click="verContactos" />
           <pv-button label="Cerrar sesión" class="boton-accion cerrar-sesion" @click="cerrarSesion" />
           </div>
       </template>
@@ -79,6 +80,9 @@ export default {
     verProductores() {
       this.$router.push({ name: "productores" });
     },
+    verContactos(idDistribuidor) {
+      this.$router.push({ name: "contactos-productor", params: { id: idDistribuidor } });
+    }
   },
 };
 </script>

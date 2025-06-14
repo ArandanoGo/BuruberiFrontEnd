@@ -13,8 +13,9 @@ import MenuDistribuidorComponent from "../Menu/pages/menu-distribuidor.component
 import ReservaDistribuidorComponent from "../inventory/pages/reserva-distribuidor.component.vue";
 import FavoritoManagementComponent from "../favorite/pages/favorito-management.component.vue";
 import ReviewManagementComponent from "../review/pages/review-management.component.vue";
-import ListaProductoresComponent from "../users/pages/Lista-Productores.component.vue";
-import ListaLotesComponent from "../users/pages/Lista-Lotes.component.vue";
+import ListaProductoresComponent from "../lists/pages/Lista-Productores.component.vue";
+import ListaLotesComponent from "../lists/pages/Lista-Lotes.component.vue";
+import ListaContactosComponent from "../lists/pages/Lista-Contactos.component.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -77,6 +78,12 @@ const router = createRouter({
             path: '/lotes/:id/productor',
             name: 'lotes-productor',
             component: ListaLotesComponent,
+            props: true
+        },
+        {
+            path: '/contactos/:id',
+            name: 'contactos-productor',
+            component: ListaContactosComponent,
             props: true
         },
         ]
