@@ -4,9 +4,41 @@
       <pv-button icon="pi pi-arrow-left" class="p-button-text flecha-volver" @click="volverAtras" />
       <h1 class="titulo">Catálogo de Lotes</h1>
 
+      <!-- Filtros -->
+      <div class="filtros mb-4 flex flex-wrap gap-4 items-end">
+        <pv-input-number
+            v-model="filtro.pesoMin"
+            placeholder="Peso mínimo (kg)"
+            :min="0"
+            inputId="pesoMin"
+            showButtons
+            class="filtro-input"
+        />
+        <pv-input-number
+            v-model="filtro.pesoMax"
+            placeholder="Peso máximo (kg)"
+            :min="0"
+            inputId="pesoMax"
+            showButtons
+            class="filtro-input"
+        />
+        <pv-input-text
+            v-model="filtro.calidad"
+            placeholder="Buscar por calidad"
+            inputId="calidad"
+            class="filtro-input"
+        />
+        <pv-input-text
+            v-model="filtro.tipo"
+            placeholder="Buscar por tipo"
+            inputId="tipo"
+            class="filtro-input"
+        />
+      </div>
+
       <div class="grid gap-4">
         <div
-            v-for="lote in lotes"
+            v-for="lote in lotesFiltrados"
             :key="lote.id"
             class="card-lote p-4 border rounded-lg shadow-lg flex flex-col"
         >
@@ -125,7 +157,31 @@ export default {
       loteSeleccionado: null,
       stockAReservar: 1,
       mensajeError: "",
+      filtro: {
+        pesoMin: null,
+        pesoMax: null,
+        calidad: "",
+        tipo: "",
+      },
     };
+  },
+  computed: {
+    lotesFiltrados() {
+      return this.lotes.filter((lote) => {
+        const pesoOk =
+            (this.filtro.pesoMin === null || this.filtro.pesoMin === "" || lote.pesoKg >= this.filtro.pesoMin) &&
+            (this.filtro.pesoMax === null || this.filtro.pesoMax === "" || lote.pesoKg <= this.filtro.pesoMax);
+
+        const calidadOk = lote.calidad
+            .toLowerCase()
+            .includes(this.filtro.calidad.toLowerCase().trim());
+        const tipoOk = lote.tipo
+            .toLowerCase()
+            .includes(this.filtro.tipo.toLowerCase().trim());
+
+        return pesoOk && calidadOk && tipoOk;
+      });
+    },
   },
   methods: {
     formatearFecha(fechaISO) {
@@ -136,8 +192,7 @@ export default {
     async fetchLotes() {
       try {
         const response = await LoteService.getAll();
-        this.lotes = response.data
-            .filter((lote) => lote.stock > 0)
+        this.lotes = response.data.filter((lote) => lote.stock > 0);
       } catch (error) {
         console.error("Error al cargar lotes:", error);
       }
@@ -185,7 +240,7 @@ export default {
       }
 
       try {
-        const loteActualizado = {...lote, stock: lote.stock - cantidad};
+        const loteActualizado = { ...lote, stock: lote.stock - cantidad };
         await LoteService.update(lote.id, loteActualizado);
       } catch (error) {
         console.error("Reserva creada, pero falló al actualizar el stock:", error);
@@ -203,18 +258,18 @@ export default {
     },
 
     verResenas(lote) {
-      this.$router.push({ name: 'review', params: { id: lote.id } });
+      this.$router.push({ name: "review", params: { id: lote.id } });
     },
 
     async toggleFavorito(lote) {
       const idDistribuidor = 1005; // fijo temporal
       try {
-         // Crear favorito en backend
-          await FavoritoService.create({
-            idLote: lote.id,
-            idDistribuidor: idDistribuidor,
-          });
-          lote.favorito = true;
+        // Crear favorito en backend
+        await FavoritoService.create({
+          idLote: lote.id,
+          idDistribuidor: idDistribuidor,
+        });
+        lote.favorito = true;
       } catch (error) {
         console.error("Error al actualizar favorito:", error);
         alert("Error al actualizar favorito");
@@ -233,7 +288,6 @@ export default {
 </script>
 
 <style scoped>
-/* (El mismo CSS que tenías, sin cambios) */
 .fondo-morado {
   background-color: #572364;
   min-height: 100vh;
@@ -261,6 +315,14 @@ export default {
   text-align: center;
   margin-bottom: 2rem;
   color: #6a0dad;
+}
+
+.filtros {
+  margin-bottom: 1rem;
+}
+
+.filtro-input {
+  min-width: 150px;
 }
 
 .grid {
