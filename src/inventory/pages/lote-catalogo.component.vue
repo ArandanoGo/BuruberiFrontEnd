@@ -58,6 +58,9 @@
             <button @click="agregarAlCarrito(lote)" class="btn-pedir">
               Agregar al carrito
             </button>
+            <button @click="verResenas(lote)" class="btn-resena">
+              Ver reseñas
+            </button>
           </div>
         </div>
       </div>
@@ -197,6 +200,10 @@ export default {
     },
     agregarAlCarrito(lote) {
       alert(`Agregaste al carrito el lote: ${lote.tipo}`);
+    },
+
+    verResenas(lote) {
+      this.$router.push({ name: 'review', params: { id: lote.id } });
     },
 
     async toggleFavorito(lote) {
