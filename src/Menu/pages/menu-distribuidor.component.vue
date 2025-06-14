@@ -159,15 +159,16 @@ export default {
 
 .panel-derecho {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 30px;
+  justify-items: center;
   align-items: center;
 }
 
 .boton-accion {
-  width: 250px;
+  width: 100%;
+  max-width: 250px;
   font-size: 18px;
   padding: 15px 0;
   font-weight: 600;
@@ -195,30 +196,44 @@ export default {
     max-width: 600px;
     gap: 40px;
   }
+
   .menu-grid {
     flex-direction: column;
   }
+
   .panel-izquierdo,
   .panel-derecho {
     flex: unset;
     width: 100%;
     text-align: center;
   }
+
+  .panel-derecho {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
   .boton-accion {
     width: 100%;
     font-size: 16px;
     padding: 12px 0;
   }
+
   .foto-distribuidor {
     width: 180px;
     height: 180px;
   }
+
   .bienvenida {
     font-size: 2rem;
   }
+
   .correo-distribuidor {
     font-size: 18px;
   }
+
   .boton-cambiar-menu {
     font-size: 1.8rem;
     top: 20px;
@@ -230,25 +245,31 @@ export default {
   .fondo-morado {
     padding: 30px 15px;
   }
+
   .card-contenedor {
     padding: 20px 20px;
     max-width: 100%;
   }
+
   .foto-distribuidor {
     width: 140px;
     height: 140px;
   }
+
   .bienvenida {
     font-size: 1.6rem;
     margin-bottom: 15px;
   }
+
   .correo-distribuidor {
     font-size: 16px;
   }
+
   .boton-accion {
     font-size: 14px;
     padding: 10px 0;
   }
+
   .boton-cambiar-menu {
     font-size: 1.5rem;
     top: 15px;
@@ -256,3 +277,4 @@ export default {
   }
 }
 </style>
+
