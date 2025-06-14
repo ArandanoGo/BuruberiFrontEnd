@@ -109,7 +109,40 @@
       "ciudad": "Buenos Aires",
       "pais": "Argentina",
       "fechaRegistro": "2024-11-20",
-      "url": null
+      "url": "https://img.freepik.com/foto-gratis/hombre-tiro-medio-peinado-afro_23-2150677135.jpg"
+    },
+    {
+      "id": "103",
+      "nombre": "Carlos Fernández",
+      "telefono": "+54 9 11 3344 5566",
+      "email": "carlos.fernandez@example.com",
+      "direccion": "Boulevard San Martín 1500",
+      "ciudad": "Córdoba",
+      "pais": "Argentina",
+      "fechaRegistro": "2023-12-01",
+      "url": "https://img.freepik.com/foto-gratis/hombre-tiro-medio-peinado-afro_23-2150677135.jpg"
+    },
+    {
+      "id": "104",
+      "nombre": "Laura Martínez",
+      "telefono": "+54 9 11 9988 7766",
+      "email": "laura.martinez@example.com",
+      "direccion": "Pasaje Las Heras 980",
+      "ciudad": "Mendoza",
+      "pais": "Argentina",
+      "fechaRegistro": "2024-02-28",
+      "url": "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg"
+    },
+    {
+      "id": "105",
+      "nombre": "Diego Sánchez",
+      "telefono": "+54 9 11 1122 3344",
+      "email": "diego.sanchez@example.com",
+      "direccion": "Calle San Juan 455",
+      "ciudad": "La Plata",
+      "pais": "Argentina",
+      "fechaRegistro": "2024-08-10",
+      "url": "https://img.freepik.com/foto-gratis/hombre-tiro-medio-peinado-afro_23-2150677135.jpg"
     },
     {
       "id": "102",
@@ -120,7 +153,7 @@
       "ciudad": "Rosario",
       "pais": "Argentina",
       "fechaRegistro": "2024-12-05",
-      "url": null
+      "url": "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg"
     },
     {
       "id": "10005",

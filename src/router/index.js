@@ -13,6 +13,7 @@ import MenuDistribuidorComponent from "../Menu/pages/menu-distribuidor.component
 import ReservaDistribuidorComponent from "../inventory/pages/reserva-distribuidor.component.vue";
 import FavoritoManagementComponent from "../favorite/pages/favorito-management.component.vue";
 import ReviewManagementComponent from "../review/pages/review-management.component.vue";
+import ListaProductoresComponent from "../users/pages/Lista-Productores.component.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -66,6 +67,10 @@ const router = createRouter({
         { path: '/catalogo/:id/Review',
             name: 'review',      component: ReviewManagementComponent,
             meta: { title: 'Review' }
+        },
+        { path: '/Productores',
+            name: 'productores',      component: ListaProductoresComponent,
+            meta: { title: 'Productores' }
         },
         ]
 });

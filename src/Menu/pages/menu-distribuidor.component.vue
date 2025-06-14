@@ -28,8 +28,9 @@
           <pv-button label="Pedidos" class="boton-accion" @click="verPedidos" />
           <pv-button label="Favoritos" class="boton-accion" @click="verFavoritos" />
           <pv-button label="Mensajes" class="boton-accion" @click="verMensajes" />
+          <pv-button label="Lista Productores" class="boton-accion" @click="verProductores" />
           <pv-button label="Cerrar sesión" class="boton-accion cerrar-sesion" @click="cerrarSesion" />
-        </div>
+          </div>
       </template>
 
     </div>
@@ -74,6 +75,9 @@ export default {
     },
     cerrarSesion() {
       this.$router.push("/home"); // ← Aquí redirige a la URL /home directamente
+    },
+    verProductores() {
+      this.$router.push({ name: "productores" });
     },
   },
 };
