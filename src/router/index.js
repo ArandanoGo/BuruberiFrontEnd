@@ -16,6 +16,7 @@ import ReviewManagementComponent from "../review/pages/review-management.compone
 import ListaProductoresComponent from "../lists/pages/Lista-Productores.component.vue";
 import ListaLotesComponent from "../lists/pages/Lista-Lotes.component.vue";
 import ListaContactosComponent from "../lists/pages/Lista-Contactos.component.vue";
+import PromotionManagementComponent from "../promotions/pages/promotion-management.component.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -85,6 +86,11 @@ const router = createRouter({
             name: 'contactos-productor',
             component: ListaContactosComponent,
             props: true
+        },
+        {
+            path: '/promotions/:id/productor',
+            name: 'PromotionManagement',
+            component: PromotionManagementComponent
         },
         ]
 });

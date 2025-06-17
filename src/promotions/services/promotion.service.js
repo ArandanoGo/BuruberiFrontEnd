@@ -4,7 +4,7 @@ import http from "../../shared/services/http-common.js";
 
 export class PromotionService {
     // Punto de entrada a tu recurso “promociones” en el backend
-    resourceEndpoint = "/promociones";
+    resourceEndpoint = "/promotions";
 
     /**
      * Obtiene todas las promociones.

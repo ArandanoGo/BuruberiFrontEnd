@@ -27,6 +27,7 @@
           <pv-button label="Registrar Lote" class="boton-accion" @click="registrarLote" />
           <pv-button label="Historial de Lote" class="boton-accion" @click="verHistorial" />
           <pv-button label="Mensajes" class="boton-accion" @click="verMensajes" />
+          <pv-button label="Código Promoción" class="boton-accion" @click="vercodigopromo" />
           <pv-button label="Cerrar sesión" class="boton-accion cerrar-sesion" @click="cerrarSesion" />
         </div>
       </template>
@@ -70,6 +71,10 @@ export default {
     },
     verMensajes() {
       this.$router.push({ name: "ChatManagement2" });
+    },
+    vercodigopromo() {
+      this.$router.push({ name: "PromotionManagement",
+        params: { id: this.productor.id } });
     },
     cerrarSesion() {
       this.$router.push("/home");

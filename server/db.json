@@ -1,4 +1,13 @@
 {
+  "promotions": [
+    {
+      "IdProductor": "10005",
+      "codigo": "PROMO-GAA9MY",
+      "descuento": 50,
+      "fecha_caducidad": "2025-06-19",
+      "id": 1
+    }
+  ],
   "contactos": [
     {
       "id": "96db",
