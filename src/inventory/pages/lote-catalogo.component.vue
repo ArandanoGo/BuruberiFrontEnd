@@ -72,23 +72,16 @@
               <p><strong>Calidad:</strong> {{ lote.calidad }}</p>
               <p><strong>Estado:</strong> {{ lote.estado }}</p>
               <p><strong>Stock:</strong> {{ lote.stock }}</p>
-              <p>
-                <strong>Fecha Registro:</strong>
-                {{ formatearFecha(lote.fechaRegistro) }}
-              </p>
+              <p><strong>Fecha Registro:</strong> {{ formatearFecha(lote.fechaRegistro) }}</p>
             </div>
           </div>
 
           <div class="botones-lote">
-            <button
-                @click="reservarLote(lote)"
-                class="btn-reservar"
-                :disabled="lote.stock <= 0"
-            >
+            <button @click="reservarLote(lote)" class="btn-reservar" :disabled="lote.stock <= 0">
               Reservar
             </button>
-            <button @click="agregarAlCarrito(lote)" class="btn-pedir">
-              Agregar al carrito
+            <button @click="verDetalles(lote)" class="btn-pedir">
+              Ver detalles
             </button>
             <button @click="verResenas(lote)" class="btn-resena">
               Ver reseñas
@@ -123,19 +116,35 @@
         <p v-if="mensajeError" class="mensaje-error">{{ mensajeError }}</p>
       </div>
       <template #footer>
-        <pv-button
-            label="Cancelar"
-            icon="pi pi-times"
-            class="p-button-text"
-            @click="dialogoReservaVisible = false"
-        />
-        <pv-button
-            label="Reservar"
-            icon="pi pi-check"
-            class="p-button-text"
-            @click="confirmarReserva"
-        />
+        <pv-button label="Cancelar" icon="pi pi-times" class="p-button-text" @click="dialogoReservaVisible = false" />
+        <pv-button label="Reservar" icon="pi pi-check" class="p-button-text" @click="confirmarReserva" />
       </template>
+    </pv-dialog>
+
+    <!-- Diálogo de Detalles -->
+    <pv-dialog v-model:visible="dialogoDetallesVisible" header="Detalles del Lote" modal>
+      <div v-if="loteSeleccionado">
+        <img
+            :src="loteSeleccionado.imagenUrl || imagenDefault"
+            alt="Imagen del lote"
+            class="w-full max-w-xs mx-auto rounded mb-4"
+        />
+        <p><strong>Tipo:</strong> {{ loteSeleccionado.tipo }}</p>
+        <p><strong>Autor:</strong> {{ loteSeleccionado.autor }}</p>
+        <p><strong>Precio Unitario:</strong> ${{ loteSeleccionado.precioUnitario }}</p>
+        <p><strong>Peso (kg):</strong> {{ loteSeleccionado.pesoKg }}</p>
+        <p><strong>Calidad:</strong> {{ loteSeleccionado.calidad }}</p>
+        <p><strong>Estado:</strong> {{ loteSeleccionado.estado }}</p>
+        <p><strong>Stock:</strong> {{ loteSeleccionado.stock }}</p>
+        <p><strong>Materia Orgánica:</strong> {{ loteSeleccionado.materiaOrganica }}%</p>
+        <p><strong>Cloruro de Potasio:</strong> {{ loteSeleccionado.cloruroPotasio }}%</p>
+        <p><strong>Fosfato:</strong> {{ loteSeleccionado.fosfato }}%</p>
+        <p><strong>Sulfato de Calcio:</strong> {{ loteSeleccionado.sulfatoCalcio }}%</p>
+        <p><strong>Urea:</strong> {{ loteSeleccionado.urea }}%</p>
+        <p><strong>Sulfato de Magnesio:</strong> {{ loteSeleccionado.sulfatoMagnesio }}%</p>
+        <p><strong>Correctores de PH:</strong> {{ loteSeleccionado.correctoresPH }}%</p>
+        <p><strong>Fecha Registro:</strong> {{ formatearFecha(loteSeleccionado.fechaRegistro) }}</p>
+      </div>
     </pv-dialog>
   </div>
 </template>
@@ -154,6 +163,7 @@ export default {
       imagenSeleccionada: "",
       hoverFavorito: null,
       dialogoReservaVisible: false,
+      dialogoDetallesVisible: false,
       loteSeleccionado: null,
       stockAReservar: 1,
       mensajeError: "",
@@ -171,14 +181,8 @@ export default {
         const pesoOk =
             (this.filtro.pesoMin === null || this.filtro.pesoMin === "" || lote.pesoKg >= this.filtro.pesoMin) &&
             (this.filtro.pesoMax === null || this.filtro.pesoMax === "" || lote.pesoKg <= this.filtro.pesoMax);
-
-        const calidadOk = lote.calidad
-            .toLowerCase()
-            .includes(this.filtro.calidad.toLowerCase().trim());
-        const tipoOk = lote.tipo
-            .toLowerCase()
-            .includes(this.filtro.tipo.toLowerCase().trim());
-
+        const calidadOk = lote.calidad.toLowerCase().includes(this.filtro.calidad.toLowerCase().trim());
+        const tipoOk = lote.tipo.toLowerCase().includes(this.filtro.tipo.toLowerCase().trim());
         return pesoOk && calidadOk && tipoOk;
       });
     },
@@ -187,7 +191,7 @@ export default {
     formatearFecha(fechaISO) {
       if (!fechaISO) return "";
       const [anio, mes, dia] = fechaISO.split("T")[0].split("-");
-      return `${dia}/${mes}`;
+      return `${dia}/${mes}/${anio}`;
     },
     async fetchLotes() {
       try {
@@ -210,11 +214,8 @@ export default {
     async confirmarReserva() {
       const lote = this.loteSeleccionado;
       const cantidad = this.stockAReservar;
-
       this.mensajeError = "";
-
       if (!lote || cantidad < 1) return;
-
       if (cantidad > lote.stock) {
         this.mensajeError = "No puede reservar más de lo disponible.";
         return;
@@ -223,29 +224,19 @@ export default {
       try {
         const hoy = new Date();
         const soloFechaISO = hoy.toISOString().split("T")[0];
-
         const reserva = {
           idLote: lote.id,
-          idDistribuidor: 1005, // fijo temporal
+          idDistribuidor: 1005,
           fechaRegistro: soloFechaISO,
           stock: cantidad,
           estado: "pendiente",
         };
-
         await ReservaService.create(reserva);
-      } catch (error) {
-        console.error("Error al crear la reserva:", error);
-        this.mensajeError = "Error al crear la reserva.";
-        return;
-      }
-
-      try {
         const loteActualizado = { ...lote, stock: lote.stock - cantidad };
         await LoteService.update(lote.id, loteActualizado);
       } catch (error) {
-        console.error("Reserva creada, pero falló al actualizar el stock:", error);
-        this.mensajeError =
-            "Reserva creada, pero hubo un error al actualizar el stock.";
+        console.error("Error al crear la reserva:", error);
+        this.mensajeError = "Error al crear la reserva.";
         return;
       }
 
@@ -253,18 +244,12 @@ export default {
       await this.fetchLotes();
       alert("Reserva creada exitosamente.");
     },
-    agregarAlCarrito(lote) {
-      alert(`Agregaste al carrito el lote: ${lote.tipo}`);
-    },
-
     verResenas(lote) {
       this.$router.push({ name: "review", params: { id: lote.id } });
     },
-
     async toggleFavorito(lote) {
-      const idDistribuidor = 1005; // fijo temporal
+      const idDistribuidor = 1005;
       try {
-        // Crear favorito en backend
         await FavoritoService.create({
           idLote: lote.id,
           idDistribuidor: idDistribuidor,
@@ -275,10 +260,13 @@ export default {
         alert("Error al actualizar favorito");
       }
     },
-
     mostrarImagen(url) {
       this.imagenSeleccionada = url || this.imagenDefault;
       this.imagenDialogVisible = true;
+    },
+    verDetalles(lote) {
+      this.loteSeleccionado = lote;
+      this.dialogoDetallesVisible = true;
     },
   },
   mounted() {
