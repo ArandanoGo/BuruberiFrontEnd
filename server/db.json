@@ -77,38 +77,6 @@
   ],
   "reservas": [
     {
-      "id": "e8fd",
-      "idLote": "2",
-      "idDistribuidor": 1,
-      "fechaRegistro": "2025-06-05T22:31:53.315Z",
-      "stock": 40,
-      "estado": "rechazada"
-    },
-    {
-      "id": "d2aa",
-      "idLote": "2",
-      "idDistribuidor": 1,
-      "fechaRegistro": "2025-06-05T22:35:25.165Z",
-      "stock": 5,
-      "estado": "pendiente"
-    },
-    {
-      "id": "159c",
-      "idLote": "2",
-      "idDistribuidor": 1,
-      "fechaRegistro": "2025-06-05T22:39:33.372Z",
-      "stock": 4,
-      "estado": "pendiente"
-    },
-    {
-      "id": "41ae",
-      "idLote": "2",
-      "idDistribuidor": 1,
-      "fechaRegistro": "2025-06-05",
-      "stock": 100,
-      "estado": "pendiente"
-    },
-    {
       "id": "f1bc",
       "idLote": "2",
       "idDistribuidor": 1,
@@ -242,7 +210,7 @@
       "pesoKg": 400,
       "calidad": "Media",
       "estado": "Reservado",
-      "stock": 310,
+      "stock": 418,
       "fechaPedido": null,
       "imagenUrl": "https://www.shutterstock.com/image-photo/rabbiteye-blueberries-true-superfood-straight-260nw-2534080275.jpg",
       "favorito": false

@@ -5,7 +5,7 @@
       <!-- Flecha para volver atrás -->
       <pv-button icon="pi pi-arrow-left" class="p-button-text flecha-volver" @click="volverAtras" />
 
-      <!-- Título actualizado -->
+      <!-- Título -->
       <h1 class="titulo">Pedidos</h1>
 
       <pv-data-table :value="reservas" :paginator="true" :rows="10">
@@ -20,6 +20,18 @@
 
         <pv-column field="stock" header="Stock" />
         <pv-column field="estado" header="Estado" />
+
+        <!-- Botón Cancelar -->
+        <pv-column header="Acciones">
+          <template #body="slotProps">
+            <pv-button
+                label="Cancelar"
+                icon="pi pi-times"
+                class="p-button-danger p-button-sm"
+                @click="cancelarPedido(slotProps.data)"
+            />
+          </template>
+        </pv-column>
       </pv-data-table>
     </div>
   </div>
@@ -27,6 +39,7 @@
 
 <script>
 import ReservaService from "../services/reserva.service.js";
+import LoteService from "../services/lote.service.js";
 
 export default {
   data() {
@@ -53,6 +66,29 @@ export default {
       const mes = String(fecha.getMonth() + 1).padStart(2, "0");
       const anio = fecha.getFullYear();
       return `${dia}/${mes}/${anio}`;
+    },
+    async cancelarPedido(reserva) {
+      const confirmado = confirm("¿Estás seguro de cancelar este pedido?");
+      if (!confirmado) return;
+
+      try {
+        if (reserva.estado !== "rechazada") {
+          const loteResponse = await LoteService.getById(reserva.idLote);
+          const lote = loteResponse.data;
+
+          const nuevoStock = lote.stock + reserva.stock;
+          const loteActualizado = { ...lote, stock: nuevoStock };
+          await LoteService.update(lote.id, loteActualizado);
+        }
+
+        await ReservaService.delete(reserva.id);
+        this.reservas = this.reservas.filter(r => r.id !== reserva.id);
+
+        alert(`Pedido ID ${reserva.id} cancelado y eliminado correctamente.`);
+      } catch (error) {
+        console.error("Error al cancelar el pedido:", error);
+        alert("Ocurrió un error al cancelar el pedido.");
+      }
     },
   },
   mounted() {
