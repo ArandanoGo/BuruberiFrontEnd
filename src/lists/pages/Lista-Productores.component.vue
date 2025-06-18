@@ -4,9 +4,19 @@
       <pv-button icon="pi pi-arrow-left" class="p-button-text flecha-volver" @click="volverAtras" />
       <h1 class="titulo">Listado de Productores</h1>
 
+      <!-- Filtro por nombre -->
+      <div class="mb-4 text-center">
+        <input
+            type="text"
+            v-model="filtroNombre"
+            placeholder="Buscar por nombre de productor"
+            class="input-filtro"
+        />
+      </div>
+
       <div class="grid gap-4">
         <div
-            v-for="productor in productores"
+            v-for="productor in productoresFiltrados"
             :key="productor.id"
             class="card-productor p-4 border rounded-lg shadow-lg flex flex-col"
         >
@@ -70,11 +80,21 @@ export default {
   data() {
     return {
       productores: [],
+      filtroNombre: "",
       imagenDialogVisible: false,
       imagenSeleccionada: "",
       imagenDefault: "https://via.placeholder.com/128?text=Sin+imagen",
-      idDistribuidor: "1005" // ⚠️ Este es el ID del distribuidor, se reemplazará luego con el autenticado
+      idDistribuidor: "1005"
     };
+  },
+  computed: {
+    productoresFiltrados() {
+      if (!this.filtroNombre) return this.productores;
+      const filtro = this.filtroNombre.toLowerCase();
+      return this.productores.filter(p =>
+          p.nombre.toLowerCase().includes(filtro)
+      );
+    },
   },
   methods: {
     async fetchProductores() {
@@ -107,11 +127,9 @@ export default {
       };
 
       try {
-        // 1. Obtener los contactos actuales del distribuidor
         const response = await ContactoService.findByDistribuidor(nuevoContacto.idDistribuidor);
         const contactosExistentes = response.data || [];
 
-        // 2. Revisar si ya existe contacto con mismo productor y distribuidor
         const existe = contactosExistentes.some(
             c => c.idProductor === nuevoContacto.idProductor && c.idDistribuidor === nuevoContacto.idDistribuidor
         );
@@ -121,7 +139,6 @@ export default {
           return;
         }
 
-        // 3. Crear nuevo contacto si no existe duplicado
         const createResponse = await ContactoService.create(nuevoContacto);
         console.log("Contacto creado:", createResponse.data);
         alert("¡Contacto creado exitosamente!");
@@ -141,7 +158,6 @@ export default {
 </script>
 
 <style scoped>
-/* Todos los estilos permanecen igual, ya estaban bien definidos */
 .fondo-morado {
   background-color: #572364;
   min-height: 100vh;
@@ -170,6 +186,15 @@ export default {
   text-align: center;
   margin-bottom: 2rem;
   color: #6a0dad;
+}
+
+.input-filtro {
+  padding: 0.5rem 1rem;
+  width: 100%;
+  max-width: 400px;
+  font-size: 1rem;
+  border: 2px solid #6a0dad;
+  border-radius: 8px;
 }
 
 .grid {
@@ -216,8 +241,6 @@ export default {
   color: #333;
   flex: 1;
   overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-word;
 }
 
 .info-productor h2 {
