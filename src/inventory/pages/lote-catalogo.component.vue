@@ -10,7 +10,12 @@
         <pv-input-number v-model="filtro.pesoMax" placeholder="Peso máximo (kg)" :min="0" inputId="pesoMax" showButtons class="filtro-input" />
         <pv-input-text v-model="filtro.calidad" placeholder="Buscar por calidad" inputId="calidad" class="filtro-input" />
         <pv-input-text v-model="filtro.tipo" placeholder="Buscar por tipo" inputId="tipo" class="filtro-input" />
-        <pv-checkbox v-model="filtroPorPromedio" binary inputId="filtroPromedio" label="Solo lotes con promedio ≥ 4" class="filtro-input" />
+        <div class="filtro-checkbox">
+          <pv-checkbox v-model="filtroPorPromedio" binary inputId="filtroPromedio" class="mr-2" />
+          <label for="filtroPromedio" style="color: black; font-weight: 500; cursor: pointer;">
+            Mostrar lotes con calificación mayor o igual a 4
+          </label>
+        </div>
       </div>
 
       <div class="grid gap-4">
@@ -384,4 +389,6 @@ export default {
     max-width: calc(33.33% - 1rem);
   }
 }
+
+
 </style>
