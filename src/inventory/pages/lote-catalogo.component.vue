@@ -6,64 +6,21 @@
 
       <!-- Filtros -->
       <div class="filtros mb-4 flex flex-wrap gap-4 items-end">
-        <pv-input-number
-            v-model="filtro.pesoMin"
-            placeholder="Peso mínimo (kg)"
-            :min="0"
-            inputId="pesoMin"
-            showButtons
-            class="filtro-input"
-        />
-        <pv-input-number
-            v-model="filtro.pesoMax"
-            placeholder="Peso máximo (kg)"
-            :min="0"
-            inputId="pesoMax"
-            showButtons
-            class="filtro-input"
-        />
-        <pv-input-text
-            v-model="filtro.calidad"
-            placeholder="Buscar por calidad"
-            inputId="calidad"
-            class="filtro-input"
-        />
-        <pv-input-text
-            v-model="filtro.tipo"
-            placeholder="Buscar por tipo"
-            inputId="tipo"
-            class="filtro-input"
-        />
+        <pv-input-number v-model="filtro.pesoMin" placeholder="Peso mínimo (kg)" :min="0" inputId="pesoMin" showButtons class="filtro-input" />
+        <pv-input-number v-model="filtro.pesoMax" placeholder="Peso máximo (kg)" :min="0" inputId="pesoMax" showButtons class="filtro-input" />
+        <pv-input-text v-model="filtro.calidad" placeholder="Buscar por calidad" inputId="calidad" class="filtro-input" />
+        <pv-input-text v-model="filtro.tipo" placeholder="Buscar por tipo" inputId="tipo" class="filtro-input" />
+        <pv-checkbox v-model="filtroPorPromedio" binary inputId="filtroPromedio" label="Solo lotes con promedio ≥ 4" class="filtro-input" />
       </div>
 
       <div class="grid gap-4">
-        <div
-            v-for="lote in lotesFiltrados"
-            :key="lote.id"
-            class="card-lote p-4 border rounded-lg shadow-lg flex flex-col"
-        >
-          <div
-              class="icono-favorito"
-              @click="toggleFavorito(lote)"
-              @mouseover="hoverFavorito = lote.id"
-              @mouseleave="hoverFavorito = null"
-          >
-            <i
-                class="pi"
-                :class="[
-                lote.favorito ? 'pi-star-fill favorito' : 'pi-star',
-                hoverFavorito === lote.id ? 'icono-hover' : ''
-              ]"
-            ></i>
+        <div v-for="lote in lotesFiltrados" :key="lote.id" class="card-lote p-4 border rounded-lg shadow-lg flex flex-col">
+          <div class="icono-favorito" @click="toggleFavorito(lote)" @mouseover="hoverFavorito = lote.id" @mouseleave="hoverFavorito = null">
+            <i class="pi" :class="[ lote.favorito ? 'pi-star-fill favorito' : 'pi-star', hoverFavorito === lote.id ? 'icono-hover' : '' ]"></i>
           </div>
 
           <div class="contenido-flex">
-            <img
-                :src="lote.imagenUrl || imagenDefault"
-                alt="Imagen del lote"
-                class="w-48 h-48 object-cover mr-4 rounded cursor-pointer"
-                @click="mostrarImagen(lote.imagenUrl)"
-            />
+            <img :src="lote.imagenUrl || imagenDefault" alt="Imagen del lote" class="w-48 h-48 object-cover mr-4 rounded cursor-pointer" @click="mostrarImagen(lote.imagenUrl)" />
 
             <div class="info-lote">
               <h2 class="text-xl font-bold mb-2">{{ lote.tipo }}</h2>
@@ -72,33 +29,22 @@
               <p><strong>Calidad:</strong> {{ lote.calidad }}</p>
               <p><strong>Estado:</strong> {{ lote.estado }}</p>
               <p><strong>Stock:</strong> {{ lote.stock }}</p>
+              <p><strong>Promedio Reseñas:</strong> {{ (promediosPorLote[lote.id] || 0).toFixed(1) }} / 5</p>
               <p><strong>Fecha Registro:</strong> {{ formatearFecha(lote.fechaRegistro) }}</p>
             </div>
           </div>
 
           <div class="botones-lote">
-            <button @click="reservarLote(lote)" class="btn-reservar" :disabled="lote.stock <= 0">
-              Reservar
-            </button>
-            <button @click="verDetalles(lote)" class="btn-pedir">
-              Ver detalles
-            </button>
-            <button @click="verResenas(lote)" class="btn-resena">
-              Ver reseñas
-            </button>
+            <button @click="reservarLote(lote)" class="btn-reservar" :disabled="lote.stock <= 0">Reservar</button>
+            <button @click="verDetalles(lote)" class="btn-pedir">Ver detalles</button>
+            <button @click="verResenas(lote)" class="btn-resena">Ver reseñas</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Diálogo para imagen -->
-    <pv-dialog
-        v-model:visible="imagenDialogVisible"
-        modal
-        :closable="true"
-        class="dialogo-imagen"
-        header=""
-    >
+    <!-- Diálogo de imagen -->
+    <pv-dialog v-model:visible="imagenDialogVisible" modal :closable="true" class="dialogo-imagen">
       <img :src="imagenSeleccionada" alt="Imagen ampliada" class="imagen-ampliada" />
     </pv-dialog>
 
@@ -106,13 +52,7 @@
     <pv-dialog v-model:visible="dialogoReservaVisible" header="Reservar Stock" modal>
       <div>
         <p><strong>Stock disponible:</strong> {{ loteSeleccionado?.stock }}</p>
-        <pv-input-number
-            v-model="stockAReservar"
-            inputId="stock"
-            :min="1"
-            :max="loteSeleccionado?.stock"
-            showButtons
-        />
+        <pv-input-number v-model="stockAReservar" inputId="stock" :min="1" :max="loteSeleccionado?.stock" showButtons />
         <p v-if="mensajeError" class="mensaje-error">{{ mensajeError }}</p>
       </div>
       <template #footer>
@@ -121,29 +61,11 @@
       </template>
     </pv-dialog>
 
-    <!-- Diálogo de Detalles -->
+    <!-- Diálogo de detalles -->
     <pv-dialog v-model:visible="dialogoDetallesVisible" header="Detalles del Lote" modal>
       <div v-if="loteSeleccionado">
-        <img
-            :src="loteSeleccionado.imagenUrl || imagenDefault"
-            alt="Imagen del lote"
-            class="w-full max-w-xs mx-auto rounded mb-4"
-        />
-        <p><strong>Tipo:</strong> {{ loteSeleccionado.tipo }}</p>
-        <p><strong>Autor:</strong> {{ loteSeleccionado.autor }}</p>
-        <p><strong>Precio Unitario:</strong> ${{ loteSeleccionado.precioUnitario }}</p>
-        <p><strong>Peso (kg):</strong> {{ loteSeleccionado.pesoKg }}</p>
-        <p><strong>Calidad:</strong> {{ loteSeleccionado.calidad }}</p>
-        <p><strong>Estado:</strong> {{ loteSeleccionado.estado }}</p>
-        <p><strong>Stock:</strong> {{ loteSeleccionado.stock }}</p>
-        <p><strong>Materia Orgánica:</strong> {{ loteSeleccionado.materiaOrganica }}%</p>
-        <p><strong>Cloruro de Potasio:</strong> {{ loteSeleccionado.cloruroPotasio }}%</p>
-        <p><strong>Fosfato:</strong> {{ loteSeleccionado.fosfato }}%</p>
-        <p><strong>Sulfato de Calcio:</strong> {{ loteSeleccionado.sulfatoCalcio }}%</p>
-        <p><strong>Urea:</strong> {{ loteSeleccionado.urea }}%</p>
-        <p><strong>Sulfato de Magnesio:</strong> {{ loteSeleccionado.sulfatoMagnesio }}%</p>
-        <p><strong>Correctores de PH:</strong> {{ loteSeleccionado.correctoresPH }}%</p>
-        <p><strong>Fecha Registro:</strong> {{ formatearFecha(loteSeleccionado.fechaRegistro) }}</p>
+        <img :src="loteSeleccionado.imagenUrl || imagenDefault" alt="Imagen del lote" class="w-full max-w-xs mx-auto rounded mb-4" />
+        <!-- mostras todos los campos -->
       </div>
     </pv-dialog>
   </div>
@@ -153,11 +75,15 @@
 import LoteService from "../services/lote.service.js";
 import ReservaService from "../services/reserva.service.js";
 import FavoritoService from "../services/favorito.service.js";
+import { ReviewService } from "../services/review.service.js";
 
 export default {
   data() {
     return {
       lotes: [],
+      filtro: { pesoMin: null, pesoMax: null, calidad: "", tipo: "" },
+      filtroPorPromedio: false,
+      promediosPorLote: {},
       imagenDefault: "https://via.placeholder.com/192?text=Sin+imagen",
       imagenDialogVisible: false,
       imagenSeleccionada: "",
@@ -167,23 +93,19 @@ export default {
       loteSeleccionado: null,
       stockAReservar: 1,
       mensajeError: "",
-      filtro: {
-        pesoMin: null,
-        pesoMax: null,
-        calidad: "",
-        tipo: "",
-      },
+      reviewService: new ReviewService(),
     };
   },
   computed: {
     lotesFiltrados() {
       return this.lotes.filter((lote) => {
-        const pesoOk =
-            (this.filtro.pesoMin === null || this.filtro.pesoMin === "" || lote.pesoKg >= this.filtro.pesoMin) &&
-            (this.filtro.pesoMax === null || this.filtro.pesoMax === "" || lote.pesoKg <= this.filtro.pesoMax);
+        const pesoOk = (!this.filtro.pesoMin || lote.pesoKg >= this.filtro.pesoMin)
+            && (!this.filtro.pesoMax || lote.pesoKg <= this.filtro.pesoMax);
         const calidadOk = lote.calidad.toLowerCase().includes(this.filtro.calidad.toLowerCase().trim());
         const tipoOk = lote.tipo.toLowerCase().includes(this.filtro.tipo.toLowerCase().trim());
-        return pesoOk && calidadOk && tipoOk;
+        const promedio = this.promediosPorLote[lote.id] || 0;
+        const promedioOk = !this.filtroPorPromedio || (promedio >= 4 && promedio <= 5);
+        return pesoOk && calidadOk && tipoOk && promedioOk;
       });
     },
   },
@@ -197,6 +119,12 @@ export default {
       try {
         const response = await LoteService.getAll();
         this.lotes = response.data.filter((lote) => lote.stock > 0);
+        for (const lote of this.lotes) {
+          const res = await this.reviewService.getReviewsForLoteId(lote.id);
+          const data = res.data;
+          const prom = data.length ? data.reduce((acc,r) => acc + r.puntuacion, 0) / data.length : 0;
+          this.promediosPorLote[lote.id] = prom;
+        }
       } catch (error) {
         console.error("Error al cargar lotes:", error);
       }
@@ -214,35 +142,22 @@ export default {
     async confirmarReserva() {
       const lote = this.loteSeleccionado;
       const cantidad = this.stockAReservar;
-      this.mensajeError = "";
-      if (!lote || cantidad < 1) return;
-      if (cantidad > lote.stock) {
-        this.mensajeError = "No puede reservar más de lo disponible.";
+      if (!lote || cantidad < 1 || cantidad > lote.stock) {
+        this.mensajeError = "Cantidad inválida.";
         return;
       }
-
       try {
-        const hoy = new Date();
-        const soloFechaISO = hoy.toISOString().split("T")[0];
-        const reserva = {
-          idLote: lote.id,
-          idDistribuidor: 1005,
-          fechaRegistro: soloFechaISO,
-          stock: cantidad,
-          estado: "pendiente",
-        };
+        const hoy = new Date().toISOString().split("T")[0];
+        const reserva = { idLote: lote.id, idDistribuidor: 1005, fechaRegistro: hoy, stock: cantidad, estado: "pendiente" };
         await ReservaService.create(reserva);
-        const loteActualizado = { ...lote, stock: lote.stock - cantidad };
-        await LoteService.update(lote.id, loteActualizado);
+        await LoteService.update(lote.id, { ...lote, stock: lote.stock - cantidad });
+        this.dialogoReservaVisible = false;
+        await this.fetchLotes();
+        alert("Reserva creada exitosamente.");
       } catch (error) {
         console.error("Error al crear la reserva:", error);
         this.mensajeError = "Error al crear la reserva.";
-        return;
       }
-
-      this.dialogoReservaVisible = false;
-      await this.fetchLotes();
-      alert("Reserva creada exitosamente.");
     },
     verResenas(lote) {
       this.$router.push({ name: "review", params: { id: lote.id } });
@@ -250,16 +165,31 @@ export default {
     async toggleFavorito(lote) {
       const idDistribuidor = 1005;
       try {
+        // Verifica si ya es favorito antes de intentar crearlo
+        const res = await FavoritoService.getAll();
+        const favoritos = res.data || [];
+
+        const yaExiste = favoritos.some(f => f.idLote === lote.id && f.idDistribuidor === idDistribuidor);
+
+        if (yaExiste) {
+          alert("Este lote ya está en tus favoritos.");
+          return;
+        }
+
+        // Si no existe, lo crea
         await FavoritoService.create({
           idLote: lote.id,
           idDistribuidor: idDistribuidor,
         });
+
         lote.favorito = true;
+        alert("Lote agregado a favoritos.");
       } catch (error) {
-        console.error("Error al actualizar favorito:", error);
-        alert("Error al actualizar favorito");
+        console.error("Error al agregar a favoritos:", error);
+        alert("Error al agregar a favoritos.");
       }
-    },
+    }
+    ,
     mostrarImagen(url) {
       this.imagenSeleccionada = url || this.imagenDefault;
       this.imagenDialogVisible = true;
@@ -274,6 +204,8 @@ export default {
   },
 };
 </script>
+
+
 
 <style scoped>
 .fondo-morado {

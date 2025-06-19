@@ -40,19 +40,19 @@
     },
     {
       "id": "85d0",
-      "puntuacion": 55,
+      "puntuacion": 5,
       "comentario": "ghfgf",
       "loteId": "2"
     },
     {
       "id": "35c4",
-      "puntuacion": 10,
+      "puntuacion": 5,
       "comentario": "Productor que cumple con el tiempo y calidad del producto",
       "loteId": "2"
     },
     {
       "id": "e98f",
-      "puntuacion": 5000,
+      "puntuacion": 5,
       "comentario": "Melina ya funciona!!!",
       "loteId": "2"
     },
@@ -73,6 +73,12 @@
       "puntuacion": 1,
       "comentario": "Muy malo en el pedido",
       "loteId": "2"
+    },
+    {
+      "puntuacion": 4,
+      "comentario": "Buen Lote",
+      "loteId": "6",
+      "id": "rTYEYHM"
     }
   ],
   "reservas": [
@@ -178,17 +184,7 @@
     {
       "idLote": "2",
       "idDistribuidor": 1005,
-      "id": "7"
-    },
-    {
-      "idLote": "5",
-      "idDistribuidor": 1005,
-      "id": "8"
-    },
-    {
-      "idLote": "6",
-      "idDistribuidor": 1005,
-      "id": "9"
+      "id": 1
     }
   ],
   "lotes": [
