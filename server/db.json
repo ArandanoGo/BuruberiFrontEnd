@@ -512,6 +512,15 @@
       "destinatarioNombre": "Laura Martínez",
       "contenido": "Buenos dias señorita Laura, me gustaria ponerme en contacto contigo para poder realizar el pedido de lotes por favor",
       "fechaEnvio": "2025-06-14T22:13:53.315Z"
+    },
+    {
+      "id": "1750311791679",
+      "remitenteId": "10005",
+      "remitenteNombre": "Angelo",
+      "destinatarioId": "1005",
+      "destinatarioNombre": "Gustavo",
+      "contenido": "HOLa",
+      "fechaEnvio": "2025-06-19T05:43:11.679Z"
     }
   ]
 }
