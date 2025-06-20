@@ -25,11 +25,12 @@
         <!-- Panel derecho: acciones -->
         <div class="panel-derecho">
           <pv-button label="Catálogo" class="boton-accion" @click="verCatalogo" />
-          <pv-button label="Pedidos" class="boton-accion" @click="verPedidos" />
+          <pv-button label="Reservas" class="boton-accion" @click="verReserva" />
           <pv-button label="Favoritos" class="boton-accion" @click="verFavoritos" />
           <pv-button label="Mensajes" class="boton-accion" @click="verMensajes" />
           <pv-button label="Lista Productores" class="boton-accion" @click="verProductores" />
           <pv-button label="Lista Contactos" class="boton-accion" @click="verContactos" />
+          <pv-button label="Ver Pedidos" class="boton-accion" @click="verPedidos" />
           <pv-button label="Cerrar sesión" class="boton-accion cerrar-sesion" @click="cerrarSesion" />
           </div>
       </template>
@@ -65,8 +66,9 @@ export default {
     verCatalogo() {
       this.$router.push({ name: "LoteCatalogo" });
     },
-    verPedidos() {
-      this.$router.push({ name: "PedidosManagement" });
+    verReserva() {
+      this.$router.push({ name: "PedidosManagement",
+        params: { id: this.distribuidor.id } });
     },
     verFavoritos() {
       this.$router.push({ name: "FavoritoManagement" });
@@ -81,9 +83,14 @@ export default {
       this.$router.push({ name: "productores" });
     },
     verContactos() {
-      const idDistribuidor = "1005";  // aquí manual // Luego cambiar
-      this.$router.push({ name: "contactos-productor", params: { id: idDistribuidor } });
-    }
+      this.$router.push({ name: "contactos-productor", params: { id: this.distribuidor.id } });
+    },
+    verPedidos() {
+      this.$router.push({
+        name: "order-distribuidor",
+        params: { id: this.distribuidor.id }
+      });
+    },
   },
 };
 </script>

@@ -41,25 +41,33 @@
 import LoteService from "../services/lote.service.js";
 
 export default {
+  props: {
+    id: {
+      type: [String, Number],
+      required: true
+    }
+  },
   data() {
     return {
-      lotes: [],
+      lotes: []
     };
   },
   methods: {
     async fetchLotes() {
       try {
         const response = await LoteService.getAll();
-        this.lotes = response.data;
+        const idProd = Number(this.id); // ahora viene como prop
+        this.lotes = response.data.filter(lote => Number(lote.idProductor) === idProd);
       } catch (error) {
         console.error("Error al obtener los lotes:", error);
       }
     },
     registrarLote() {
-      this.$router.push({ name: "LoteCrear" });
+      this.$router.push({ name: "LoteCrear", params: { id: this.id } });
     },
     editarLote(lote) {
       console.log("Editar lote:", lote);
+      // Puedes implementar la redirección a la vista de edición aquí si la tienes
     },
     async eliminarLote(lote) {
       try {
@@ -80,7 +88,7 @@ export default {
       }
     },
     verResenas(lote) {
-      this.$router.push({name: "review-lote", params: {id: lote.id}});
+      this.$router.push({ name: "review-lote", params: { id: lote.id } });
     },
     volverAtras() {
       this.$router.go(-1);
@@ -88,7 +96,7 @@ export default {
   },
   mounted() {
     this.fetchLotes();
-  },
+  }
 };
 </script>
 

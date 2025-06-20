@@ -28,6 +28,7 @@
           <pv-button label="Historial de Lote" class="boton-accion" @click="verHistorial" />
           <pv-button label="Mensajes" class="boton-accion" @click="verMensajes" />
           <pv-button label="Código Promoción" class="boton-accion" @click="vercodigopromo" />
+          <pv-button label="Ver Pedidos" class="boton-accion" @click="verPedidos" />
           <pv-button label="Cerrar sesión" class="boton-accion cerrar-sesion" @click="cerrarSesion" />
         </div>
       </template>
@@ -61,10 +62,10 @@ export default {
   },
   methods: {
     registrarLote() {
-      this.$router.push({ name: "LoteManagement" });
+      this.$router.push({ name: "LoteManagement", params: { id: this.productor.id } });
     },
     verHistorial() {
-      this.$router.push({ name: "ReservaManagement" });
+      this.$router.push({ name: "ReservaManagement", params: { id: this.productor.id } });
     },
     irMenuDistribuidor() {
       this.$router.push({ name: "MenuDistribuidor" });
@@ -74,6 +75,10 @@ export default {
     },
     vercodigopromo() {
       this.$router.push({ name: "PromotionManagement",
+        params: { id: this.productor.id } });
+    },
+    verPedidos() {
+      this.$router.push({ name: "order-management",
         params: { id: this.productor.id } });
     },
     cerrarSesion() {

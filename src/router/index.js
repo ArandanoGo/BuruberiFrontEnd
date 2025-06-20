@@ -18,6 +18,8 @@ import ListaLotesComponent from "../lists/pages/Lista-Lotes.component.vue";
 import ListaContactosComponent from "../lists/pages/Lista-Contactos.component.vue";
 import PromotionManagementComponent from "../promotions/pages/promotion-management.component.vue";
 import ReviewProducerComponent from "../review/pages/review-producer.component.vue";
+import OrderManagementComponent from "../orders/pages/order-management.component.vue";
+import OrderDistribuidorComponent from "../orders/pages/order-distribuidor.component.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -36,25 +38,29 @@ const router = createRouter({
             component: MenuDistribuidorComponent,
         },
         {
-            path: "/lotes",
+            path: "/lotes/:id/productor",
             name: "LoteManagement",
             component: LoteManagementComponent,
+            props: true,
         },
-        { path: '/lotes/crear',
+        { path: '/lotes/crear/:id',
             name: "LoteCrear",
             component: LoteCrearComponent,
+            props: true,
         },
         { path: '/catalogo',
             name: "LoteCatalogo",
             component: LoteCatalogoComponent,
         },
-        { path: '/reserva',
+        { path: '/reserva/:id/productor',
             name: "ReservaManagement",
             component: ReservaManagementComponent,
+            props: true,
         },
-        { path: '/pedidos',
+        { path: '/pedidos/:id/distribuidor',
             name: "PedidosManagement",
             component: ReservaDistribuidorComponent,
+            props: true,
         },
         { path: '/chat',
             name: "ChatManagement",
@@ -96,6 +102,18 @@ const router = createRouter({
         { path: '/lotes/:id/Review',
             name: 'review-lote',      component: ReviewProducerComponent,
             meta: { title: 'ReviewLote' }
+        },
+        {
+            path: '/orders/:id/Productor',
+            name: 'order-management',
+            component: OrderManagementComponent,
+            props: true
+        },
+        {
+            path: '/orders/:id/Distribuidor',
+            name: 'order-distribuidor',
+            component: OrderDistribuidorComponent,
+            props: true
         },
         ]
 });

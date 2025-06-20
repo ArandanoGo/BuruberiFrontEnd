@@ -1,4 +1,22 @@
 {
+  "orders": [
+    {
+      "idDistribuidor": 1005,
+      "idLote": "2",
+      "cantidad": 80,
+      "estado": "pendiente",
+      "fechaPedido": "2025-06-20T06:38:24.361Z",
+      "id": 1
+    },
+    {
+      "idDistribuidor": 1005,
+      "idLote": "CRrdAQJ",
+      "cantidad": 15,
+      "estado": "completado",
+      "fechaPedido": "2025-06-20T07:55:22.471Z",
+      "id": 2
+    }
+  ],
   "promotions": [
     {
       "IdProductor": "10005",
@@ -88,15 +106,39 @@
       "idDistribuidor": 1,
       "fechaRegistro": "2025-06-05",
       "stock": 50,
-      "estado": "pendiente"
+      "estado": "rechazada"
     },
     {
       "idLote": "2",
       "idDistribuidor": 1005,
       "fechaRegistro": "2025-06-07",
       "stock": 80,
-      "estado": "pendiente",
+      "estado": "aceptada",
       "id": "o3B42wD"
+    },
+    {
+      "idLote": "2",
+      "idDistribuidor": 1005,
+      "fechaRegistro": "2025-06-20",
+      "stock": 150,
+      "estado": "pendiente",
+      "id": "ZG2P24w"
+    },
+    {
+      "idLote": "CRrdAQJ",
+      "idDistribuidor": 1005,
+      "fechaRegistro": "2025-06-20",
+      "stock": 20,
+      "estado": "pendiente",
+      "id": "DrH-jTC"
+    },
+    {
+      "idLote": "CRrdAQJ",
+      "idDistribuidor": 1005,
+      "fechaRegistro": "2025-06-20",
+      "stock": 15,
+      "estado": "aceptada",
+      "id": "Qjth99t"
     }
   ],
   "productores": [
@@ -200,13 +242,13 @@
       "urea": 5,
       "sulfatoMagnesio": 3,
       "correctoresPH": 2,
-      "idProductor": 102,
+      "idProductor": 10005,
       "tipo": "Compost",
       "precioUnitario": 120,
       "pesoKg": 400,
       "calidad": "Media",
       "estado": "Reservado",
-      "stock": 418,
+      "stock": 318,
       "fechaPedido": null,
       "imagenUrl": "https://www.shutterstock.com/image-photo/rabbiteye-blueberries-true-superfood-straight-260nw-2534080275.jpg",
       "favorito": false
@@ -276,6 +318,72 @@
       "stock": 30,
       "fechaPedido": null,
       "imagenUrl": "https://www.shutterstock.com/image-photo/rabbiteye-blueberries-true-superfood-straight-260nw-2534080275.jpg"
+    },
+    {
+      "autor": "Angelo",
+      "fechaRegistro": "20/06/2025",
+      "hora": "02:19",
+      "tipo": "agag",
+      "imagenUrl": "ga",
+      "precioUnitario": 12,
+      "pesoKg": 42,
+      "calidad": "42",
+      "estado": "42",
+      "stock": 42,
+      "fechaPedido": null,
+      "idProductor": 1,
+      "materiaOrganica": 42,
+      "cloruroPotasio": 42,
+      "fosfato": 42,
+      "sulfatoCalcio": 42,
+      "urea": 42,
+      "sulfatoMagnesio": 42,
+      "correctoresPH": 42,
+      "id": "RG_Yy4k"
+    },
+    {
+      "autor": "fsf",
+      "fechaRegistro": "20/06/2025",
+      "hora": "02:20",
+      "tipo": "fsfs",
+      "imagenUrl": "fsfsfs",
+      "precioUnitario": 424,
+      "pesoKg": 42,
+      "calidad": "4242",
+      "estado": "4242",
+      "stock": 42,
+      "fechaPedido": null,
+      "idProductor": 1,
+      "materiaOrganica": 42,
+      "cloruroPotasio": 42,
+      "fosfato": 4242,
+      "sulfatoCalcio": 4242,
+      "urea": 4242,
+      "sulfatoMagnesio": 4242,
+      "correctoresPH": 4242,
+      "id": "lJdoul1"
+    },
+    {
+      "autor": "Joaquin",
+      "fechaRegistro": "20/06/2025",
+      "hora": "02:27",
+      "tipo": "aga",
+      "imagenUrl": "ga",
+      "precioUnitario": 12,
+      "pesoKg": 414,
+      "calidad": "41",
+      "estado": "4114",
+      "stock": 6,
+      "fechaPedido": null,
+      "idProductor": 10005,
+      "materiaOrganica": 4114,
+      "cloruroPotasio": 41,
+      "fosfato": 41,
+      "sulfatoCalcio": 41,
+      "urea": 41,
+      "sulfatoMagnesio": 41,
+      "correctoresPH": 41,
+      "id": "CRrdAQJ"
     }
   ],
   "mensajes": [

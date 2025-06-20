@@ -1,27 +1,19 @@
 <template>
   <div class="fondo-morado">
     <div class="card-contenedor">
-
-      <!-- Flecha para volver atrás -->
       <pv-button icon="pi pi-arrow-left" class="p-button-text flecha-volver" @click="volverAtras" />
-
-      <!-- Título -->
-      <h1 class="titulo">Pedidos</h1>
+      <h1 class="titulo">Reserva</h1>
 
       <pv-data-table :value="reservas" :paginator="true" :rows="10">
         <pv-column field="id" header="ID" />
         <pv-column field="idLote" header="ID Lote" />
-
         <pv-column field="fechaRegistro" header="Fecha de Registro">
           <template #body="slotProps">
             {{ formatFecha(slotProps.data) }}
           </template>
         </pv-column>
-
         <pv-column field="stock" header="Stock" />
         <pv-column field="estado" header="Estado" />
-
-        <!-- Botón Cancelar -->
         <pv-column header="Acciones">
           <template #body="slotProps">
             <pv-button
@@ -42,6 +34,7 @@ import ReservaService from "../services/reserva.service.js";
 import LoteService from "../services/lote.service.js";
 
 export default {
+  props: ['id'], // ID del distribuidor desde la ruta
   data() {
     return {
       reservas: [],
@@ -51,7 +44,14 @@ export default {
     async fetchReservas() {
       try {
         const response = await ReservaService.getAll();
-        this.reservas = response.data;
+
+        console.log("Reservas totales recibidas:", response.data);
+        console.log("ID del distribuidor desde ruta:", this.id);
+
+        // Filtrar reservas por idDistribuidor
+        this.reservas = response.data.filter(reserva => reserva.idDistribuidor === Number(this.id));
+
+        console.log("Reservas filtradas para el distribuidor:", this.reservas);
       } catch (error) {
         console.error("Error al obtener reservas:", error);
       }
@@ -77,7 +77,7 @@ export default {
           const lote = loteResponse.data;
 
           const nuevoStock = lote.stock + reserva.stock;
-          const loteActualizado = { ...lote, stock: nuevoStock };
+          const loteActualizado = {...lote, stock: nuevoStock};
           await LoteService.update(lote.id, loteActualizado);
         }
 

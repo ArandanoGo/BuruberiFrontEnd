@@ -24,15 +24,15 @@
         <pv-column header="Acción" :exportable="false">
           <template #body="slotProps">
             <pv-button
-                label="Cambiar Estado"
-                class="p-button-sm"
-                :disabled="slotProps.data.estado === 'rechazada'"
-                @click="cambiarEstado(slotProps.data)"
+                label="Aceptar"
+                class="p-button-sm p-button-success"
+                :disabled="['aceptada', 'rechazada'].includes(slotProps.data.estado)"
+                @click="aceptarReserva(slotProps.data)"
             />
             <pv-button
                 label="Rechazar"
                 class="p-button-sm p-button-danger ml-2"
-                :disabled="slotProps.data.estado === 'rechazada'"
+                :disabled="['aceptada', 'rechazada'].includes(slotProps.data.estado)"
                 @click="rechazarReserva(slotProps.data)"
             />
           </template>
@@ -45,26 +45,52 @@
 <script>
 import ReservaService from "../services/reserva.service.js";
 import LoteService from "../services/lote.service.js";
+import OrderService from "../services/order.service.js";
 
 export default {
+  props: ['id'], // idProductor recibido desde la ruta
   data() {
     return {
       reservas: [],
-      estados: ["pendiente", "confirmada", "cancelada"],
+      lotes: [],
     };
   },
   methods: {
     async fetchReservas() {
       try {
-        const response = await ReservaService.getAll();
-        this.reservas = response.data;
+        const [reservasResponse, lotesResponse] = await Promise.all([
+          ReservaService.getAll(),
+          LoteService.getAll()
+        ]);
+
+        this.lotes = lotesResponse.data;
+
+        console.log("Lotes recibidos:", this.lotes);
+        console.log("ID productor recibido:", this.id);
+        console.log("Primer lote de ejemplo:", this.lotes[0]);
+
+        const lotesDelProductor = this.lotes.filter(lote => lote.idProductor === Number(this.id));
+
+        console.log("Lotes filtrados para el productor:", lotesDelProductor);
+
+        const idsLotesProductor = lotesDelProductor.map(lote => lote.id);
+
+        console.log("IDs de lotes del productor:", idsLotesProductor);
+
+        this.reservas = reservasResponse.data.filter(reserva => idsLotesProductor.includes(reserva.idLote));
+
+        console.log("Reservas filtradas:", this.reservas);
+
       } catch (error) {
-        console.error("Error al obtener reservas:", error);
+        console.error("Error al obtener reservas o lotes:", error);
       }
     },
+
+
     volverAtras() {
       this.$router.go(-1);
     },
+
     formatFecha(rowData) {
       if (!rowData.fechaRegistro) return "";
       const fecha = new Date(rowData.fechaRegistro);
@@ -73,39 +99,46 @@ export default {
       const anio = fecha.getFullYear();
       return `${dia}/${mes}/${anio}`;
     },
-    async cambiarEstado(reserva) {
-      if (reserva.estado === "rechazada") return;
 
-      const indexActual = this.estados.indexOf(reserva.estado);
-      const nuevoIndex = (indexActual + 1) % this.estados.length;
-      const nuevoEstado = this.estados[nuevoIndex];
+    async aceptarReserva(reserva) {
+      if (["aceptada", "rechazada"].includes(reserva.estado)) return;
 
       try {
-        const reservaActualizada = { ...reserva, estado: nuevoEstado };
+        const nuevaOrden = {
+          idDistribuidor: reserva.idDistribuidor,
+          idLote: reserva.idLote,
+          cantidad: reserva.stock,
+          estado: "pendiente",
+          fechaPedido: new Date().toISOString(),
+        };
+        await OrderService.create(nuevaOrden);
+
+        const reservaActualizada = {...reserva, estado: "aceptada"};
         await ReservaService.update(reserva.id, reservaActualizada);
-        reserva.estado = nuevoEstado;
-        alert(`Estado cambiado a "${nuevoEstado}" para la reserva ID ${reserva.id}`);
+
+        reserva.estado = "aceptada";
+
+        alert(`Reserva ID ${reserva.id} aceptada y orden creada.`);
       } catch (error) {
-        console.error("Error al actualizar estado:", error);
-        alert("Error al cambiar el estado.");
+        console.error("Error al aceptar reserva:", error);
+        alert("Ocurrió un error al aceptar la reserva.");
       }
     },
+
     async rechazarReserva(reserva) {
-      if (reserva.estado === "rechazada") return;
+      if (["aceptada", "rechazada"].includes(reserva.estado)) return;
 
       try {
-        // Obtener lote original
         const loteResponse = await LoteService.getById(reserva.idLote);
         const lote = loteResponse.data;
 
-        // Actualizar stock del lote
         const nuevoStock = lote.stock + reserva.stock;
-        const loteActualizado = { ...lote, stock: nuevoStock };
+        const loteActualizado = {...lote, stock: nuevoStock};
         await LoteService.update(lote.id, loteActualizado);
 
-        // Cambiar estado de la reserva a 'rechazada'
-        const reservaActualizada = { ...reserva, estado: "rechazada" };
+        const reservaActualizada = {...reserva, estado: "rechazada"};
         await ReservaService.update(reserva.id, reservaActualizada);
+
         reserva.estado = "rechazada";
 
         alert(`Reserva ID ${reserva.id} rechazada y stock devuelto al lote.`);

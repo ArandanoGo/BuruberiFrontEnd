@@ -93,7 +93,7 @@ export default {
         estado: '',
         stock: null,
         fechaPedido: null,
-        idProductor: 1,
+        idProductor: null,  // se asignará desde la ruta
 
         // insumos
         materiaOrganica: null,
@@ -116,6 +116,14 @@ export default {
     };
   },
   created() {
+    const idProductor = this.$route.params.id;
+    if (!idProductor) {
+      alert("No se proporcionó el ID del productor en la ruta.");
+      this.$router.back();
+      return;
+    }
+
+    this.lote.idProductor = Number(idProductor);
     this.generarFechaYHora();
   },
   methods: {
@@ -134,7 +142,8 @@ export default {
     async guardar() {
       try {
         await LoteService.create(this.lote);
-        this.$router.push('/lotes');
+        // Redirigir al listado de lotes del productor actual
+        this.$router.push({name: 'LoteManagement', params: {id: this.lote.idProductor}});
       } catch (error) {
         console.error("Error guardando lote:", error);
         alert("Error al guardar el lote. Intenta nuevamente.");
