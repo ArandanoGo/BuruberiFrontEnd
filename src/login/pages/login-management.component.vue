@@ -40,6 +40,8 @@
 
 <script>
 import UserService from "../services/user.service.js";
+import ProductorService from '../services/productor.service.js';
+import DistribuidorService from '../services/distribuidor.service.js';
 import { UserEntity } from "../model/user.entity.js";
 
 export default {
@@ -75,16 +77,34 @@ export default {
 
         const usuario = new UserEntity(usuarioEncontrado);
 
-        switch (usuario.rol) {
-          case "1":
-            this.$router.push({ name: "MenuProductor", params: { id: usuario.id } });
-            break;
-          case "2":
-            this.$router.push({ name: "MenuDistribuidor", params: { id: usuario.id } });
-            break;
-          default:
-            alert("Rol de usuario no reconocido");
+        if (usuario.rol === "1") {
+          // Es productor: buscar productor que tenga userid == usuario.id
+          const productoresResp = await ProductorService.getAll();
+          const productor = productoresResp.data.find(p => p.userid === usuario.id);
+
+          if (!productor) {
+            alert("No se encontró el productor asociado.");
+            return;
+          }
+
+          this.$router.push({ name: "MenuProductor", params: { id: productor.id } });
+
+        } else if (usuario.rol === "2") {
+          // Es distribuidor: buscar distribuidor que tenga userid == usuario.id
+          const distribuidoresResp = await DistribuidorService.getAll();
+          const distribuidor = distribuidoresResp.data.find(d => d.userid === usuario.id);
+
+          if (!distribuidor) {
+            alert("No se encontró el distribuidor asociado.");
+            return;
+          }
+
+          this.$router.push({ name: "MenuDistribuidor", params: { id: distribuidor.id } });
+
+        } else {
+          alert("Rol de usuario no reconocido");
         }
+
       } catch (error) {
         console.error("Error al iniciar sesión:", error);
         alert("Ocurrió un error durante el inicio de sesión.");
