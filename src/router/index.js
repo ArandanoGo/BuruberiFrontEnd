@@ -29,10 +29,11 @@ const router = createRouter({
         { path: '/notfound',         name: 'notfound',  component: PageNotFoundComponent,    meta: { title: 'Página no encontrada' } },
         { path: '/:pathMatch(.*)*',  redirect: '/notfound' },
         {
-            path: "/MenuP",
+            path: "/MenuP/:id/productor",
             name: "MenuProductor",
             component: MenuProductorComponent,
-            meta: { title: "Menú Productor" }
+            meta: { title: "Menú Productor" },
+            props: true,
         },
         {
             path: "/MenuD",

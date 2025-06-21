@@ -85,15 +85,17 @@ export default {
 
     async registrarProductor() {
       try {
-        // Clonar el objeto y eliminar el campo `id` si está null o undefined
         const { id, ...productorFinal } = this.productor;
-
         productorFinal.fechaRegistro = new Date().toISOString();
 
         const response = await ProductorService.create(productorFinal);
 
+        // El id del productor creado viene en response.data.id
+        const productorIdCreado = response.data.id;
+
         alert("¡Registro exitoso!");
-        this.$router.push({ name: "MenuProductor", params: { id: this.userIdCreado } });
+        // Ahora rediriges con el id correcto del productor creado
+        this.$router.push({ name: "MenuProductor", params: { id: productorIdCreado } });
 
       } catch (error) {
         console.error("Error al registrar productor:", error);

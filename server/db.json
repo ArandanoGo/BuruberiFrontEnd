@@ -17,6 +17,30 @@
       "username": "jjjj",
       "password": "jjjjj",
       "rol": "1"
+    },
+    {
+      "id": "9555",
+      "username": "Angelo",
+      "password": "NGAGAGA",
+      "rol": "1"
+    },
+    {
+      "id": "4912",
+      "username": "gag",
+      "password": "gaga",
+      "rol": "1"
+    },
+    {
+      "id": "7dd0",
+      "username": "fafa",
+      "password": "fafaaf",
+      "rol": "1"
+    },
+    {
+      "id": "b5b2",
+      "username": "fafa",
+      "password": "fawewr",
+      "rol": "1"
     }
   ],
   "orders": [
@@ -263,6 +287,54 @@
       "pais": "hfhf",
       "fechaRegistro": "2025-06-21T14:38:50.365Z",
       "url": "hfhf"
+    },
+    {
+      "id": "a9af",
+      "userid": "9555",
+      "nombre": "AGA",
+      "telefono": "GAGA",
+      "email": "GAGA",
+      "direccion": "GAGA",
+      "ciudad": "GAGA",
+      "pais": "ADA",
+      "fechaRegistro": "2025-06-21T14:43:35.420Z",
+      "url": "GAF"
+    },
+    {
+      "id": "42b9",
+      "userid": "4912",
+      "nombre": "gag",
+      "telefono": "agga",
+      "email": "gag",
+      "direccion": "afar",
+      "ciudad": "ere",
+      "pais": "wrsz",
+      "fechaRegistro": "2025-06-21T14:44:13.052Z",
+      "url": "asda"
+    },
+    {
+      "id": "e8b9",
+      "userid": "7dd0",
+      "nombre": "fafa",
+      "telefono": "fafa",
+      "email": "faf",
+      "direccion": "afafa",
+      "ciudad": "fafa",
+      "pais": "fafa",
+      "fechaRegistro": "2025-06-21T14:48:06.412Z",
+      "url": "fafafa"
+    },
+    {
+      "id": "7b26",
+      "userid": "b5b2",
+      "nombre": "rwrw",
+      "telefono": "fagfa",
+      "email": "gz",
+      "direccion": "gagag",
+      "ciudad": "agaf",
+      "pais": "awrw",
+      "fechaRegistro": "2025-06-21T14:49:44.828Z",
+      "url": "afaag"
     }
   ],
   "distribuidores": [

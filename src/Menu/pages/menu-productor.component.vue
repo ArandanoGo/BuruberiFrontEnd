@@ -42,6 +42,7 @@ import ProductorService from "../services/productor.service.js";
 
 export default {
   name: "MenuProductor",
+  props: ['id'], // Recibe el id desde la ruta
   data() {
     return {
       productor: null,
@@ -50,8 +51,13 @@ export default {
     };
   },
   async mounted() {
+    if (!this.id) {
+      this.error = "No se recibió un ID válido.";
+      this.cargando = false;
+      return;
+    }
     try {
-      const response = await ProductorService.getById("10005"); // Cambia el ID si necesitas
+      const response = await ProductorService.getById(this.id);
       this.productor = response.data;
     } catch (e) {
       this.error = "No se pudo cargar la información del productor";
@@ -74,12 +80,10 @@ export default {
       this.$router.push({ name: "ChatManagement2" });
     },
     vercodigopromo() {
-      this.$router.push({ name: "PromotionManagement",
-        params: { id: this.productor.id } });
+      this.$router.push({ name: "PromotionManagement", params: { id: this.productor.id } });
     },
     verPedidos() {
-      this.$router.push({ name: "order-management",
-        params: { id: this.productor.id } });
+      this.$router.push({ name: "order-management", params: { id: this.productor.id } });
     },
     cerrarSesion() {
       this.$router.push("/home");
@@ -87,6 +91,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 .fondo-morado {
