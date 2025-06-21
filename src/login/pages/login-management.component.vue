@@ -78,9 +78,11 @@ export default {
         const usuario = new UserEntity(usuarioEncontrado);
 
         if (usuario.rol === "1") {
-          // Es productor: buscar productor que tenga userid == usuario.id
+          // Es productor
           const productoresResp = await ProductorService.getAll();
-          const productor = productoresResp.data.find(p => p.userid === usuario.id);
+          console.log("Productores desde backend:", productoresResp.data);
+
+          const productor = productoresResp.data.find(p => Number(p.userid) === Number(usuario.id));
 
           if (!productor) {
             alert("No se encontró el productor asociado.");
@@ -90,9 +92,11 @@ export default {
           this.$router.push({ name: "MenuProductor", params: { id: productor.id } });
 
         } else if (usuario.rol === "2") {
-          // Es distribuidor: buscar distribuidor que tenga userid == usuario.id
+          // Es distribuidor
           const distribuidoresResp = await DistribuidorService.getAll();
-          const distribuidor = distribuidoresResp.data.find(d => d.userid === usuario.id);
+          console.log("Distribuidores desde backend:", distribuidoresResp.data);
+
+          const distribuidor = distribuidoresResp.data.find(d => Number(d.userid) === Number(usuario.id));
 
           if (!distribuidor) {
             alert("No se encontró el distribuidor asociado.");
@@ -127,6 +131,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 .fondo-morado {
