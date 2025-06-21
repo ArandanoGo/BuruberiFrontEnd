@@ -4,13 +4,13 @@
       "username": "Angelo",
       "password": "angelo12",
       "rol": "1",
-      "id": 1
+      "id": "1"
     },
     {
       "username": "Gustavo",
       "password": "gustavo12",
       "rol": "2",
-      "id": 2
+      "id": "2"
     }
   ],
   "orders": [
@@ -20,7 +20,7 @@
       "cantidad": 150,
       "estado": "pendiente",
       "fechaPedido": "2025-06-21T17:53:20.052Z",
-      "id": 1
+      "id": "1"
     }
   ],
   "promotions": [
@@ -29,14 +29,14 @@
       "codigo": "PROMO-FGLCCG",
       "descuento": 60,
       "fecha_caducidad": "2025-07-03",
-      "id": 1
+      "id": "1"
     }
   ],
   "contactos": [
     {
       "idDistribuidor": "5",
       "idProductor": 1,
-      "id": 1
+      "id": "1"
     }
   ],
   "reviews": [
@@ -44,7 +44,7 @@
       "puntuacion": 5,
       "comentario": "Muy Buena calidad de las mejores de Perú",
       "loteId": "1",
-      "id": 1
+      "id": "1"
     }
   ],
   "reservas": [
@@ -54,7 +54,15 @@
       "fechaRegistro": "2025-06-21",
       "stock": 150,
       "estado": "aceptada",
-      "id": 1
+      "id": "1"
+    },
+    {
+      "id": "217b",
+      "idLote": "1",
+      "idDistribuidor": "5",
+      "fechaRegistro": "2025-06-21",
+      "stock": 250,
+      "estado": "rechazada"
     }
   ],
   "productores": [
@@ -68,7 +76,7 @@
       "pais": "Peru",
       "fechaRegistro": "2025-06-21T17:33:54.009Z",
       "url": "https://raw.githubusercontent.com/VillaSystem/grupo2-project-report/refs/heads/master/images/Angelo.png",
-      "id": 1
+      "id": "1"
     }
   ],
   "distribuidores": [
@@ -82,14 +90,19 @@
       "pais": "Peru",
       "fechaRegistro": "2025-06-21T17:35:12.251Z",
       "url": "https://raw.githubusercontent.com/VillaSystem/grupo2-project-report/refs/heads/master/images/gustavo.png",
-      "id": 5
+      "id": "5"
     }
   ],
   "favoritos": [
     {
       "idLote": 1,
       "idDistribuidor": "5",
-      "id": 1
+      "id": "1"
+    },
+    {
+      "id": "c6cb",
+      "idLote": "7e3b",
+      "idDistribuidor": "5"
     }
   ],
   "lotes": [
@@ -113,7 +126,29 @@
       "urea": 14,
       "sulfatoMagnesio": 14,
       "correctoresPH": 14,
-      "id": 1
+      "id": "1"
+    },
+    {
+      "id": "7e3b",
+      "autor": "Angelo",
+      "fechaRegistro": "21/06/2025",
+      "hora": "14:01",
+      "tipo": "T2",
+      "imagenUrl": "https://as01.epimg.net/deporteyvida/imagenes/2018/08/21/portada/1534862667_916746_1534862934_noticia_normal.jpg",
+      "precioUnitario": 160,
+      "pesoKg": 180,
+      "calidad": "Media",
+      "estado": "Disponible",
+      "stock": 600,
+      "fechaPedido": null,
+      "idProductor": "1",
+      "materiaOrganica": 15,
+      "cloruroPotasio": 15,
+      "fosfato": 15,
+      "sulfatoCalcio": 15,
+      "urea": 15,
+      "sulfatoMagnesio": 15,
+      "correctoresPH": 15
     }
   ],
   "mensajes": [

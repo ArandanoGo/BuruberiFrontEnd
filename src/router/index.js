@@ -93,7 +93,7 @@ const router = createRouter({
             props: true,
         },
         {
-            path: '/lotes/:id/productor',
+            path: '/ListaLotes/:id/productor',
             name: 'lotes-productor',
             component: ListaLotesComponent,
             props: true

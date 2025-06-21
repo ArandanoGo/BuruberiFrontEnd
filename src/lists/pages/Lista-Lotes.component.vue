@@ -37,6 +37,12 @@
 import LoteService from "../services/lote.service.js";
 
 export default {
+  props: {
+    id: {
+      type: [String, Number],
+      required: true
+    }
+  },
   data() {
     return {
       lotes: [],
@@ -52,8 +58,7 @@ export default {
     async fetchLotesPorProductor(idProductor) {
       try {
         const response = await LoteService.getAll();
-        // Filtras los lotes que correspondan al productor, sin filtro extra de stock
-        this.lotes = response.data.filter(lote => lote.idProductor === idProductor);
+        this.lotes = response.data.filter(lote => lote.idProductor === String(idProductor));
       } catch (error) {
         console.error("Error al cargar lotes:", error);
       }
@@ -63,8 +68,7 @@ export default {
     },
   },
   mounted() {
-    const idProductor = this.$route.params.id;
-    this.fetchLotesPorProductor(Number(idProductor));
+    this.fetchLotesPorProductor(this.id);
   },
 };
 </script>

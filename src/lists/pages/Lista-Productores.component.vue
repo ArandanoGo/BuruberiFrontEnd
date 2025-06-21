@@ -158,6 +158,7 @@ export default {
     verLotes(idProductor) {
       this.$router.push({ name: "lotes-productor", params: { id: idProductor } });
     }
+
   },
   mounted() {
     this.fetchProductores();
