@@ -49,21 +49,26 @@ export default {
         console.log("Lotes recibidos:", loteResp.data);
         console.log("ID del productor:", idProductor);
 
-        const lotesDel = loteResp.data.filter(lote => Number(lote.idProductor) === idProductor);
+        const lotesDel = loteResp.data.filter(
+            lote => lote.idProductor?.toString() === idProductor.toString()
+        );
         console.log("Lotes del productor:", lotesDel);
 
-        const idsLote = lotesDel.map(l => Number(l.id));
+        const idsLote = lotesDel.map(l => l.id?.toString());
         console.log("IDs de lotes del productor:", idsLote);
 
         const ordenResp = await OrderService.getAll();
         console.log("Órdenes totales:", ordenResp.data);
 
-        this.ordenes = ordenResp.data.filter(o => idsLote.includes(Number(o.idLote)));
+        this.ordenes = ordenResp.data.filter(
+            o => idsLote.includes(o.idLote?.toString())
+        );
         console.log("Órdenes filtradas:", this.ordenes);
       } catch (err) {
         console.error("Error al filtrar órdenes por productor:", err);
       }
-    },
+    }
+    ,
     volverAtras() {
       this.$router.go(-1);
     },
@@ -90,7 +95,7 @@ export default {
       alert("ID del productor no proporcionado.");
       return;
     }
-    this.fetchOrdenesPorProductor(Number(this.id));
+    this.fetchOrdenesPorProductor(this.id);
   },
 };
 </script>

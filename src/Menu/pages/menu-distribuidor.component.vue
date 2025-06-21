@@ -65,36 +65,37 @@ export default {
   },
   methods: {
     verCatalogo() {
-      this.$router.push({ name: "LoteCatalogo" });
+      this.$router.push({ name: "LoteCatalogo", params: { id: this.id }, } );
     },
     verReserva() {
       this.$router.push({
         name: "PedidosManagement",
-        params: { id: this.distribuidor.id },
+        params: { id: this.id },
       });
     },
     verFavoritos() {
-      this.$router.push({ name: "FavoritoManagement" });
+      this.$router.push({ name: "FavoritoManagement",params: { id: this.id }, });
     },
     verMensajes() {
-      this.$router.push({ name: "ChatManagement" });
+      this.$router.push({ name: "ChatManagement",  params: { id: this.id }, });
     },
     cerrarSesion() {
       this.$router.push("/home");
     },
     verProductores() {
-      this.$router.push({ name: "productores" });
+      this.$router.push({ name: "productores",
+        params: { id: this.id }, });
     },
     verContactos() {
       this.$router.push({
         name: "contactos-productor",
-        params: { id: this.distribuidor.id },
+        params: { id: this.id },
       });
     },
     verPedidos() {
       this.$router.push({
         name: "order-distribuidor",
-        params: { id: this.distribuidor.id },
+        params: { id: this.id },
       });
     },
   },

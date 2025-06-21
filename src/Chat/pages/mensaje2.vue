@@ -62,13 +62,23 @@
 import MensajeService from "../services/mensaje.service.js";
 import ContactoService from "../services/contacto.service.js";
 import DistribuidorService from "../services/distribuidor.service.js";
+import ProductorService from "../services/productor.service.js"; // si necesitas obtener el nombre
 
 export default {
+  props: {
+    id: {
+      type: [String, Number],
+      required: true
+    }
+  },
   data() {
     return {
       mensajes: [],
       nuevoMensaje: "",
-      usuarioActual: { id: "10005", nombre: "Angelo" },
+      usuarioActual: {
+        id: this.id,
+        nombre: "", // lo cargamos luego
+      },
       contactos: [],
       contactoSeleccionado: null,
       pollingInterval: null,
@@ -90,7 +100,7 @@ export default {
         const response = await MensajeService.getAll();
         const mensajes = response.data;
 
-        // Agregar avatar a mensajes recibidos del distribuidor
+        // Agregar avatar si el mensaje es recibido
         this.mensajes = mensajes.map((msg) => {
           const contacto = this.contactos.find((c) => c.id === msg.remitenteId);
           return {
@@ -110,7 +120,6 @@ export default {
         const response = await ContactoService.findByProductor(this.usuarioActual.id);
         const contactosBase = response.data;
 
-        // Obtener nombre y url (avatar) del distribuidor
         const contactosConNombre = await Promise.all(
             contactosBase.map(async (c) => {
               try {
@@ -119,10 +128,10 @@ export default {
                 return {
                   id: c.idDistribuidor,
                   nombre: distribuidor.nombre || `Distribuidor ${c.idDistribuidor}`,
-                  url: distribuidor.url || "", // Asegúrate que el distribuidor tenga un campo url con la imagen
+                  url: distribuidor.url || "",
                 };
               } catch (err) {
-                console.warn(`No se pudo obtener nombre para distribuidor ${c.idDistribuidor}`);
+                console.warn(`No se pudo obtener distribuidor ${c.idDistribuidor}`);
                 return {
                   id: c.idDistribuidor,
                   nombre: `Distribuidor ${c.idDistribuidor}`,
@@ -172,12 +181,22 @@ export default {
         if (container) container.scrollTop = container.scrollHeight;
       });
     },
+
+    async cargarNombreDelProductor() {
+      try {
+        const res = await ProductorService.getById(this.usuarioActual.id);
+        this.usuarioActual.nombre = res.data.nombre || "Productor";
+      } catch (err) {
+        console.warn("No se pudo obtener el nombre del productor.");
+        this.usuarioActual.nombre = "Productor";
+      }
+    }
   },
 
-  mounted() {
-    this.fetchContactos().then(() => {
-      this.fetchMensajes();
-    });
+  async mounted() {
+    await this.cargarNombreDelProductor();
+    await this.fetchContactos();
+    await this.fetchMensajes();
     this.pollingInterval = setInterval(this.fetchMensajes, 3000);
   },
 

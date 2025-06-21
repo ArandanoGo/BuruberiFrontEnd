@@ -56,8 +56,8 @@ export default {
     async fetchLotes() {
       try {
         const response = await LoteService.getAll();
-        const idProd = Number(this.id); // ahora viene como prop
-        this.lotes = response.data.filter(lote => Number(lote.idProductor) === idProd);
+        const idProd = this.id.toString();
+        this.lotes = response.data.filter(lote => lote.idProductor && lote.idProductor.toString() === idProd);
       } catch (error) {
         console.error("Error al obtener los lotes:", error);
       }

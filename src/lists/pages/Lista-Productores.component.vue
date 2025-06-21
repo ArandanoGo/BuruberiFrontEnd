@@ -77,6 +77,7 @@ import ContactoService from "../services/contactos.service.js";
 
 export default {
   name: "ListaProductores",
+  props: ['id'],  // Recibe id distribuidor por ruta
   data() {
     return {
       productores: [],
@@ -84,7 +85,7 @@ export default {
       imagenDialogVisible: false,
       imagenSeleccionada: "",
       imagenDefault: "https://via.placeholder.com/128?text=Sin+imagen",
-      idDistribuidor: "1005"
+      // idDistribuidor removido, usamos this.id directamente
     };
   },
   computed: {
@@ -95,6 +96,13 @@ export default {
           p.nombre.toLowerCase().includes(filtro)
       );
     },
+  },
+  watch: {
+    // Si cambia el id de distribuidor, podrías refrescar datos si quisieras
+    id(newId) {
+      // Opcional: recargar productores u otra lógica si cambia id
+      // this.fetchProductores();
+    }
   },
   methods: {
     async fetchProductores() {
@@ -122,7 +130,7 @@ export default {
     },
     async contactar(productor) {
       const nuevoContacto = {
-        idDistribuidor: this.idDistribuidor,
+        idDistribuidor: this.id,  // acá usamos this.id en vez de idDistribuidor fijo
         idProductor: productor.id
       };
 
@@ -155,6 +163,7 @@ export default {
     this.fetchProductores();
   }
 };
+
 </script>
 
 <style scoped>

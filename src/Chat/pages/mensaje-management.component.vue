@@ -68,15 +68,27 @@ import ContactoService from "../services/contacto.service.js";
 import ProductorService from "../services/productor.service.js";
 
 export default {
+  props: ['id'],  // Recibe id distribuidor desde la ruta
   data() {
     return {
       mensajes: [],
       nuevoMensaje: "",
-      usuarioActual: { id: "1005", nombre: "Gustavo" }, // distribuidor
+      usuarioActual: { id: this.id || "1005", nombre: "Gustavo" }, // Usa id de prop o default
       contactos: [],
       contactoSeleccionado: null,
       pollingInterval: null,
     };
+  },
+  watch: {
+    // Si cambia la prop id (distribuidor), actualiza usuarioActual y recarga datos
+    id(newId) {
+      this.usuarioActual.id = newId;
+      this.contactos = [];
+      this.mensajes = [];
+      this.contactoSeleccionado = null;
+      this.fetchContactos();
+      this.fetchMensajes();
+    },
   },
   computed: {
     mensajesFiltrados() {
@@ -96,7 +108,6 @@ export default {
         const response = await MensajeService.getAll();
         const mensajes = response.data;
 
-        // Añadir avatar solo si el mensaje viene del productor
         this.mensajes = mensajes.map((msg) => {
           const contacto = this.contactos.find((c) => c.id === msg.remitenteId);
           return {
@@ -129,7 +140,7 @@ export default {
                 return {
                   id: c.idProductor,
                   nombre: productor.nombre || `Productor ${c.idProductor}`,
-                  url: productor.url || "", // aquí traemos el avatar
+                  url: productor.url || "",
                 };
               } catch (err) {
                 console.warn(`No se pudo obtener nombre para productor ${c.idProductor}`);
@@ -192,6 +203,7 @@ export default {
     clearInterval(this.pollingInterval);
   },
 };
+
 </script>
 
 <style scoped>

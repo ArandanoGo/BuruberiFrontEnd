@@ -112,6 +112,7 @@ import ReservaService from "../service/reserva.service.js";
 import FavoritoService from "../service/favorito.service.js";
 
 export default {
+  props: ['id'], // Recibe id distribuidor como string desde la ruta
   data() {
     return {
       lotes: [],
@@ -134,23 +135,19 @@ export default {
 
     async fetchLotes() {
       try {
-        // Obtener favoritos del distribuidor 1005
-        const favoritosResponse = await FavoritoService.getByDistribuidor(1005);
+        // Usar id directo (string)
+        const distribuidorId = this.id;
+        const favoritosResponse = await FavoritoService.getByDistribuidor(distribuidorId);
         const favoritos = favoritosResponse.data;
 
-        // Obtener datos completos de cada lote favorito
         const lotesPromises = favoritos.map((fav) => LoteService.getById(fav.idLote));
         const lotesResponse = await Promise.all(lotesPromises);
 
-        // Construir arreglo con datos del lote + favoritoId
-        this.lotes = lotesResponse.map((resp, index) => {
-          const loteData = resp.data;
-          return {
-            ...loteData,
-            favorito: true,
-            favoritoId: favoritos[index].id,
-          };
-        });
+        this.lotes = lotesResponse.map((resp, index) => ({
+          ...resp.data,
+          favorito: true,
+          favoritoId: favoritos[index].id,
+        }));
       } catch (error) {
         console.error("Error al cargar lotes favoritos:", error);
       }
@@ -187,7 +184,7 @@ export default {
 
         const reserva = {
           idLote: lote.id,
-          idDistribuidor: 1005, // fijo temporal
+          idDistribuidor: this.id,
           fechaRegistro: soloFechaISO,
           stock: cantidad,
           estado: "pendiente",
@@ -201,7 +198,7 @@ export default {
       }
 
       try {
-        const loteActualizado = {...lote, stock: lote.stock - cantidad};
+        const loteActualizado = { ...lote, stock: lote.stock - cantidad };
         await LoteService.update(lote.id, loteActualizado);
       } catch (error) {
         console.error("Reserva creada, pero falló al actualizar el stock:", error);
@@ -227,7 +224,6 @@ export default {
 
         await FavoritoService.delete(lote.favoritoId);
 
-        // Quitar lote eliminado de la lista para actualizar UI
         this.lotes = this.lotes.filter((l) => l.favoritoId !== lote.favoritoId);
       } catch (error) {
         console.error("Error al eliminar favorito:", error);
@@ -433,4 +429,3 @@ export default {
   }
 }
 </style>
-

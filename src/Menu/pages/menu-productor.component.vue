@@ -68,22 +68,22 @@ export default {
   },
   methods: {
     registrarLote() {
-      this.$router.push({ name: "LoteManagement", params: { id: this.productor.id } });
+      this.$router.push({ name: "LoteManagement", params: { id: this.id } });
     },
     verHistorial() {
-      this.$router.push({ name: "ReservaManagement", params: { id: this.productor.id } });
+      this.$router.push({ name: "ReservaManagement", params: { id: this.id } });
     },
     irMenuDistribuidor() {
       this.$router.push({ name: "MenuDistribuidor" });
     },
     verMensajes() {
-      this.$router.push({ name: "ChatManagement2" });
+      this.$router.push({ name: "ChatManagement2", params: { id: this.id } } );
     },
     vercodigopromo() {
-      this.$router.push({ name: "PromotionManagement", params: { id: this.productor.id } });
+      this.$router.push({ name: "PromotionManagement", params: { id: this.id } });
     },
     verPedidos() {
-      this.$router.push({ name: "order-management", params: { id: this.productor.id } });
+      this.$router.push({ name: "order-management", params: { id: this.id } });
     },
     cerrarSesion() {
       this.$router.push("/home");

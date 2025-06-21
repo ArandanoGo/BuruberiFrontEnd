@@ -83,6 +83,12 @@ import FavoritoService from "../services/favorito.service.js";
 import { ReviewService } from "../services/review.service.js";
 
 export default {
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       lotes: [],
@@ -153,7 +159,13 @@ export default {
       }
       try {
         const hoy = new Date().toISOString().split("T")[0];
-        const reserva = { idLote: lote.id, idDistribuidor: 1005, fechaRegistro: hoy, stock: cantidad, estado: "pendiente" };
+        const reserva = {
+          idLote: lote.id,
+          idDistribuidor: this.id, // <=== aquí id es string sin conversión
+          fechaRegistro: hoy,
+          stock: cantidad,
+          estado: "pendiente"
+        };
         await ReservaService.create(reserva);
         await LoteService.update(lote.id, { ...lote, stock: lote.stock - cantidad });
         this.dialogoReservaVisible = false;
@@ -168,33 +180,25 @@ export default {
       this.$router.push({ name: "review", params: { id: lote.id } });
     },
     async toggleFavorito(lote) {
-      const idDistribuidor = 1005;
       try {
-        // Verifica si ya es favorito antes de intentar crearlo
         const res = await FavoritoService.getAll();
         const favoritos = res.data || [];
-
-        const yaExiste = favoritos.some(f => f.idLote === lote.id && f.idDistribuidor === idDistribuidor);
-
+        const yaExiste = favoritos.some(f => f.idLote === lote.id && f.idDistribuidor === this.id);
         if (yaExiste) {
           alert("Este lote ya está en tus favoritos.");
           return;
         }
-
-        // Si no existe, lo crea
         await FavoritoService.create({
           idLote: lote.id,
-          idDistribuidor: idDistribuidor,
+          idDistribuidor: this.id, // <=== aquí también string
         });
-
         lote.favorito = true;
         alert("Lote agregado a favoritos.");
       } catch (error) {
         console.error("Error al agregar a favoritos:", error);
         alert("Error al agregar a favoritos.");
       }
-    }
-    ,
+    },
     mostrarImagen(url) {
       this.imagenSeleccionada = url || this.imagenDefault;
       this.imagenDialogVisible = true;
@@ -208,6 +212,7 @@ export default {
     this.fetchLotes();
   },
 };
+
 </script>
 
 

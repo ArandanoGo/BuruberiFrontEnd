@@ -86,7 +86,7 @@ export default {
         fechaRegistro: '',
         hora: '',
         tipo: '',
-        imagenUrl: '', // nuevo campo
+        imagenUrl: '',
         precioUnitario: null,
         pesoKg: null,
         calidad: '',
@@ -116,14 +116,14 @@ export default {
     };
   },
   created() {
-    const idProductor = this.$route.params.id;
-    if (!idProductor) {
+    const id = this.$route.params.id;
+    if (!id) {
       alert("No se proporcionó el ID del productor en la ruta.");
       this.$router.back();
       return;
     }
-
-    this.lote.idProductor = Number(idProductor);
+    // Asignar idProductor como string sin conversión
+    this.lote.idProductor = id;
     this.generarFechaYHora();
   },
   methods: {
@@ -142,8 +142,7 @@ export default {
     async guardar() {
       try {
         await LoteService.create(this.lote);
-        // Redirigir al listado de lotes del productor actual
-        this.$router.push({name: 'LoteManagement', params: {id: this.lote.idProductor}});
+        this.$router.push({ name: 'LoteManagement', params: { id: this.lote.idProductor } });
       } catch (error) {
         console.error("Error guardando lote:", error);
         alert("Error al guardar el lote. Intenta nuevamente.");

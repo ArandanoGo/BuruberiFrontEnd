@@ -65,27 +65,21 @@ export default {
 
         this.lotes = lotesResponse.data;
 
-        console.log("Lotes recibidos:", this.lotes);
-        console.log("ID productor recibido:", this.id);
-        console.log("Primer lote de ejemplo:", this.lotes[0]);
-
-        const lotesDelProductor = this.lotes.filter(lote => lote.idProductor === Number(this.id));
-
-        console.log("Lotes filtrados para el productor:", lotesDelProductor);
+        const idProd = this.id.toString();
+        const lotesDelProductor = this.lotes.filter(
+            lote => lote.idProductor?.toString() === idProd
+        );
 
         const idsLotesProductor = lotesDelProductor.map(lote => lote.id);
 
-        console.log("IDs de lotes del productor:", idsLotesProductor);
-
-        this.reservas = reservasResponse.data.filter(reserva => idsLotesProductor.includes(reserva.idLote));
-
-        console.log("Reservas filtradas:", this.reservas);
+        this.reservas = reservasResponse.data.filter(reserva =>
+            idsLotesProductor.includes(reserva.idLote)
+        );
 
       } catch (error) {
         console.error("Error al obtener reservas o lotes:", error);
       }
     },
-
 
     volverAtras() {
       this.$router.go(-1);

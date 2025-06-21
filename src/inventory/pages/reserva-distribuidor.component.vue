@@ -49,7 +49,7 @@ export default {
         console.log("ID del distribuidor desde ruta:", this.id);
 
         // Filtrar reservas por idDistribuidor
-        this.reservas = response.data.filter(reserva => reserva.idDistribuidor === Number(this.id));
+        this.reservas = response.data.filter(reserva => reserva.idDistribuidor === this.id);
 
         console.log("Reservas filtradas para el distribuidor:", this.reservas);
       } catch (error) {
