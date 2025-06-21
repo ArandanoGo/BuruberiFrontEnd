@@ -1,925 +1,139 @@
 {
   "users": [
     {
-      "id": "7448",
-      "username": "gagaaaa",
-      "password": "gagagaaaa",
-      "rol": "1"
-    },
-    {
-      "id": "8d90",
-      "username": "jjjj",
-      "password": "jjjjj",
-      "rol": "1"
-    },
-    {
-      "id": "9555",
       "username": "Angelo",
-      "password": "NGAGAGA",
-      "rol": "1"
+      "password": "angelo12",
+      "rol": "1",
+      "id": 1
     },
     {
-      "id": "4912",
-      "username": "gag",
-      "password": "gaga",
-      "rol": "1"
-    },
-    {
-      "id": "7dd0",
-      "username": "fafa",
-      "password": "fafaaf",
-      "rol": "1"
-    },
-    {
-      "id": "b5b2",
-      "username": "fafa",
-      "password": "fawewr",
-      "rol": "1"
-    },
-    {
-      "username": "gfgg",
-      "password": "gsgsere",
+      "username": "Gustavo",
+      "password": "gustavo12",
       "rol": "2",
-      "id": "3Rn9w3d"
+      "id": 2
     }
   ],
   "orders": [
     {
-      "idDistribuidor": 1005,
-      "idLote": "2",
-      "cantidad": 80,
+      "idDistribuidor": "5",
+      "idLote": 1,
+      "cantidad": 150,
       "estado": "pendiente",
-      "fechaPedido": "2025-06-20T06:38:24.361Z",
-      "id": "1"
-    },
-    {
-      "idDistribuidor": 1005,
-      "idLote": "CRrdAQJ",
-      "cantidad": 15,
-      "estado": "completado",
-      "fechaPedido": "2025-06-20T07:55:22.471Z",
-      "id": "2"
+      "fechaPedido": "2025-06-21T17:53:20.052Z",
+      "id": 1
     }
   ],
   "promotions": [
     {
-      "IdProductor": "10005",
-      "codigo": "PROMO-GAA9MY",
-      "descuento": 50,
-      "fecha_caducidad": "2025-06-19",
-      "id": "1"
+      "IdProductor": "1",
+      "codigo": "PROMO-FGLCCG",
+      "descuento": 60,
+      "fecha_caducidad": "2025-07-03",
+      "id": 1
     }
   ],
   "contactos": [
     {
-      "id": "96db",
-      "idDistribuidor": "1005",
-      "idProductor": "101"
-    },
-    {
-      "id": "2f7c",
-      "idDistribuidor": "1005",
-      "idProductor": "10005"
-    },
-    {
-      "id": "724d",
-      "idDistribuidor": "1005",
-      "idProductor": "104"
-    },
-    {
-      "idDistribuidor": "YutEldn",
-      "idProductor": "101",
-      "id": "lE7GTGA"
+      "idDistribuidor": "5",
+      "idProductor": 1,
+      "id": 1
     }
   ],
   "reviews": [
     {
-      "id": "124",
       "puntuacion": 5,
-      "comentario": "Productor que cumple con el tiempo y calidad del producto",
-      "loteId": "2"
-    },
-    {
-      "id": "1256",
-      "puntuacion": 5,
-      "comentario": "Arandanos de buena calidad",
-      "loteId": "2"
-    },
-    {
-      "id": "85d0",
-      "puntuacion": 5,
-      "comentario": "ghfgf",
-      "loteId": "2"
-    },
-    {
-      "id": "35c4",
-      "puntuacion": 5,
-      "comentario": "Productor que cumple con el tiempo y calidad del producto",
-      "loteId": "2"
-    },
-    {
-      "id": "e98f",
-      "puntuacion": 5,
-      "comentario": "Melina ya funciona!!!",
-      "loteId": "2"
-    },
-    {
-      "id": "29ed",
-      "puntuacion": 5,
-      "comentario": "Muy buenos lotes a buen precio",
-      "loteId": "3"
-    },
-    {
-      "id": "6171",
-      "puntuacion": 2,
-      "comentario": "Muy mala",
-      "loteId": "2"
-    },
-    {
-      "id": "fffc",
-      "puntuacion": 1,
-      "comentario": "Muy malo en el pedido",
-      "loteId": "2"
-    },
-    {
-      "puntuacion": 4,
-      "comentario": "Buen Lote",
-      "loteId": "6",
-      "id": "rTYEYHM"
+      "comentario": "Muy Buena calidad de las mejores de Perú",
+      "loteId": "1",
+      "id": 1
     }
   ],
   "reservas": [
     {
-      "id": "f1bc",
-      "idLote": "2",
-      "idDistribuidor": 1,
-      "fechaRegistro": "2025-06-05",
-      "stock": 50,
-      "estado": "rechazada"
-    },
-    {
-      "idLote": "2",
-      "idDistribuidor": 1005,
-      "fechaRegistro": "2025-06-07",
-      "stock": 80,
-      "estado": "aceptada",
-      "id": "o3B42wD"
-    },
-    {
-      "idLote": "2",
-      "idDistribuidor": 1005,
-      "fechaRegistro": "2025-06-20",
+      "idLote": 1,
+      "idDistribuidor": "5",
+      "fechaRegistro": "2025-06-21",
       "stock": 150,
-      "estado": "pendiente",
-      "id": "ZG2P24w"
-    },
-    {
-      "idLote": "CRrdAQJ",
-      "idDistribuidor": 1005,
-      "fechaRegistro": "2025-06-20",
-      "stock": 20,
-      "estado": "pendiente",
-      "id": "DrH-jTC"
-    },
-    {
-      "idLote": "CRrdAQJ",
-      "idDistribuidor": 1005,
-      "fechaRegistro": "2025-06-20",
-      "stock": 15,
       "estado": "aceptada",
-      "id": "Qjth99t"
-    },
-    {
-      "idLote": "2",
-      "idDistribuidor": 1005,
-      "fechaRegistro": "2025-06-21",
-      "stock": 50,
-      "estado": "pendiente",
-      "id": "IbJgRDC"
-    },
-    {
-      "idLote": "2",
-      "idDistribuidor": "YutEldn",
-      "fechaRegistro": "2025-06-21",
-      "stock": 50,
-      "estado": "pendiente",
-      "id": "bAHHyHJ"
+      "id": 1
     }
   ],
   "productores": [
     {
-      "id": "101",
-      "nombre": "Juan Pérez",
-      "telefono": "+54 9 11 1234 5678",
-      "email": "juan.perez@example.com",
-      "direccion": "Calle Falsa 123, Ciudad",
-      "ciudad": "Buenos Aires",
-      "pais": "Argentina",
-      "fechaRegistro": "2024-11-20",
-      "url": "https://img.freepik.com/foto-gratis/hombre-tiro-medio-peinado-afro_23-2150677135.jpg"
-    },
-    {
-      "id": "103",
-      "nombre": "Carlos Fernández",
-      "telefono": "+54 9 11 3344 5566",
-      "email": "carlos.fernandez@example.com",
-      "direccion": "Boulevard San Martín 1500",
-      "ciudad": "Córdoba",
-      "pais": "Argentina",
-      "fechaRegistro": "2023-12-01",
-      "url": "https://img.freepik.com/foto-gratis/hombre-tiro-medio-peinado-afro_23-2150677135.jpg"
-    },
-    {
-      "id": "104",
-      "nombre": "Laura Martínez",
-      "telefono": "+54 9 11 9988 7766",
-      "email": "laura.martinez@example.com",
-      "direccion": "Pasaje Las Heras 980",
-      "ciudad": "Mendoza",
-      "pais": "Argentina",
-      "fechaRegistro": "2024-02-28",
-      "url": "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg"
-    },
-    {
-      "id": "105",
-      "nombre": "Diego Sánchez",
-      "telefono": "+54 9 11 1122 3344",
-      "email": "diego.sanchez@example.com",
-      "direccion": "Calle San Juan 455",
-      "ciudad": "La Plata",
-      "pais": "Argentina",
-      "fechaRegistro": "2024-08-10",
-      "url": "https://img.freepik.com/foto-gratis/hombre-tiro-medio-peinado-afro_23-2150677135.jpg"
-    },
-    {
-      "id": "102",
-      "nombre": "María García",
-      "telefono": "+54 9 11 9876 5432",
-      "email": "maria.garcia@example.com",
-      "direccion": "Avenida Siempre Viva 742, Ciudad",
-      "ciudad": "Rosario",
-      "pais": "Argentina",
-      "fechaRegistro": "2024-12-05",
-      "url": "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg"
-    },
-    {
-      "id": "10005",
-      "nombre": "Angelo",
-      "telefono": "+54 9 11 4567 8910",
-      "email": "Angelo@example.com",
-      "direccion": "Boulevard Central 55, Ciudad",
-      "ciudad": "Córdoba",
-      "pais": "Argentina",
-      "fechaRegistro": null,
-      "url": "https://raw.githubusercontent.com/VillaSystem/grupo2-project-report/refs/heads/master/images/Angelo.png"
-    },
-    {
-      "id": "1468",
-      "userid": "8d90",
-      "nombre": "jjj",
-      "telefono": "ghg",
-      "email": "hg",
-      "direccion": "hg",
-      "ciudad": "hgh",
-      "pais": "hfhf",
-      "fechaRegistro": "2025-06-21T14:38:50.365Z",
-      "url": "hfhf"
-    },
-    {
-      "id": "a9af",
-      "userid": "9555",
-      "nombre": "AGA",
-      "telefono": "GAGA",
-      "email": "GAGA",
-      "direccion": "GAGA",
-      "ciudad": "GAGA",
-      "pais": "ADA",
-      "fechaRegistro": "2025-06-21T14:43:35.420Z",
-      "url": "GAF"
-    },
-    {
-      "id": "42b9",
-      "userid": "4912",
-      "nombre": "gag",
-      "telefono": "agga",
-      "email": "gag",
-      "direccion": "afar",
-      "ciudad": "ere",
-      "pais": "wrsz",
-      "fechaRegistro": "2025-06-21T14:44:13.052Z",
-      "url": "asda"
-    },
-    {
-      "id": "e8b9",
-      "userid": "7dd0",
-      "nombre": "fafa",
-      "telefono": "fafa",
-      "email": "faf",
-      "direccion": "afafa",
-      "ciudad": "fafa",
-      "pais": "fafa",
-      "fechaRegistro": "2025-06-21T14:48:06.412Z",
-      "url": "fafafa"
-    },
-    {
-      "id": "7b26",
-      "userid": "b5b2",
-      "nombre": "rwrw",
-      "telefono": "fagfa",
-      "email": "gz",
-      "direccion": "gagag",
-      "ciudad": "agaf",
-      "pais": "awrw",
-      "fechaRegistro": "2025-06-21T14:49:44.828Z",
-      "url": "afaag"
+      "userid": 1,
+      "nombre": "Angelo Curi Marcelo",
+      "telefono": "975149459",
+      "email": "angelocuri@hotmail.com",
+      "direccion": "Las Flores Chorrillos",
+      "ciudad": "Lima",
+      "pais": "Peru",
+      "fechaRegistro": "2025-06-21T17:33:54.009Z",
+      "url": "https://raw.githubusercontent.com/VillaSystem/grupo2-project-report/refs/heads/master/images/Angelo.png",
+      "id": 1
     }
   ],
   "distribuidores": [
     {
-      "id": "1005",
+      "userid": 2,
       "nombre": "Gustavo",
-      "telefono": "+54 9 11 4567 5041",
-      "email": "gustavo@example.com",
-      "direccion": "Boulevard Central 55, Ciudad",
-      "ciudad": "Córdoba",
-      "pais": "Perú",
-      "fechaRegistro": null,
-      "url": "https://raw.githubusercontent.com/VillaSystem/grupo2-project-report/refs/heads/master/images/gustavo.png"
-    },
-    {
-      "userid": "3Rn9w3d",
-      "nombre": "Melina",
-      "telefono": "535783",
-      "email": "anganga",
-      "direccion": "afawri",
+      "telefono": "985874558",
+      "email": "gustavo@gmail.com",
+      "direccion": "Los Girasoles",
       "ciudad": "Lima",
-      "pais": "Afganistan",
-      "fechaRegistro": "2025-06-21T16:05:39.458Z",
-      "url": "https://i.pinimg.com/736x/15/9b/44/159b4494549ced5ddb6338303c57731b.jpg",
-      "id": "YutEldn"
+      "pais": "Peru",
+      "fechaRegistro": "2025-06-21T17:35:12.251Z",
+      "url": "https://raw.githubusercontent.com/VillaSystem/grupo2-project-report/refs/heads/master/images/gustavo.png",
+      "id": 5
     }
   ],
   "favoritos": [
     {
-      "idLote": "3",
-      "idDistribuidor": "YutEldn",
-      "id": 2
+      "idLote": 1,
+      "idDistribuidor": "5",
+      "id": 1
     }
   ],
   "lotes": [
     {
-      "id": "2",
-      "autor": "María García",
-      "fechaRegistro": "2025-06-04",
-      "hora": "15:45",
-      "materiaOrganica": 15,
-      "cloruroPotasio": 6,
-      "fosfato": 4,
-      "sulfatoCalcio": 3,
-      "urea": 5,
-      "sulfatoMagnesio": 3,
-      "correctoresPH": 2,
-      "idProductor": 10005,
-      "tipo": "Compost",
-      "precioUnitario": 120,
-      "pesoKg": 400,
-      "calidad": "Media",
-      "estado": "Reservado",
-      "stock": 218,
-      "fechaPedido": null,
-      "imagenUrl": "https://www.shutterstock.com/image-photo/rabbiteye-blueberries-true-superfood-straight-260nw-2534080275.jpg",
-      "favorito": false
-    },
-    {
-      "id": "3",
-      "autor": "Carlos Ruiz",
-      "fechaRegistro": "2025-06-03",
-      "hora": "08:15",
-      "materiaOrganica": 18,
-      "cloruroPotasio": 7,
-      "fosfato": 2,
-      "sulfatoCalcio": 5,
-      "urea": 4,
-      "sulfatoMagnesio": 2,
-      "correctoresPH": 1.5,
-      "idProductor": 103,
-      "tipo": "Orgánico",
-      "precioUnitario": 170.75,
-      "pesoKg": 350,
-      "calidad": "Alta",
-      "estado": "En espera",
-      "stock": 20,
-      "fechaPedido": null,
-      "imagenUrl": "https://www.shutterstock.com/image-photo/rabbiteye-blueberries-true-superfood-straight-260nw-2534080275.jpg"
-    },
-    {
-      "id": "6",
-      "autor": "María García",
-      "fechaRegistro": "2025-06-04",
-      "hora": "15:45",
-      "materiaOrganica": 15,
-      "cloruroPotasio": 6,
-      "fosfato": 4,
-      "sulfatoCalcio": 3,
-      "urea": 5,
-      "sulfatoMagnesio": 3,
-      "correctoresPH": 2,
-      "idProductor": 102,
-      "tipo": "Compost",
-      "precioUnitario": 120,
-      "pesoKg": 400,
-      "calidad": "Media",
-      "estado": "Reservado",
-      "stock": 30,
-      "fechaPedido": null,
-      "imagenUrl": "https://www.shutterstock.com/image-photo/rabbiteye-blueberries-true-superfood-straight-260nw-2534080275.jpg"
-    },
-    {
-      "id": "5",
-      "autor": "María García",
-      "fechaRegistro": "2025-06-04",
-      "hora": "15:45",
-      "materiaOrganica": 15,
-      "cloruroPotasio": 6,
-      "fosfato": 4,
-      "sulfatoCalcio": 3,
-      "urea": 5,
-      "sulfatoMagnesio": 3,
-      "correctoresPH": 2,
-      "idProductor": 102,
-      "tipo": "Compost",
-      "precioUnitario": 120,
-      "pesoKg": 400,
-      "calidad": "Media",
-      "estado": "Reservado",
-      "stock": 30,
-      "fechaPedido": null,
-      "imagenUrl": "https://www.shutterstock.com/image-photo/rabbiteye-blueberries-true-superfood-straight-260nw-2534080275.jpg"
-    },
-    {
       "autor": "Angelo",
-      "fechaRegistro": "20/06/2025",
-      "hora": "02:19",
-      "tipo": "agag",
-      "imagenUrl": "ga",
-      "precioUnitario": 12,
-      "pesoKg": 42,
-      "calidad": "42",
-      "estado": "42",
-      "stock": 42,
-      "fechaPedido": null,
-      "idProductor": 1,
-      "materiaOrganica": 42,
-      "cloruroPotasio": 42,
-      "fosfato": 42,
-      "sulfatoCalcio": 42,
-      "urea": 42,
-      "sulfatoMagnesio": 42,
-      "correctoresPH": 42,
-      "id": "RG_Yy4k"
-    },
-    {
-      "autor": "fsf",
-      "fechaRegistro": "20/06/2025",
-      "hora": "02:20",
-      "tipo": "fsfs",
-      "imagenUrl": "fsfsfs",
-      "precioUnitario": 424,
-      "pesoKg": 42,
-      "calidad": "4242",
-      "estado": "4242",
-      "stock": 42,
-      "fechaPedido": null,
-      "idProductor": 1,
-      "materiaOrganica": 42,
-      "cloruroPotasio": 42,
-      "fosfato": 4242,
-      "sulfatoCalcio": 4242,
-      "urea": 4242,
-      "sulfatoMagnesio": 4242,
-      "correctoresPH": 4242,
-      "id": "lJdoul1"
-    },
-    {
-      "autor": "Joaquin",
-      "fechaRegistro": "20/06/2025",
-      "hora": "02:27",
-      "tipo": "aga",
-      "imagenUrl": "ga",
-      "precioUnitario": 12,
-      "pesoKg": 414,
-      "calidad": "41",
-      "estado": "4114",
-      "stock": 6,
-      "fechaPedido": null,
-      "idProductor": 10005,
-      "materiaOrganica": 4114,
-      "cloruroPotasio": 41,
-      "fosfato": 41,
-      "sulfatoCalcio": 41,
-      "urea": 41,
-      "sulfatoMagnesio": 41,
-      "correctoresPH": 41,
-      "id": "CRrdAQJ"
-    },
-    {
-      "autor": "FDFD",
       "fechaRegistro": "21/06/2025",
-      "hora": "11:23",
-      "tipo": "FDFDDF",
-      "imagenUrl": "FDFD",
-      "precioUnitario": 2442,
-      "pesoKg": 4242,
-      "calidad": "4242",
-      "estado": "4242",
-      "stock": 4242,
+      "hora": "12:35",
+      "tipo": "T1",
+      "imagenUrl": "https://images.unsplash.com/photo-1425934398893-310a009a77f9?fm=jpg",
+      "precioUnitario": 150,
+      "pesoKg": 560,
+      "calidad": "Excelente",
+      "estado": "Disponible",
+      "stock": 450,
       "fechaPedido": null,
-      "idProductor": null,
-      "materiaOrganica": 42,
-      "cloruroPotasio": 242,
-      "fosfato": 42,
-      "sulfatoCalcio": 42,
-      "urea": 42,
-      "sulfatoMagnesio": 42,
-      "correctoresPH": 42,
-      "id": "3khMb6a"
-    },
-    {
-      "autor": "f",
-      "fechaRegistro": "21/06/2025",
-      "hora": "11:27",
-      "tipo": "aa",
-      "imagenUrl": "fafa",
-      "precioUnitario": 2,
-      "pesoKg": 24,
-      "calidad": "23",
-      "estado": "32",
-      "stock": 32,
-      "fechaPedido": null,
-      "idProductor": null,
-      "materiaOrganica": 32,
-      "cloruroPotasio": 32,
-      "fosfato": 32,
-      "sulfatoCalcio": 32,
-      "urea": 32,
-      "sulfatoMagnesio": 32,
-      "correctoresPH": 32,
-      "id": "_ZFJV7S"
-    },
-    {
-      "autor": "fa",
-      "fechaRegistro": "21/06/2025",
-      "hora": "11:28",
-      "tipo": "fa",
-      "imagenUrl": "fa",
-      "precioUnitario": 24,
-      "pesoKg": 242,
-      "calidad": "4242",
-      "estado": "42",
-      "stock": 424,
-      "fechaPedido": null,
-      "idProductor": null,
-      "materiaOrganica": 24,
-      "cloruroPotasio": 42,
-      "fosfato": 42,
-      "sulfatoCalcio": 42,
-      "urea": 42,
-      "sulfatoMagnesio": 42,
-      "correctoresPH": 42,
-      "id": "iGXyikq"
-    },
-    {
-      "autor": "fa",
-      "fechaRegistro": "21/06/2025",
-      "hora": "11:31",
-      "tipo": "fa",
-      "imagenUrl": "fa",
-      "precioUnitario": 24,
-      "pesoKg": 24,
-      "calidad": "42",
-      "estado": "42",
-      "stock": 42,
-      "fechaPedido": null,
-      "idProductor": null,
-      "materiaOrganica": 42,
-      "cloruroPotasio": 42,
-      "fosfato": 42,
-      "sulfatoCalcio": 42,
-      "urea": 42,
-      "sulfatoMagnesio": 42,
-      "correctoresPH": 42,
-      "id": "tKL1tO8"
-    },
-    {
-      "autor": "afaf",
-      "fechaRegistro": "21/06/2025",
-      "hora": "11:34",
-      "tipo": "fafa",
-      "imagenUrl": "fafa",
-      "precioUnitario": 42,
-      "pesoKg": 42,
-      "calidad": "42",
-      "estado": "42",
-      "stock": 42,
-      "fechaPedido": null,
-      "idProductor": null,
-      "materiaOrganica": 42,
-      "cloruroPotasio": 42,
-      "fosfato": 42,
-      "sulfatoCalcio": 42,
-      "urea": 42,
-      "sulfatoMagnesio": 42,
-      "correctoresPH": 42,
-      "id": "wE5qzJl"
-    },
-    {
-      "autor": "fa",
-      "fechaRegistro": "21/06/2025",
-      "hora": "11:35",
-      "tipo": "fa",
-      "imagenUrl": "fa",
-      "precioUnitario": 24,
-      "pesoKg": 42,
-      "calidad": "42",
-      "estado": "42",
-      "stock": 42,
-      "fechaPedido": null,
-      "idProductor": null,
-      "materiaOrganica": 42,
-      "cloruroPotasio": 42,
-      "fosfato": 42,
-      "sulfatoCalcio": 42,
-      "urea": 42,
-      "sulfatoMagnesio": 42,
-      "correctoresPH": 42,
-      "id": "DP781QG"
-    },
-    {
-      "autor": "Prueba1",
-      "fechaRegistro": "21/06/2025",
-      "hora": "11:41",
-      "tipo": "aggaag",
-      "imagenUrl": "gaga",
-      "precioUnitario": 1214,
-      "pesoKg": 141,
-      "calidad": "4141",
-      "estado": "4141",
-      "stock": 5000,
-      "fechaPedido": null,
-      "idProductor": "e8b9",
-      "materiaOrganica": 1214,
-      "cloruroPotasio": 141,
-      "fosfato": 4141,
-      "sulfatoCalcio": 4141,
-      "urea": 4114,
-      "sulfatoMagnesio": 4141,
-      "correctoresPH": 4141,
-      "id": "u9JNjFI"
+      "idProductor": "1",
+      "materiaOrganica": 15,
+      "cloruroPotasio": 15,
+      "fosfato": 16,
+      "sulfatoCalcio": 17,
+      "urea": 14,
+      "sulfatoMagnesio": 14,
+      "correctoresPH": 14,
+      "id": 1
     }
   ],
   "mensajes": [
     {
-      "id": "m1",
+      "id": "1750528355765",
       "remitenteId": "1",
-      "destinatarioId": "101",
-      "contenido": "Hola, ¿tienes disponible el lote 2?",
-      "fechaEnvio": "2025-06-05T10:00:00Z",
-      "remitenteNombre": "Distribuidor 1",
-      "destinatarioNombre": "Productor 101"
-    },
-    {
-      "id": "m2",
-      "remitenteId": "101",
-      "destinatarioId": "1",
-      "contenido": "Hola, sí, tenemos 30 kg disponibles.",
-      "fechaEnvio": "2025-06-05T10:02:00Z",
-      "remitenteNombre": "Productor 101",
-      "destinatarioNombre": "Distribuidor 1"
-    },
-    {
-      "id": "m3",
-      "remitenteId": "1",
-      "destinatarioId": "101",
-      "contenido": "Perfecto, me gustaría reservar 20 kg.",
-      "fechaEnvio": "2025-06-05T10:05:00Z",
-      "remitenteNombre": "Distribuidor 1",
-      "destinatarioNombre": "Productor 101"
-    },
-    {
-      "id": "m4",
-      "remitenteId": "101",
-      "destinatarioId": "1",
-      "contenido": "Reserva confirmada, gracias por tu compra.",
-      "fechaEnvio": "2025-06-05T10:07:00Z",
-      "remitenteNombre": "Productor 101",
-      "destinatarioNombre": "Distribuidor 1"
-    },
-    {
-      "id": "m5",
-      "remitenteId": "1",
-      "destinatarioId": "102",
-      "contenido": "¿Cuál es la calidad del lote 3?",
-      "fechaEnvio": "2025-06-05T11:00:00Z",
-      "remitenteNombre": "Distribuidor 1",
-      "destinatarioNombre": "Productor 102"
-    },
-    {
-      "id": "m6",
-      "remitenteId": "102",
-      "destinatarioId": "1",
-      "contenido": "El lote 3 es de calidad alta.",
-      "fechaEnvio": "2025-06-05T11:03:00Z",
-      "remitenteNombre": "Productor 102",
-      "destinatarioNombre": "Distribuidor 1"
-    },
-    {
-      "id": "1749182570174",
-      "remitenteId": "1",
-      "destinatarioId": "101",
-      "contenido": "Perfecto",
-      "fechaEnvio": "2025-06-06T04:02:50.174Z",
-      "remitenteNombre": "Distribuidor 1",
-      "destinatarioNombre": "Productor 101"
-    },
-    {
-      "id": "1749182572843",
-      "remitenteId": "1",
-      "destinatarioId": "101",
-      "contenido": "siuuu",
-      "fechaEnvio": "2025-06-06T04:02:52.843Z",
-      "remitenteNombre": "Distribuidor 1",
-      "destinatarioNombre": "Productor 101"
-    },
-    {
-      "id": "1749182572843",
-      "remitenteId": "1",
-      "destinatarioId": "105",
-      "contenido": "siuuu",
-      "fechaEnvio": "2025-06-06T04:02:52.843Z",
-      "remitenteNombre": "Distribuidor 1",
-      "destinatarioNombre": "Productor 106"
-    },
-    {
-      "id": "1749186637402",
-      "remitenteId": "101",
-      "remitenteNombre": "Productor 101",
-      "destinatarioId": "1",
-      "destinatarioNombre": "Distribuidor 1",
-      "contenido": "esta bien",
-      "fechaEnvio": "2025-06-06T05:10:37.402Z"
-    },
-    {
-      "id": "1749186647226",
-      "remitenteId": "1",
-      "remitenteNombre": "Distribuidor 1",
-      "destinatarioId": "101",
-      "destinatarioNombre": "Productor 101",
-      "contenido": "ok quedamos asi",
-      "fechaEnvio": "2025-06-06T05:10:47.226Z"
-    },
-    {
-      "id": "1749186668062",
-      "remitenteId": "1",
-      "remitenteNombre": "Distribuidor 1",
-      "destinatarioId": "101",
-      "destinatarioNombre": "Productor 101",
-      "contenido": "vale quedamos",
-      "fechaEnvio": "2025-06-06T05:11:08.062Z"
-    },
-    {
-      "id": "1749300000001",
-      "remitenteId": "10005",
-      "remitenteNombre": "Angelo",
-      "destinatarioId": "1005",
+      "remitenteNombre": "Angelo Curi Marcelo",
+      "destinatarioId": "5",
       "destinatarioNombre": "Gustavo",
-      "contenido": "Hola Gustavo, ¿has revisado el último lote que envié?",
-      "fechaEnvio": "2025-06-06T08:30:00.000Z"
+      "contenido": "Hola",
+      "fechaEnvio": "2025-06-21T17:52:35.765Z"
     },
     {
-      "id": "1749300000002",
-      "remitenteId": "1005",
+      "id": "1750528374592",
+      "remitenteId": "5",
       "remitenteNombre": "Gustavo",
-      "destinatarioId": "10005",
-      "destinatarioNombre": "Angelo",
-      "contenido": "Hola Angelo, sí, lo revisé y está en perfectas condiciones.",
-      "fechaEnvio": "2025-06-06T08:45:00.000Z"
-    },
-    {
-      "id": "1749300000003",
-      "remitenteId": "10005",
-      "remitenteNombre": "Angelo",
-      "destinatarioId": "1005",
-      "destinatarioNombre": "Gustavo",
-      "contenido": "Genial, estaré enviando otro lote mañana.",
-      "fechaEnvio": "2025-06-06T09:00:00.000Z"
-    },
-    {
-      "id": "1749300000004",
-      "remitenteId": "1005",
-      "remitenteNombre": "Gustavo",
-      "destinatarioId": "10005",
-      "destinatarioNombre": "Angelo",
-      "contenido": "Perfecto, estaré pendiente. ¡Gracias!",
-      "fechaEnvio": "2025-06-06T09:15:00.000Z"
-    },
-    {
-      "id": "1749293042449",
-      "remitenteId": "1005",
-      "remitenteNombre": "Gustavo",
-      "destinatarioId": "10005",
-      "destinatarioNombre": "Angelo",
-      "contenido": "Hola denuevo",
-      "fechaEnvio": "2025-06-07T10:44:02.449Z"
-    },
-    {
-      "id": "1749293062442",
-      "remitenteId": "10005",
-      "remitenteNombre": "Angelo",
-      "destinatarioId": "1005",
-      "destinatarioNombre": "Gustavo",
+      "destinatarioId": "1",
+      "destinatarioNombre": "Angelo Curi Marcelo",
       "contenido": "hola",
-      "fechaEnvio": "2025-06-07T10:44:22.442Z"
-    },
-    {
-      "id": "1749936056259",
-      "remitenteId": "10005",
-      "remitenteNombre": "Angelo",
-      "destinatarioId": "1005",
-      "destinatarioNombre": "Gustavo",
-      "contenido": "que fuee",
-      "fechaEnvio": "2025-06-14T21:20:56.259Z"
-    },
-    {
-      "id": "1749936106579",
-      "remitenteId": "1005",
-      "remitenteNombre": "Gustavo",
-      "destinatarioId": "101",
-      "destinatarioNombre": "Juan Pérez",
-      "contenido": "buenos dias, quisiera hacer un pedido",
-      "fechaEnvio": "2025-06-14T21:21:46.579Z"
-    },
-    {
-      "id": "17499361065014",
-      "remitenteId": "101",
-      "remitenteNombre": "Juan Pérez",
-      "destinatarioId": "1005",
-      "destinatarioNombre": "Gustavo",
-      "contenido": "Si que lote estaria interesado",
-      "fechaEnvio": "2025-06-14T21:21:46.579Z"
-    },
-    {
-      "id": "1749936409557",
-      "remitenteId": "1005",
-      "remitenteNombre": "Gustavo",
-      "destinatarioId": "10005",
-      "destinatarioNombre": "Angelo",
-      "contenido": "muy bien y tu",
-      "fechaEnvio": "2025-06-14T21:26:49.557Z"
-    },
-    {
-      "id": "1749936812494",
-      "remitenteId": "1005",
-      "remitenteNombre": "Gustavo",
-      "destinatarioId": "10005",
-      "destinatarioNombre": "Angelo",
-      "contenido": "HOLAAA",
-      "fechaEnvio": "2025-06-14T21:33:32.494Z"
-    },
-    {
-      "id": "1749936821639",
-      "remitenteId": "10005",
-      "remitenteNombre": "Angelo",
-      "destinatarioId": "1005",
-      "destinatarioNombre": "Gustavo",
-      "contenido": "hola",
-      "fechaEnvio": "2025-06-14T21:33:41.639Z"
-    },
-    {
-      "id": "1749938953732",
-      "remitenteId": "10005",
-      "remitenteNombre": "Angelo",
-      "destinatarioId": "1005",
-      "destinatarioNombre": "Gustavo",
-      "contenido": "Me gustaria realizar un pedido mas de 200 Lotes para este mes por favorrr",
-      "fechaEnvio": "2025-06-14T22:09:13.732Z"
-    },
-    {
-      "id": "1749939233315",
-      "remitenteId": "1005",
-      "remitenteNombre": "Gustavo",
-      "destinatarioId": "104",
-      "destinatarioNombre": "Laura Martínez",
-      "contenido": "Buenos dias señorita Laura, me gustaria ponerme en contacto contigo para poder realizar el pedido de lotes por favor",
-      "fechaEnvio": "2025-06-14T22:13:53.315Z"
-    },
-    {
-      "id": "1750311791679",
-      "remitenteId": "10005",
-      "remitenteNombre": "Angelo",
-      "destinatarioId": "1005",
-      "destinatarioNombre": "Gustavo",
-      "contenido": "HOLa",
-      "fechaEnvio": "2025-06-19T05:43:11.679Z"
+      "fechaEnvio": "2025-06-21T17:52:54.592Z"
     }
   ]
 }

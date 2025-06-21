@@ -93,29 +93,33 @@ export default {
   computed: {
     mensajesFiltrados() {
       if (!this.contactoSeleccionado) return [];
+      const usuarioId = String(this.usuarioActual.id);
+      const contactoId = String(this.contactoSeleccionado.id);
+
       return this.mensajes.filter(
           (msg) =>
-              (msg.remitenteId === this.usuarioActual.id &&
-                  msg.destinatarioId === this.contactoSeleccionado.id) ||
-              (msg.remitenteId === this.contactoSeleccionado.id &&
-                  msg.destinatarioId === this.usuarioActual.id)
+              (String(msg.remitenteId) === usuarioId && String(msg.destinatarioId) === contactoId) ||
+              (String(msg.remitenteId) === contactoId && String(msg.destinatarioId) === usuarioId)
       );
     },
   },
+
   methods: {
     async fetchMensajes() {
       try {
         const response = await MensajeService.getAll();
         const mensajes = response.data;
 
+        const usuarioId = String(this.usuarioActual.id);
+
         this.mensajes = mensajes.map((msg) => {
-          const contacto = this.contactos.find((c) => c.id === msg.remitenteId);
+          const remitenteId = String(msg.remitenteId);
+          const contacto = this.contactos.find((c) => String(c.id) === remitenteId);
+
           return {
             ...msg,
             avatar:
-                msg.remitenteId !== this.usuarioActual.id
-                    ? contacto?.url || ""
-                    : null,
+                remitenteId !== usuarioId ? contacto?.url || "" : null,
           };
         });
 
@@ -169,14 +173,13 @@ export default {
 
       const mensaje = {
         id: Date.now().toString(),
-        remitenteId: this.usuarioActual.id,
+        remitenteId: String(this.usuarioActual.id),
         remitenteNombre: this.usuarioActual.nombre,
-        destinatarioId: this.contactoSeleccionado.id,
+        destinatarioId: String(this.contactoSeleccionado.id),
         destinatarioNombre: this.contactoSeleccionado.nombre,
         contenido: this.nuevoMensaje,
         fechaEnvio: new Date().toISOString(),
       };
-
       try {
         await MensajeService.create(mensaje);
         this.nuevoMensaje = "";
