@@ -42,9 +42,9 @@ import TabList from "primevue/tablist";
 import Tab from "primevue/tab";
 import TabPanel from "primevue/tabpanel";
 
-
+import Password from 'primevue/password';
 import Toast from "primevue/toast";
-
+import RadioButton from 'primevue/radiobutton';
 
 //importado de manera local de "router/index.js" creado y ubicado en src
 import router from "./router/index.js";
@@ -105,6 +105,7 @@ app.component('pv-button', Button)
     .component('pv-tab-list', TabList)
     .component('pv-tab', Tab)
     .component('pv-tab-panel', TabPanel)
-    .component('pv-data-view', DataView);
-
+    .component('pv-data-view', DataView)
+    .component('pv-password', Password)
+    .component('pv-radio-button', RadioButton);
 app.mount('#app')
