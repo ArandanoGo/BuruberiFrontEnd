@@ -1,6 +1,7 @@
 export class DistribuidorEntity {
     constructor({
                     id = null,
+                    userid = null,
                     nombre = "",
                     telefono = "",
                     email = "",
@@ -11,6 +12,7 @@ export class DistribuidorEntity {
                     url = null,
                 } = {}) {
         this.id = id;
+        this.userid = userid;
         this.nombre = nombre;
         this.telefono = telefono;
         this.email = email;

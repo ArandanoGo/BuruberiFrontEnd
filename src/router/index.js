@@ -21,6 +21,7 @@ import ReviewProducerComponent from "../review/pages/review-producer.component.v
 import OrderManagementComponent from "../orders/pages/order-management.component.vue";
 import OrderDistribuidorComponent from "../orders/pages/order-distribuidor.component.vue";
 import LoginManagementComponent from "../login/pages/login-management.component.vue";
+import LoginCrearPComponent from "../login/pages/login-crearP.component.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -120,6 +121,16 @@ const router = createRouter({
             path: '/login',
             name: 'login-management',
             component: LoginManagementComponent,
+        },
+        {
+            path: '/login/crear/Productor',
+            name: 'login-Productor',
+            component: LoginCrearPComponent,
+        },
+        {
+            path: '/login/crear/Distribuidor',
+            name: 'login-Distribuidor',
+            component: LoginCrearPComponent,
         },
         ]
 });

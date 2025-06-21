@@ -99,9 +99,9 @@ export default {
       this.mostrarDialogo = false;
 
       if (this.rolSeleccionado === "1") {
-        this.$router.push({ name: "UserRegisterProductor" });
+        this.$router.push({ name: "login-Productor" });
       } else if (this.rolSeleccionado === "2") {
-        this.$router.push({ name: "UserRegisterDistribuidor" });
+        this.$router.push({ name: "login-Distribuidor" });
       }
     }
   }

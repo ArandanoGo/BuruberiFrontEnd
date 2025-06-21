@@ -1,6 +1,23 @@
 {
-  "users":[
-
+  "users": [
+    {
+      "id": null,
+      "username": "Juann",
+      "password": "juansito12",
+      "rol": "1"
+    },
+    {
+      "id": "7448",
+      "username": "gagaaaa",
+      "password": "gagagaaaa",
+      "rol": "1"
+    },
+    {
+      "id": "8d90",
+      "username": "jjjj",
+      "password": "jjjjj",
+      "rol": "1"
+    }
   ],
   "orders": [
     {
@@ -9,7 +26,7 @@
       "cantidad": 80,
       "estado": "pendiente",
       "fechaPedido": "2025-06-20T06:38:24.361Z",
-      "id": 1
+      "id": "1"
     },
     {
       "idDistribuidor": 1005,
@@ -17,7 +34,7 @@
       "cantidad": 15,
       "estado": "completado",
       "fechaPedido": "2025-06-20T07:55:22.471Z",
-      "id": 2
+      "id": "2"
     }
   ],
   "promotions": [
@@ -26,7 +43,7 @@
       "codigo": "PROMO-GAA9MY",
       "descuento": 50,
       "fecha_caducidad": "2025-06-19",
-      "id": 1
+      "id": "1"
     }
   ],
   "contactos": [
@@ -210,6 +227,42 @@
       "pais": "Argentina",
       "fechaRegistro": null,
       "url": "https://raw.githubusercontent.com/VillaSystem/grupo2-project-report/refs/heads/master/images/Angelo.png"
+    },
+    {
+      "id": null,
+      "userid": null,
+      "nombre": "Juan Lopez Gomez",
+      "telefono": "46946464",
+      "email": "nagnangag",
+      "direccion": "agag",
+      "ciudad": "gaga",
+      "pais": "gaga",
+      "fechaRegistro": "2025-06-21T14:26:46.797Z",
+      "url": "https://media.istockphoto.com/id/1090878494/es/foto/retrato-de-joven-sonriente-a-hombre-guapo-en-camiseta-polo-azul-aislado-sobre-fondo-gris-de.jpg"
+    },
+    {
+      "id": null,
+      "userid": "7448",
+      "nombre": "gaga",
+      "telefono": "gaga",
+      "email": "ga",
+      "direccion": "gaga",
+      "ciudad": "gaga",
+      "pais": "gag",
+      "fechaRegistro": "2025-06-21T14:34:49.195Z",
+      "url": "gaga"
+    },
+    {
+      "id": "1468",
+      "userid": "8d90",
+      "nombre": "jjj",
+      "telefono": "ghg",
+      "email": "hg",
+      "direccion": "hg",
+      "ciudad": "hgh",
+      "pais": "hfhf",
+      "fechaRegistro": "2025-06-21T14:38:50.365Z",
+      "url": "hfhf"
     }
   ],
   "distribuidores": [
@@ -229,7 +282,7 @@
     {
       "idLote": "2",
       "idDistribuidor": 1005,
-      "id": 1
+      "id": "1"
     }
   ],
   "lotes": [
