@@ -12,4 +12,5 @@ export class MensajeEntity {
         this.contenido = contenido;
         this.fechaEnvio = new Date(fechaEnvio);
     }
+    
 }
