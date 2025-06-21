@@ -1,12 +1,6 @@
 {
   "users": [
     {
-      "id": null,
-      "username": "Juann",
-      "password": "juansito12",
-      "rol": "1"
-    },
-    {
       "id": "7448",
       "username": "gagaaaa",
       "password": "gagagaaaa",
@@ -41,6 +35,12 @@
       "username": "fafa",
       "password": "fawewr",
       "rol": "1"
+    },
+    {
+      "username": "gfgg",
+      "password": "gsgsere",
+      "rol": "2",
+      "id": "3Rn9w3d"
     }
   ],
   "orders": [
@@ -253,30 +253,6 @@
       "url": "https://raw.githubusercontent.com/VillaSystem/grupo2-project-report/refs/heads/master/images/Angelo.png"
     },
     {
-      "id": null,
-      "userid": null,
-      "nombre": "Juan Lopez Gomez",
-      "telefono": "46946464",
-      "email": "nagnangag",
-      "direccion": "agag",
-      "ciudad": "gaga",
-      "pais": "gaga",
-      "fechaRegistro": "2025-06-21T14:26:46.797Z",
-      "url": "https://media.istockphoto.com/id/1090878494/es/foto/retrato-de-joven-sonriente-a-hombre-guapo-en-camiseta-polo-azul-aislado-sobre-fondo-gris-de.jpg"
-    },
-    {
-      "id": null,
-      "userid": "7448",
-      "nombre": "gaga",
-      "telefono": "gaga",
-      "email": "ga",
-      "direccion": "gaga",
-      "ciudad": "gaga",
-      "pais": "gag",
-      "fechaRegistro": "2025-06-21T14:34:49.195Z",
-      "url": "gaga"
-    },
-    {
       "id": "1468",
       "userid": "8d90",
       "nombre": "jjj",
@@ -348,6 +324,18 @@
       "pais": "Perú",
       "fechaRegistro": null,
       "url": "https://raw.githubusercontent.com/VillaSystem/grupo2-project-report/refs/heads/master/images/gustavo.png"
+    },
+    {
+      "userid": "3Rn9w3d",
+      "nombre": "Melina",
+      "telefono": "535783",
+      "email": "anganga",
+      "direccion": "afawri",
+      "ciudad": "Lima",
+      "pais": "Afganistan",
+      "fechaRegistro": "2025-06-21T16:05:39.458Z",
+      "url": "https://i.pinimg.com/736x/15/9b/44/159b4494549ced5ddb6338303c57731b.jpg",
+      "id": "YutEldn"
     }
   ],
   "favoritos": [

@@ -44,6 +44,7 @@ import DistribuidorService from "../services/distribuidor.service.js";
 
 export default {
   name: "MenuDistribuidor",
+  props: ["id"],
   data() {
     return {
       distribuidor: null,
@@ -53,7 +54,7 @@ export default {
   },
   async mounted() {
     try {
-      const response = await DistribuidorService.getById("1005");
+      const response = await DistribuidorService.getById(this.id);
       this.distribuidor = response.data;
     } catch (e) {
       this.error = "No se pudo cargar la información del distribuidor";
@@ -67,8 +68,10 @@ export default {
       this.$router.push({ name: "LoteCatalogo" });
     },
     verReserva() {
-      this.$router.push({ name: "PedidosManagement",
-        params: { id: this.distribuidor.id } });
+      this.$router.push({
+        name: "PedidosManagement",
+        params: { id: this.distribuidor.id },
+      });
     },
     verFavoritos() {
       this.$router.push({ name: "FavoritoManagement" });
@@ -77,23 +80,27 @@ export default {
       this.$router.push({ name: "ChatManagement" });
     },
     cerrarSesion() {
-      this.$router.push("/home"); // ← Aquí redirige a la URL /home directamente
+      this.$router.push("/home");
     },
     verProductores() {
       this.$router.push({ name: "productores" });
     },
     verContactos() {
-      this.$router.push({ name: "contactos-productor", params: { id: this.distribuidor.id } });
+      this.$router.push({
+        name: "contactos-productor",
+        params: { id: this.distribuidor.id },
+      });
     },
     verPedidos() {
       this.$router.push({
         name: "order-distribuidor",
-        params: { id: this.distribuidor.id }
+        params: { id: this.distribuidor.id },
       });
     },
   },
 };
 </script>
+
 
 
 <style scoped>

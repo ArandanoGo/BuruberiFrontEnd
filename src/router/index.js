@@ -22,6 +22,7 @@ import OrderManagementComponent from "../orders/pages/order-management.component
 import OrderDistribuidorComponent from "../orders/pages/order-distribuidor.component.vue";
 import LoginManagementComponent from "../login/pages/login-management.component.vue";
 import LoginCrearPComponent from "../login/pages/login-crearP.component.vue";
+import LoginCrearDComponent from "../login/pages/login-crearD.component.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -36,9 +37,10 @@ const router = createRouter({
             props: true,
         },
         {
-            path: "/MenuD",
+            path: "/MenuD/:id/distribuidor",
             name: "MenuDistribuidor",
             component: MenuDistribuidorComponent,
+            props: true,
         },
         {
             path: "/lotes/:id/productor",
@@ -131,7 +133,7 @@ const router = createRouter({
         {
             path: '/login/crear/Distribuidor',
             name: 'login-Distribuidor',
-            component: LoginCrearPComponent,
+            component: LoginCrearDComponent,
         },
         ]
 });
