@@ -8,8 +8,8 @@ export default {
   data() {
     return {
       items: [
-        { label: 'Productor', to: "/MenuP", icon: 'pi pi-user' },
-        { label: 'Distribuidor', to: "/MenuD", icon: 'pi pi-user-plus' },
+       // { label: 'Productor', to: "/MenuP", icon: 'pi pi-user' },
+       // { label: 'Distribuidor', to: "/MenuD", icon: 'pi pi-user-plus' },
         { label: 'Login', to: "/login", icon: 'pi pi-sign-in' } // 👉 Nuevo botón
       ]
     };
