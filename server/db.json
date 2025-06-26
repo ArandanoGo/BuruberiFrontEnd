@@ -526,6 +526,42 @@
       "destinatarioNombre": "Gustavo",
       "contenido": "Hola",
       "fechaEnvio": "2025-06-21T19:44:09.146Z"
+    },
+    {
+      "id": "1750976731135",
+      "remitenteId": "5",
+      "remitenteNombre": "Gustavo",
+      "destinatarioId": "2803",
+      "destinatarioNombre": "Milagros Lima",
+      "contenido": "📍 Ubicación: https://www.google.com/maps?q=-34.610143912644865,-58.382212012243976",
+      "fechaEnvio": "2025-06-26T22:25:31.135Z"
+    },
+    {
+      "id": "1750976956669",
+      "remitenteId": "5",
+      "remitenteNombre": "Gustavo",
+      "destinatarioId": "2803",
+      "destinatarioNombre": "Milagros Lima",
+      "contenido": "https://www.google.com/maps?q=-34.6013045833641,-58.38614902648927",
+      "fechaEnvio": "2025-06-26T22:29:16.669Z"
+    },
+    {
+      "id": "1750977280074",
+      "remitenteId": "5",
+      "remitenteNombre": "Gustavo",
+      "destinatarioId": "2803",
+      "destinatarioNombre": "Milagros Lima",
+      "contenido": "https://www.google.com/maps?q=-34.598478565226536,-58.38151416931154",
+      "fechaEnvio": "2025-06-26T22:34:40.074Z"
+    },
+    {
+      "id": "1750977346905",
+      "remitenteId": "5",
+      "remitenteNombre": "Gustavo",
+      "destinatarioId": "2803",
+      "destinatarioNombre": "Milagros Lima",
+      "contenido": "https://www.google.com/maps?q=-12.051960684337613,-77.04429352560354",
+      "fechaEnvio": "2025-06-26T22:35:46.905Z"
     }
   ]
 }

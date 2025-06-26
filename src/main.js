@@ -23,7 +23,6 @@ import Column from "primevue/column";
 import ConfirmDialog from "primevue/confirmdialog";
 import Checkbox from "primevue/checkbox";
 import DataTable from "primevue/datatable";
-import Dialog from "primevue/dialog";
 import Select from "primevue/select";
 import FileUpload from "primevue/fileupload";
 import FloatLabel from "primevue/floatlabel";
@@ -45,6 +44,8 @@ import TabPanel from "primevue/tabpanel";
 import Password from 'primevue/password';
 import Toast from "primevue/toast";
 import RadioButton from 'primevue/radiobutton';
+import Dialog from "primevue/dialog";
+
 
 //importado de manera local de "router/index.js" creado y ubicado en src
 import router from "./router/index.js";
@@ -108,4 +109,5 @@ app.component('pv-button', Button)
     .component('pv-data-view', DataView)
     .component('pv-password', Password)
     .component('pv-radio-button', RadioButton);
+
 app.mount('#app')

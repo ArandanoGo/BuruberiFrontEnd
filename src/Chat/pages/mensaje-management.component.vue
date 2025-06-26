@@ -29,7 +29,6 @@
               :class="['chat-message', msg.remitenteId === usuarioActual.id ? 'sent' : 'received']"
           >
             <div class="mensaje-con-avatar">
-              <!-- Solo mostrar avatar si es mensaje recibido del productor -->
               <img
                   v-if="msg.remitenteId !== usuarioActual.id && msg.avatar"
                   :src="msg.avatar"
@@ -37,7 +36,22 @@
                   class="avatar"
               />
               <div class="contenido-mensaje">
-                <p class="contenido">{{ msg.contenido }}</p>
+                <p class="contenido">
+                  <template v-if="msg.contenido.includes('https://www.google.com/maps?q=')">
+                    <a :href="msg.contenido" target="_blank">{{ msg.contenido }}</a><br />
+                    <iframe
+                        :src="msg.contenido.replace('https://www.google.com/maps?q=', 'https://maps.google.com/maps?q=') + '&output=embed'"
+                        width="100%"
+                        height="200"
+                        style="border:0; margin-top: 8px;"
+                        allowfullscreen
+                        loading="lazy"
+                    ></iframe>
+                  </template>
+                  <template v-else>
+                    {{ msg.contenido }}
+                  </template>
+                </p>
                 <small class="fecha">{{ new Date(msg.fechaEnvio).toLocaleString() }}</small>
               </div>
             </div>
@@ -51,14 +65,27 @@
               placeholder="Escribe un mensaje..."
           />
           <pv-button label="Enviar" icon="pi pi-send" @click="enviarMensaje" />
+          <pv-button label="Ubicación" icon="pi pi-map-marker" @click="mostrarMapa = true" />
         </div>
       </div>
 
-      <!-- Placeholder si no hay contacto seleccionado -->
       <div class="chat-placeholder" v-else>
         <p>Selecciona un contacto para comenzar a chatear.</p>
       </div>
     </div>
+
+    <!-- Modal con Google Maps -->
+    <pv-dialog
+        v-model:visible="mostrarMapa"
+        modal
+        header="Selecciona una ubicación"
+        style="width: 90vw; height: 70vh;"
+    >
+      <div ref="mapContainer" style="width: 100%; height: 500px;"></div>
+      <div style="margin-top: 10px; text-align: right;">
+        <pv-button label="Enviar ubicación" icon="pi pi-check" @click="enviarUbicacion" />
+      </div>
+    </pv-dialog>
   </div>
 </template>
 
@@ -68,19 +95,27 @@ import ContactoService from "../services/contacto.service.js";
 import ProductorService from "../services/productor.service.js";
 
 export default {
-  props: ['id'],  // Recibe id distribuidor desde la ruta
+  props: ['id'],
   data() {
     return {
       mensajes: [],
       nuevoMensaje: "",
-      usuarioActual: { id: this.id || "1005", nombre: "Gustavo" }, // Usa id de prop o default
+      usuarioActual: { id: this.id || "1005", nombre: "Gustavo" },
       contactos: [],
       contactoSeleccionado: null,
       pollingInterval: null,
+      mostrarMapa: false,
+      mapa: null,
+      marcador: null,
+      ubicacionSeleccionada: null,
     };
   },
   watch: {
-    // Si cambia la prop id (distribuidor), actualiza usuarioActual y recarga datos
+    mostrarMapa(val) {
+      if (val) {
+        this.$nextTick(this.initMapa);
+      }
+    },
     id(newId) {
       this.usuarioActual.id = newId;
       this.contactos = [];
@@ -95,7 +130,6 @@ export default {
       if (!this.contactoSeleccionado) return [];
       const usuarioId = String(this.usuarioActual.id);
       const contactoId = String(this.contactoSeleccionado.id);
-
       return this.mensajes.filter(
           (msg) =>
               (String(msg.remitenteId) === usuarioId && String(msg.destinatarioId) === contactoId) ||
@@ -103,26 +137,20 @@ export default {
       );
     },
   },
-
   methods: {
     async fetchMensajes() {
       try {
         const response = await MensajeService.getAll();
         const mensajes = response.data;
-
         const usuarioId = String(this.usuarioActual.id);
-
         this.mensajes = mensajes.map((msg) => {
           const remitenteId = String(msg.remitenteId);
           const contacto = this.contactos.find((c) => String(c.id) === remitenteId);
-
           return {
             ...msg,
-            avatar:
-                remitenteId !== usuarioId ? contacto?.url || "" : null,
+            avatar: remitenteId !== usuarioId ? contacto?.url || "" : null,
           };
         });
-
         this.scrollChatToBottom();
       } catch (error) {
         console.error("Error al obtener mensajes:", error);
@@ -131,11 +159,8 @@ export default {
 
     async fetchContactos() {
       try {
-        const response = await ContactoService.findByDistribuidor(
-            this.usuarioActual.id
-        );
+        const response = await ContactoService.findByDistribuidor(this.usuarioActual.id);
         const contactosBase = response.data;
-
         const contactosConNombre = await Promise.all(
             contactosBase.map(async (c) => {
               try {
@@ -146,8 +171,7 @@ export default {
                   nombre: productor.nombre || `Productor ${c.idProductor}`,
                   url: productor.url || "",
                 };
-              } catch (err) {
-                console.warn(`No se pudo obtener nombre para productor ${c.idProductor}`);
+              } catch {
                 return {
                   id: c.idProductor,
                   nombre: `Productor ${c.idProductor}`,
@@ -156,7 +180,6 @@ export default {
               }
             })
         );
-
         this.contactos = contactosConNombre;
       } catch (error) {
         console.error("Error al obtener contactos:", error);
@@ -196,6 +219,38 @@ export default {
         if (container) container.scrollTop = container.scrollHeight;
       });
     },
+
+    initMapa() {
+      const centro = { lat: -34.6037, lng: -58.3816 };
+      this.mapa = new google.maps.Map(this.$refs.mapContainer, {
+        center: centro,
+        zoom: 13,
+      });
+      this.mapa.addListener("click", (e) => {
+        this.colocarMarcador(e.latLng);
+      });
+    },
+
+    colocarMarcador(latLng) {
+      if (this.marcador) {
+        this.marcador.setMap(null);
+      }
+      this.marcador = new google.maps.Marker({
+        position: latLng,
+        map: this.mapa,
+      });
+      this.ubicacionSeleccionada = latLng;
+    },
+
+    async enviarUbicacion() {
+      if (!this.ubicacionSeleccionada) return;
+      const lat = this.ubicacionSeleccionada.lat();
+      const lng = this.ubicacionSeleccionada.lng();
+      const link = `https://www.google.com/maps?q=${lat},${lng}`;
+      this.nuevoMensaje = link;
+      this.mostrarMapa = false;
+      await this.enviarMensaje();
+    },
   },
   mounted() {
     this.fetchContactos();
@@ -206,7 +261,6 @@ export default {
     clearInterval(this.pollingInterval);
   },
 };
-
 </script>
 
 <style scoped>
@@ -352,6 +406,7 @@ export default {
   font-size: 1.2rem;
   color: #555;
 }
+
 .contactos h3 {
   color: #6a0dad;
 }
