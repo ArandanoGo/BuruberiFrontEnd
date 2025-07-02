@@ -1,14 +1,9 @@
 <template>
   <div class="fondo-morado">
     <div class="card-contenedor">
-
-      <!-- Flecha para volver atrás -->
       <pv-button icon="pi pi-arrow-left" class="p-button-text flecha-volver" @click="volverAtras" />
-
-      <!-- Título -->
       <h1 class="titulo">Órdenes del Distribuidor</h1>
 
-      <!-- Tabla de órdenes -->
       <pv-data-table :value="ordenes" :paginator="true" :rows="10">
         <pv-column field="id" header="ID" />
         <pv-column field="idLote" header="ID Lote" />
@@ -18,15 +13,32 @@
           </template>
         </pv-column>
         <pv-column field="cantidad" header="Cantidad" />
+        <pv-column field="precioFinal" header="Precio Final">
+          <template #body="slotProps">
+            S/ {{ slotProps.data.precioFinal?.toFixed(2) }}
+          </template>
+        </pv-column>
         <pv-column field="estado" header="Estado" />
-
         <pv-column header="Acción" :exportable="false">
           <template #body="slotProps">
             <pv-button
                 label="Mandar mensaje"
-                class="p-button-sm p-button-info"
+                class="p-button-sm p-button-info mr-2"
                 @click="mandarMensaje(slotProps.data)"
             />
+            <pv-button
+                label="Pagar"
+                class="p-button-sm p-button-success"
+                :disabled="slotProps.data.estado === 'Pagado'"
+                @click="pagarOrden(slotProps.data)"
+            />
+            <div
+                v-if="ordenSeleccionada && ordenSeleccionada.id === slotProps.data.id"
+                class="paypal-box"
+            >
+              <button class="cerrar-btn" @click="cerrarPaypal">✖</button>
+              <div :id="`paypal-button-container-${slotProps.data.id}`" class="mt-2"></div>
+            </div>
           </template>
         </pv-column>
       </pv-data-table>
@@ -38,10 +50,11 @@
 import OrderService from "../services/order.service.js";
 
 export default {
-  props: ['id'],  // 👈 Recibe el ID desde la ruta como prop
+  props: ['id'],
   data() {
     return {
       ordenes: [],
+      ordenSeleccionada: null,
     };
   },
   methods: {
@@ -67,6 +80,55 @@ export default {
     mandarMensaje(orden) {
       alert(`Funcionalidad para mandar mensaje desde orden ID ${orden.id} (a implementar)`);
     },
+    cerrarPaypal() {
+      const containerId = `paypal-button-container-${this.ordenSeleccionada?.id}`;
+      const container = document.getElementById(containerId);
+      if (container) container.innerHTML = "";
+      this.ordenSeleccionada = null;
+    },
+    pagarOrden(orden) {
+      this.ordenSeleccionada = orden;
+
+      this.$nextTick(() => {
+        const containerId = `paypal-button-container-${orden.id}`;
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        container.innerHTML = "";
+
+        paypal.Buttons({
+          createOrder: function (data, actions) {
+            return actions.order.create({
+              purchase_units: [{
+                amount: {
+                  value: orden.precioFinal?.toFixed(2) || '0.00'
+                }
+              }]
+            });
+          },
+          onApprove: (data, actions) => {
+            return actions.order.capture().then(async (details) => {
+              alert(`✅ Pago completado por ${details.payer.name.given_name}`);
+
+              // Cambiar estado a "Pagado"
+              const ordenActualizada = {
+                ...orden,
+                estado: "Pagado"
+              };
+
+              try {
+                await OrderService.update(orden.id, ordenActualizada);
+                orden.estado = "Pagado";
+                this.ordenSeleccionada = null;
+              } catch (error) {
+                console.error("❌ Error actualizando estado de la orden:", error);
+                alert("El pago se procesó, pero no se pudo actualizar el estado.");
+              }
+            });
+          }
+        }).render(`#${containerId}`);
+      });
+    },
   },
   mounted() {
     if (!this.id) {
@@ -77,7 +139,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 .fondo-morado {
@@ -118,5 +179,29 @@ export default {
 
 .p-button-sm {
   font-size: 0.8rem;
+}
+
+.mt-2 {
+  margin-top: 1rem;
+}
+
+.paypal-box {
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  background: #f9f9f9;
+  margin-top: 10px;
+}
+
+.cerrar-btn {
+  position: absolute;
+  top: 2px;
+  right: 6px;
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #a00;
 }
 </style>

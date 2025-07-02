@@ -98,26 +98,40 @@ export default {
       if (["aceptada", "rechazada"].includes(reserva.estado)) return;
 
       try {
+        // Buscar el lote relacionado a la reserva
+        const lote = this.lotes.find(l => l.id === reserva.idLote);
+        if (!lote) {
+          alert("❌ Lote no encontrado.");
+          return;
+        }
+
+        // Calcular el precio final (stock * precioUnitario)
+        const precioFinal = reserva.stock * lote.precioUnitario;
+
+        // Crear la orden incluyendo precioFinal
         const nuevaOrden = {
           idDistribuidor: reserva.idDistribuidor,
           idLote: reserva.idLote,
           cantidad: reserva.stock,
           estado: "pendiente",
           fechaPedido: new Date().toISOString(),
+          precioFinal: precioFinal,
         };
+
         await OrderService.create(nuevaOrden);
 
-        const reservaActualizada = {...reserva, estado: "aceptada"};
+        // Actualizar el estado de la reserva a "aceptada"
+        const reservaActualizada = { ...reserva, estado: "aceptada" };
         await ReservaService.update(reserva.id, reservaActualizada);
 
         reserva.estado = "aceptada";
 
-        alert(`Reserva ID ${reserva.id} aceptada y orden creada.`);
+        alert(`✅ Reserva ID ${reserva.id} aceptada y orden creada con precioFinal: S/ ${precioFinal.toFixed(2)}`);
       } catch (error) {
         console.error("Error al aceptar reserva:", error);
-        alert("Ocurrió un error al aceptar la reserva.");
+        alert("❌ Ocurrió un error al aceptar la reserva.");
       }
-    },
+    } ,
 
     async rechazarReserva(reserva) {
       if (["aceptada", "rechazada"].includes(reserva.estado)) return;
