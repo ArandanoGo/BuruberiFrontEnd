@@ -1,3 +1,107 @@
 {
-  "title-home-option": "Home"
+  "title-home-option": "Home",
+  "Login": "Login",
+  "titulo": "Buruberi",
+  "descripcion": "From the field to your table: connect with the best blueberry producers with a single click.",
+  "beneficios": {
+    "titulo": "Why use Buruberi?",
+    "1": "✔️ Connect directly with trusted producers.",
+    "2": "✔️ Increase the visibility of your lots.",
+    "3": "✔️ Safe and easy-to-use platform."
+  },
+  "testimonios": {
+    "titulo": "Testimonials",
+    "juan": {
+      "nombre": "Juan Pérez",
+      "rol": "Producer",
+      "mensaje": "Thanks to Buruberi, my blueberries reach new markets."
+    },
+    "maria": {
+      "nombre": "María Gómez",
+      "rol": "Distributor",
+      "mensaje": "Finding reliable suppliers was never this easy."
+    },
+    "carlos": {
+      "nombre": "Carlos Ruiz",
+      "rol": "Producer",
+      "mensaje": "The platform helps me manage my contacts easily."
+    },
+    "ana": {
+      "nombre": "Ana Torres",
+      "rol": "Distributor",
+      "mensaje": "Buruberi has revolutionized how we manage our purchases."
+    },
+    "luis": {
+      "nombre": "Luis Martínez",
+      "rol": "Producer",
+      "mensaje": "I got more clients in one week than in a whole month before."
+    },
+    "laura": {
+      "nombre": "Laura Silva",
+      "rol": "Distributor",
+      "mensaje": "Great platform to connect with new producers."
+    },
+    "ricardo": {
+      "nombre": "Ricardo López",
+      "rol": "Producer",
+      "mensaje": "Logistics became easier with Buruberi."
+    },
+    "carmen": {
+      "nombre": "Carmen Díaz",
+      "rol": "Distributor",
+      "mensaje": "Customer service is fast and helpful."
+    },
+    "pedro": {
+      "nombre": "Pedro Jiménez",
+      "rol": "Producer",
+      "mensaje": "Now I can focus more on my crops."
+    },
+    "sofia": {
+      "nombre": "Sofía Ríos",
+      "rol": "Distributor",
+      "mensaje": "A trustworthy and efficient work network."
+    }
+  },
+  "planes": {
+    "titulo": "Subscription Plans",
+    "productor": {
+      "titulo": "Producer Plan",
+      "caracteristicas": [
+        "✔️ Batch management",
+        "✔️ Reservation management",
+        "✔️ Message management",
+        "✔️ Promotion management",
+        "✔️ Direct communication with distributors"
+      ]
+    },
+    "distribuidor": {
+      "titulo": "Distributor Plan",
+      "caracteristicas": [
+        "✔️ Product catalog",
+        "✔️ Order management",
+        "✔️ Reservation management",
+        "✔️ Chat management",
+        "✔️ Payment management",
+        "✔️ Real-time location sharing",
+        "✔️ Direct communication with producers"
+      ]
+    }
+  },
+  "faq": {
+    "titulo": "Frequently Asked Questions",
+    "items": [
+      {
+        "pregunta": "How do I register?",
+        "respuesta": "You can register using the button in the top-right corner."
+      },
+      {
+        "pregunta": "Does it cost anything?",
+        "respuesta": "There are paid plans depending on your needs."
+      },
+      {
+        "pregunta": "Can I contact producers directly?",
+        "respuesta": "Yes, that's the main idea of the platform."
+      }
+    ]
+  }
 }

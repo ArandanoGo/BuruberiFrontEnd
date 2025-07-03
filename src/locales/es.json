@@ -1,3 +1,107 @@
 {
-  "title-home-option": "Inicio"
+  "title-home-option": "Inicio",
+  "Login": "Iniciar Sesión",
+  "titulo": "Buruberi",
+  "descripcion": "Del campo a tu mesa: conecta con los mejores productores de arándanos en un solo clic.",
+  "beneficios": {
+    "titulo": "¿Por qué usar Buruberi?",
+    "1": "✔️ Conecta directamente con productores confiables.",
+    "2": "✔️ Aumenta la visibilidad de tus lotes.",
+    "3": "✔️ Plataforma segura y fácil de usar."
+  },
+  "testimonios": {
+    "titulo": "Testimonios",
+    "juan": {
+      "nombre": "Juan Pérez",
+      "rol": "Productor",
+      "mensaje": "Gracias a Buruberi, mis arándanos llegan a nuevos mercados."
+    },
+    "maria": {
+      "nombre": "María Gómez",
+      "rol": "Distribuidora",
+      "mensaje": "Encontrar proveedores confiables nunca fue tan fácil."
+    },
+    "carlos": {
+      "nombre": "Carlos Ruiz",
+      "rol": "Productor",
+      "mensaje": "La plataforma me ayuda a gestionar mis contactos fácilmente."
+    },
+    "ana": {
+      "nombre": "Ana Torres",
+      "rol": "Distribuidora",
+      "mensaje": "Buruberi ha revolucionado la forma en que gestionamos nuestras compras."
+    },
+    "luis": {
+      "nombre": "Luis Martínez",
+      "rol": "Productor",
+      "mensaje": "Conseguí más clientes en una semana que en todo un mes antes."
+    },
+    "laura": {
+      "nombre": "Laura Silva",
+      "rol": "Distribuidora",
+      "mensaje": "Excelente plataforma para contactar nuevos productores."
+    },
+    "ricardo": {
+      "nombre": "Ricardo López",
+      "rol": "Productor",
+      "mensaje": "La logística se volvió más sencilla con Buruberi."
+    },
+    "carmen": {
+      "nombre": "Carmen Díaz",
+      "rol": "Distribuidora",
+      "mensaje": "La atención al cliente es muy buena y rápida."
+    },
+    "pedro": {
+      "nombre": "Pedro Jiménez",
+      "rol": "Productor",
+      "mensaje": "Ahora puedo enfocarme más en mi cultivo."
+    },
+    "sofia": {
+      "nombre": "Sofía Ríos",
+      "rol": "Distribuidora",
+      "mensaje": "Una red de trabajo confiable y eficiente."
+    }
+  },
+  "planes": {
+    "titulo": "Planes de Suscripción",
+    "productor": {
+      "titulo": "Plan Productor",
+      "caracteristicas": [
+        "✔️ Gestión de lotes",
+        "✔️ Gestión de reservas",
+        "✔️ Gestión de mensajes",
+        "✔️ Gestión de promoción",
+        "✔️ Comunicación directa con los distribuidores"
+      ]
+    },
+    "distribuidor": {
+      "titulo": "Plan Distribuidor",
+      "caracteristicas": [
+        "✔️ Catálogo de productos",
+        "✔️ Gestión de pedidos",
+        "✔️ Gestión de reservas",
+        "✔️ Gestión de chat",
+        "✔️ Gestión de pago",
+        "✔️ Envió de ubicación en tiempo real",
+        "✔️ Comunicación directa con productores"
+      ]
+    }
+  },
+  "faq": {
+    "titulo": "Preguntas Frecuentes",
+    "items": [
+      {
+        "pregunta": "¿Cómo me registro?",
+        "respuesta": "Puedes registrarte desde el botón en la parte superior derecha."
+      },
+      {
+        "pregunta": "¿Tiene algún costo?",
+        "respuesta": "Hay planes de pago según tus necesidades."
+      },
+      {
+        "pregunta": "¿Puedo contactar directamente a los productores?",
+        "respuesta": "Sí, esa es la idea principal de la plataforma."
+      }
+    ]
+  }
 }

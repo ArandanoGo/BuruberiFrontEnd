@@ -42,7 +42,7 @@
       "idDistribuidor": "5",
       "idLote": 1,
       "cantidad": 150,
-      "estado": "Pagado",
+      "estado": "pendiente",
       "fechaPedido": "2025-06-21T17:53:20.052Z",
       "precioFinal": 500,
       "id": "1"
