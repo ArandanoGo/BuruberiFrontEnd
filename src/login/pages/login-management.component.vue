@@ -84,7 +84,7 @@ export default {
 
         if (usuario.rol === "1") {
           const productoresResp = await ProductorService.getAll();
-          const productor = productoresResp.data.find(p => Number(p.userid) === Number(usuario.id));
+          const productor = productoresResp.data.find(p => String(p.userid) === String(usuario.id));
 
           if (!productor) {
             alert("No se encontró el productor asociado.");
@@ -95,7 +95,7 @@ export default {
 
         } else if (usuario.rol === "2") {
           const distribuidoresResp = await DistribuidorService.getAll();
-          const distribuidor = distribuidoresResp.data.find(d => Number(d.userid) === Number(usuario.id));
+          const distribuidor = distribuidoresResp.data.find(d => String(d.userid) === String(usuario.id));
 
           if (!distribuidor) {
             alert("No se encontró el distribuidor asociado.");
