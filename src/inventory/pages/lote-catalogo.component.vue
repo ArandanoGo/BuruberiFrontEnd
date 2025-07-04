@@ -70,7 +70,22 @@
     <pv-dialog v-model:visible="dialogoDetallesVisible" header="Detalles del Lote" modal>
       <div v-if="loteSeleccionado">
         <img :src="loteSeleccionado.imagenUrl || imagenDefault" alt="Imagen del lote" class="w-full max-w-xs mx-auto rounded mb-4" />
-        <!-- mostras todos los campos -->
+        <p><strong>Autor:</strong> {{ loteSeleccionado.autor }}</p>
+        <p><strong>Fecha de Registro:</strong> {{ loteSeleccionado.fechaRegistro }}</p>
+        <p><strong>Hora:</strong> {{ loteSeleccionado.hora }}</p>
+        <p><strong>Tipo:</strong> {{ loteSeleccionado.tipo }}</p>
+        <p><strong>Precio Unitario:</strong> {{ loteSeleccionado.precioUnitario }}</p>
+        <p><strong>Peso (kg):</strong> {{ loteSeleccionado.pesoKg }}</p>
+        <p><strong>Calidad:</strong> {{ loteSeleccionado.calidad }}</p>
+        <p><strong>Estado:</strong> {{ loteSeleccionado.estado }}</p>
+        <p><strong>Stock:</strong> {{ loteSeleccionado.stock }}</p>
+        <p><strong>Materia Orgánica:</strong> {{ loteSeleccionado.materiaOrganica }}</p>
+        <p><strong>Cloruro de Potasio:</strong> {{ loteSeleccionado.cloruroPotasio }}</p>
+        <p><strong>Fosfato:</strong> {{ loteSeleccionado.fosfato }}</p>
+        <p><strong>Sulfato de Calcio:</strong> {{ loteSeleccionado.sulfatoCalcio }}</p>
+        <p><strong>Urea:</strong> {{ loteSeleccionado.urea }}</p>
+        <p><strong>Sulfato de Magnesio:</strong> {{ loteSeleccionado.sulfatoMagnesio }}</p>
+        <p><strong>Correctores pH:</strong> {{ loteSeleccionado.correctoresPH }}</p>
       </div>
     </pv-dialog>
   </div>

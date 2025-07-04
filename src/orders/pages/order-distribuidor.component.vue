@@ -26,9 +26,6 @@
                          :disabled="slotProps.data.codigoPromoAplicado"
                          @click="abrirCodigoPromo(slotProps.data)" />
 
-              <pv-button label="Mandar mensaje" class="p-button-sm p-button-info mr-2"
-                         @click="mandarMensaje(slotProps.data)" />
-
               <pv-button label="Pagar" class="p-button-sm p-button-success"
                          :disabled="slotProps.data.estado === 'Pagado'"
                          @click="pagarOrden(slotProps.data)" />
@@ -84,9 +81,6 @@ export default {
       if (!fechaStr) return "";
       const fecha = new Date(fechaStr);
       return `${fecha.getDate().toString().padStart(2, "0")}/${(fecha.getMonth() + 1).toString().padStart(2, "0")}/${fecha.getFullYear()}`;
-    },
-    mandarMensaje(orden) {
-      alert(`Funcionalidad para mandar mensaje desde orden ID ${orden.id} (a implementar)`);
     },
     cerrarPaypal() {
       const containerId = `paypal-button-container-${this.ordenSeleccionada?.id}`;
