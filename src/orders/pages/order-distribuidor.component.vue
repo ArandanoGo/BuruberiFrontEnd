@@ -21,21 +21,28 @@
         <pv-column field="estado" header="Estado" />
         <pv-column header="Acción" :exportable="false">
           <template #body="slotProps">
-            <pv-button
-                label="Mandar mensaje"
-                class="p-button-sm p-button-info mr-2"
-                @click="mandarMensaje(slotProps.data)"
-            />
-            <pv-button
-                label="Pagar"
-                class="p-button-sm p-button-success"
-                :disabled="slotProps.data.estado === 'Pagado'"
-                @click="pagarOrden(slotProps.data)"
-            />
-            <div
-                v-if="ordenSeleccionada && ordenSeleccionada.id === slotProps.data.id"
-                class="paypal-box"
-            >
+            <div class="acciones">
+              <pv-button label="Cod. prom" class="p-button-sm p-button-warning mr-2"
+                         :disabled="slotProps.data.codigoPromoAplicado"
+                         @click="abrirCodigoPromo(slotProps.data)" />
+
+              <pv-button label="Mandar mensaje" class="p-button-sm p-button-info mr-2"
+                         @click="mandarMensaje(slotProps.data)" />
+
+              <pv-button label="Pagar" class="p-button-sm p-button-success"
+                         :disabled="slotProps.data.estado === 'Pagado'"
+                         @click="pagarOrden(slotProps.data)" />
+            </div>
+
+            <!-- Input del código promocional -->
+            <div v-if="ordenConPromo && ordenConPromo.id === slotProps.data.id" class="promo-box mt-2">
+              <pv-input-text v-model="codigoPromo" placeholder="Ingrese código" class="mr-2" />
+              <pv-button label="Aplicar" class="p-button-sm" @click="aplicarPromo(slotProps.data)" />
+              <button class="cerrar-btn" @click="cerrarPromo">✖</button>
+            </div>
+
+            <!-- PayPal -->
+            <div v-if="ordenSeleccionada && ordenSeleccionada.id === slotProps.data.id" class="paypal-box">
               <button class="cerrar-btn" @click="cerrarPaypal">✖</button>
               <div :id="`paypal-button-container-${slotProps.data.id}`" class="mt-2"></div>
             </div>
@@ -48,6 +55,8 @@
 
 <script>
 import OrderService from "../services/order.service.js";
+import LoteService from "../services/lote.service.js";
+import PromotionService from "../services/promotion.service.js";
 
 export default {
   props: ['id'],
@@ -55,6 +64,8 @@ export default {
     return {
       ordenes: [],
       ordenSeleccionada: null,
+      ordenConPromo: null,
+      codigoPromo: '',
     };
   },
   methods: {
@@ -72,10 +83,7 @@ export default {
     formatFecha(fechaStr) {
       if (!fechaStr) return "";
       const fecha = new Date(fechaStr);
-      const dia = String(fecha.getDate()).padStart(2, "0");
-      const mes = String(fecha.getMonth() + 1).padStart(2, "0");
-      const anio = fecha.getFullYear();
-      return `${dia}/${mes}/${anio}`;
+      return `${fecha.getDate().toString().padStart(2, "0")}/${(fecha.getMonth() + 1).toString().padStart(2, "0")}/${fecha.getFullYear()}`;
     },
     mandarMensaje(orden) {
       alert(`Funcionalidad para mandar mensaje desde orden ID ${orden.id} (a implementar)`);
@@ -88,7 +96,6 @@ export default {
     },
     pagarOrden(orden) {
       this.ordenSeleccionada = orden;
-
       this.$nextTick(() => {
         const containerId = `paypal-button-container-${orden.id}`;
         const container = document.getElementById(containerId);
@@ -99,29 +106,19 @@ export default {
         paypal.Buttons({
           createOrder: function (data, actions) {
             return actions.order.create({
-              purchase_units: [{
-                amount: {
-                  value: orden.precioFinal?.toFixed(2) || '0.00'
-                }
-              }]
+              purchase_units: [{ amount: { value: orden.precioFinal?.toFixed(2) || '0.00' } }]
             });
           },
-          onApprove: (data, actions) => {
+          onApprove: async (data, actions) => {
             return actions.order.capture().then(async (details) => {
               alert(`✅ Pago completado por ${details.payer.name.given_name}`);
-
-              // Cambiar estado a "Pagado"
-              const ordenActualizada = {
-                ...orden,
-                estado: "Pagado"
-              };
-
               try {
+                const ordenActualizada = { ...orden, estado: "Pagado" };
                 await OrderService.update(orden.id, ordenActualizada);
                 orden.estado = "Pagado";
                 this.ordenSeleccionada = null;
               } catch (error) {
-                console.error("❌ Error actualizando estado de la orden:", error);
+                console.error("❌ Error actualizando estado:", error);
                 alert("El pago se procesó, pero no se pudo actualizar el estado.");
               }
             });
@@ -129,10 +126,59 @@ export default {
         }).render(`#${containerId}`);
       });
     },
+    abrirCodigoPromo(orden) {
+      this.ordenConPromo = orden;
+      this.codigoPromo = '';
+    },
+    cerrarPromo() {
+      this.ordenConPromo = null;
+      this.codigoPromo = '';
+    },
+    async aplicarPromo(orden) {
+      if (!this.codigoPromo.trim()) return alert("Ingrese un código");
+
+      try {
+        const promoResponse = await PromotionService.findByCodigo(this.codigoPromo.trim());
+        const promociones = promoResponse.data;
+
+        if (!promociones.length) return alert("❌ Código no válido");
+
+        const promo = promociones[0];
+
+        const loteResponse = await LoteService.getById(orden.idLote);
+        const lote = loteResponse.data;
+
+        if (promo.IdProductor.toString() !== lote.idProductor.toString()) {
+          return alert("❌ El código no pertenece al productor del lote");
+        }
+
+        const descuentoDecimal = promo.descuento / 100;
+        const precioOriginal = orden.precioFinal;
+        const nuevoPrecio = +(precioOriginal * (1 - descuentoDecimal)).toFixed(2);
+
+        const ordenActualizada = {
+          ...orden,
+          precioFinal: nuevoPrecio,
+          codigoPromoAplicado: true,
+        };
+
+        await OrderService.update(orden.id, ordenActualizada);
+
+        orden.precioFinal = nuevoPrecio;
+        orden.codigoPromoAplicado = true;
+
+        alert(`✅ Código aplicado. Nuevo precio: S/ ${nuevoPrecio}`);
+        this.cerrarPromo();
+
+      } catch (error) {
+        console.error("❌ Error al aplicar promoción:", error);
+        alert("Error al aplicar código promocional");
+      }
+    }
   },
   mounted() {
     if (!this.id) {
-      alert("ID de distribuidor no proporcionado en la ruta.");
+      alert("ID de distribuidor no proporcionado.");
       return;
     }
     this.fetchOrdenesDistribuidor(this.id);
@@ -147,7 +193,6 @@ export default {
   padding: 40px;
   box-sizing: border-box;
 }
-
 .card-contenedor {
   background-color: #ffffff;
   border-radius: 12px;
@@ -157,43 +202,26 @@ export default {
   margin: 0 auto;
   position: relative;
 }
-
 .flecha-volver {
   position: absolute;
   top: 20px;
   left: 20px;
   color: #572364;
 }
-
 .titulo {
   text-align: center;
   margin-bottom: 30px;
   color: #6a0dad;
 }
-
-::v-deep .p-datatable thead th {
-  background-color: #6a0dad !important;
-  color: white !important;
-  text-align: center;
-}
-
-.p-button-sm {
-  font-size: 0.8rem;
-}
-
-.mt-2 {
-  margin-top: 1rem;
-}
-
+.promo-box,
 .paypal-box {
   position: relative;
+  margin-top: 10px;
+  padding: 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 12px;
   background: #f9f9f9;
-  margin-top: 10px;
 }
-
 .cerrar-btn {
   position: absolute;
   top: 2px;
@@ -203,5 +231,11 @@ export default {
   font-size: 1.1rem;
   cursor: pointer;
   color: #a00;
+}
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
 }
 </style>

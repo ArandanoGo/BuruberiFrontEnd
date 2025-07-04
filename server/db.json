@@ -40,12 +40,22 @@
   "orders": [
     {
       "idDistribuidor": "5",
-      "idLote": 1,
+      "idLote": "1",
       "cantidad": 150,
       "estado": "pendiente",
       "fechaPedido": "2025-06-21T17:53:20.052Z",
       "precioFinal": 500,
       "id": "1"
+    },
+    {
+      "idDistribuidor": "5",
+      "idLote": "lote002",
+      "cantidad": 150,
+      "estado": "pendiente",
+      "fechaPedido": "2025-06-21T17:53:20.052Z",
+      "precioFinal": 250,
+      "id": "20",
+      "codigoPromoAplicado": true
     }
   ],
   "promotions": [
@@ -60,6 +70,13 @@
       "id": "6e41",
       "IdProductor": "2803",
       "codigo": "PROMO-Q45FOT",
+      "descuento": 50,
+      "fecha_caducidad": "2025-06-27"
+    },
+    {
+      "id": "65541",
+      "IdProductor": "2803",
+      "codigo": "PROMO-Z45FOT",
       "descuento": 50,
       "fecha_caducidad": "2025-06-27"
     }
