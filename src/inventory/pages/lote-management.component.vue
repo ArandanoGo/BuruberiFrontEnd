@@ -66,9 +66,10 @@ export default {
       this.$router.push({ name: "LoteCrear", params: { id: this.id } });
     },
     editarLote(lote) {
-      console.log("Editar lote:", lote);
-      // Puedes implementar la redirección a la vista de edición aquí si la tienes
+      this.$router.push({ name: "lote-editar", params: { id: lote.id } });
     },
+
+
     async eliminarLote(lote) {
       try {
         await LoteService.delete(lote.id);

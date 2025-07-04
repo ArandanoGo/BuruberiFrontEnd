@@ -23,6 +23,7 @@ import OrderDistribuidorComponent from "../orders/pages/order-distribuidor.compo
 import LoginManagementComponent from "../login/pages/login-management.component.vue";
 import LoginCrearPComponent from "../login/pages/login-crearP.component.vue";
 import LoginCrearDComponent from "../login/pages/login-crearD.component.vue";
+import LoteEditarComponent from "../inventory/pages/lote-editar.component.vue";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -139,6 +140,12 @@ const router = createRouter({
             path: '/login/crear/Distribuidor',
             name: 'login-Distribuidor',
             component: LoginCrearDComponent,
+        },
+        {
+            path: '/lotes/editar/:id',
+            name: 'lote-editar',
+            component: LoteEditarComponent,
+            props: true,
         },
         ]
 });

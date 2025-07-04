@@ -1,9 +1,7 @@
 <template>
   <div class="fondo-morado">
     <div class="card-contenedor">
-
       <pv-button icon="pi pi-arrow-left" class="p-button-text flecha-volver" @click="volverAtras" />
-
       <h1 class="titulo">Inicio de Sesión</h1>
 
       <!-- Formulario de login -->
@@ -21,18 +19,23 @@
     </div>
 
     <!-- Diálogo para elegir tipo de cuenta -->
-    <pv-dialog v-model:visible="mostrarDialogo" modal header="Selecciona el tipo de cuenta" :style="{ width: '400px' }">
+    <pv-dialog v-model:visible="mostrarDialogo" modal header="Selecciona un plan" :style="{ width: '400px' }">
       <div class="tipo-cuenta-selector">
         <pv-radio-button id="prod" name="rol" value="1" v-model="rolSeleccionado" />
-        <label for="prod">Cuenta Productor</label>
+        <label for="prod">Plan Productor ($30)</label>
 
         <pv-radio-button id="dist" name="rol" value="2" v-model="rolSeleccionado" class="ml-4" />
-        <label for="dist">Cuenta Distribuidor</label>
+        <label for="dist">Plan Distribuidor ($40)</label>
+      </div>
+
+      <div v-if="mostrarPaypal" class="paypal-box">
+        <button class="cerrar-btn" @click="cerrarPaypal">✖</button>
+        <div id="paypal-button-container" class="mt-2"></div>
       </div>
 
       <template #footer>
-        <pv-button label="Cancelar" class="p-button-text" @click="mostrarDialogo = false" />
-        <pv-button label="Continuar" :disabled="!rolSeleccionado" @click="continuarRegistro" />
+        <pv-button label="Cancelar" class="p-button-text" @click="cerrarPaypal" />
+        <pv-button label="Pagar" :disabled="!rolSeleccionado" @click="mostrarBotonPaypal" />
       </template>
     </pv-dialog>
   </div>
@@ -50,7 +53,9 @@ export default {
       username: "",
       password: "",
       mostrarDialogo: false,
-      rolSeleccionado: null
+      rolSeleccionado: null,
+      mostrarPaypal: false,
+      pagoCompletado: false,
     };
   },
   methods: {
@@ -78,10 +83,7 @@ export default {
         const usuario = new UserEntity(usuarioEncontrado);
 
         if (usuario.rol === "1") {
-          // Es productor
           const productoresResp = await ProductorService.getAll();
-          console.log("Productores desde backend:", productoresResp.data);
-
           const productor = productoresResp.data.find(p => Number(p.userid) === Number(usuario.id));
 
           if (!productor) {
@@ -89,13 +91,10 @@ export default {
             return;
           }
 
-          this.$router.push({ name: "MenuProductor", params: { id: productor.id } });
+          this.$router.push({name: "MenuProductor", params: {id: productor.id}});
 
         } else if (usuario.rol === "2") {
-          // Es distribuidor
           const distribuidoresResp = await DistribuidorService.getAll();
-          console.log("Distribuidores desde backend:", distribuidoresResp.data);
-
           const distribuidor = distribuidoresResp.data.find(d => Number(d.userid) === Number(usuario.id));
 
           if (!distribuidor) {
@@ -103,7 +102,7 @@ export default {
             return;
           }
 
-          this.$router.push({ name: "MenuDistribuidor", params: { id: distribuidor.id } });
+          this.$router.push({name: "MenuDistribuidor", params: {id: distribuidor.id}});
 
         } else {
           alert("Rol de usuario no reconocido");
@@ -116,22 +115,57 @@ export default {
     },
 
     recuperarPassword() {
-      this.$router.push({ name: "PasswordRecovery" });
+      this.$router.push({name: "PasswordRecovery"});
     },
 
-    continuarRegistro() {
+    mostrarBotonPaypal() {
+      this.mostrarPaypal = true;
+
+      const monto = this.rolSeleccionado === "1" ? "30.00" : "40.00";
+
+      this.$nextTick(() => {
+        const container = document.getElementById("paypal-button-container");
+        if (container) container.innerHTML = "";
+
+        paypal.Buttons({
+          createOrder: function (data, actions) {
+            return actions.order.create({
+              purchase_units: [{
+                amount: {value: monto}
+              }]
+            });
+          },
+          onApprove: (data, actions) => {
+            return actions.order.capture().then((details) => {
+              alert(`✅ Pago realizado por ${details.payer.name.given_name}`);
+              this.pagoCompletado = true;
+              this.finalizarRegistro();
+            });
+          }
+        }).render("#paypal-button-container");
+      });
+    },
+
+    cerrarPaypal() {
+      const container = document.getElementById("paypal-button-container");
+      if (container) container.innerHTML = "";
+      this.mostrarPaypal = false;
+      this.rolSeleccionado = null;
+    },
+
+    finalizarRegistro() {
       this.mostrarDialogo = false;
+      this.mostrarPaypal = false;
 
       if (this.rolSeleccionado === "1") {
-        this.$router.push({ name: "login-Productor" });
+        this.$router.push({name: "login-Productor"});
       } else if (this.rolSeleccionado === "2") {
-        this.$router.push({ name: "login-Distribuidor" });
+        this.$router.push({name: "login-Distribuidor"});
       }
     }
   }
 };
 </script>
-
 
 <style scoped>
 .fondo-morado {
@@ -191,6 +225,30 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  margin-top: 1rem;
+}
+
+.paypal-box {
+  margin-top: 1rem;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  position: relative;
+}
+
+.cerrar-btn {
+  position: absolute;
+  top: 2px;
+  right: 6px;
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #a00;
+}
+
+.mt-2 {
   margin-top: 1rem;
 }
 </style>
