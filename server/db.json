@@ -151,6 +151,46 @@
       "fechaRegistro": "2025-06-26",
       "stock": 250,
       "estado": "pendiente"
+    },
+    {
+      "id": "ab51",
+      "idLote": "7e3b",
+      "idDistribuidor": "5",
+      "fechaRegistro": "2025-07-09",
+      "stock": 1,
+      "estado": "pendiente"
+    },
+    {
+      "id": "d249",
+      "idLote": "7f62c091-f0f0-4a32-b00b-e852e2bb1d63",
+      "idDistribuidor": "5",
+      "fechaRegistro": "2025-07-09",
+      "stock": 1,
+      "estado": "pendiente"
+    },
+    {
+      "id": "86e0",
+      "idLote": "6083edad-6d2a-4b15-83fe-dd237bc90dc4",
+      "idDistribuidor": "5",
+      "fechaRegistro": "2025-07-09",
+      "stock": 1,
+      "estado": "pendiente"
+    },
+    {
+      "id": "5b02",
+      "idLote": "7f62c091-f0f0-4a32-b00b-e852e2bb1d63",
+      "idDistribuidor": "5",
+      "fechaRegistro": "2025-07-09",
+      "stock": 1,
+      "estado": "pendiente"
+    },
+    {
+      "id": "1fbb",
+      "idLote": "80708b2a-53e3-42aa-b6ac-1576dae52b67",
+      "idDistribuidor": "5",
+      "fechaRegistro": "2025-07-09",
+      "stock": 1,
+      "estado": "pendiente"
     }
   ],
   "productores": [
@@ -215,6 +255,21 @@
       "id": "1b23",
       "idLote": "7e3b",
       "idDistribuidor": "5"
+    },
+    {
+      "id": "7ad1",
+      "idLote": "lote001",
+      "idDistribuidor": "5"
+    },
+    {
+      "id": "9ec2",
+      "idLote": "7f62c091-f0f0-4a32-b00b-e852e2bb1d63",
+      "idDistribuidor": "5"
+    },
+    {
+      "id": "c0a5",
+      "idLote": "80708b2a-53e3-42aa-b6ac-1576dae52b67",
+      "idDistribuidor": "5"
     }
   ],
   "lotes": [
@@ -229,7 +284,7 @@
       "pesoKg": 180,
       "calidad": "Media",
       "estado": "Disponible",
-      "stock": 100,
+      "stock": 99,
       "fechaPedido": null,
       "idProductor": "1",
       "materiaOrganica": 15,
@@ -458,6 +513,15 @@
       "destinatarioNombre": "Milagros Lima",
       "contenido": "https://www.google.com/maps?q=-12.051960684337613,-77.04429352560354",
       "fechaEnvio": "2025-06-26T22:35:46.905Z"
+    },
+    {
+      "id": "1752026348934",
+      "remitenteId": "5",
+      "remitenteNombre": "Gustavo",
+      "destinatarioId": "adb7",
+      "destinatarioNombre": "Melina Contreras",
+      "contenido": "holi ",
+      "fechaEnvio": "2025-07-09T01:59:08.934Z"
     }
   ]
 }

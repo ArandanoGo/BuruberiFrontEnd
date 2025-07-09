@@ -11,7 +11,6 @@ export class DistribuidorService {
     getAll() {
         return http.get(this.resourceEndpoint);
     }
-
     /**
      * Obtiene un distribuidor por su ID
      * @param {string|number} id

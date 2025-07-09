@@ -4,7 +4,7 @@ import http from "../../shared/services/http-common.js";
 
 export class MensajeService {
     // Punto de entrada a tu recurso “mensajes” en el backend
-    resourceEndpoint = "/mensajes";
+    resourceEndpoint = "/api/mensajes";
 
     /**
      * Obtiene todos los mensajes (opcional, no siempre necesario).
